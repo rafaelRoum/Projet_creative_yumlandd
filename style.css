@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* MENU FIXE EN HAUT */
+.top-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #1e1e1e;
+  z-index: 1000;
+}
+
+.top-menu nav {
+  display: flex;
+  justify-content: center;
+}
+
+.top-menu a {
+  color: white;
+  padding: 15px 20px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.top-menu a:hover {
+  background: #333;
+}
+
+/* POUR QUE LE CONTENU NE PASSE PAS SOUS LE MENU */
+.page-content {
+  margin-top: 55px;
+  padding: 30px;
+}
