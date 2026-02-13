@@ -1,0 +1,8 @@
+Vert foncé foncé: #234029
+Vert foncé : #4D6E54
+Vert clair: #6B886E
+Jaune foncé: #B4841D
+Jaune claire: #E2B95A    
+Rose foncé: #B94F5C
+Rose:  #D77581
+Rose claire: #E28B8E
