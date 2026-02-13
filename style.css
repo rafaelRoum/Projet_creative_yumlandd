@@ -19,7 +19,7 @@ body {
 }
 
 .top-menu a {
-  color: #E2B95A  ;
+  color: #E2B95A;
   padding: 15px 20px;
   text-decoration: none;
   transition: background 0.3s;
@@ -36,10 +36,25 @@ body {
 }
 
 
-h1{
+h1 {
+  margin: 0;                /* Enlève les marges qui cassent tout */
+  font-family:Georgia, 'Times New Roman', Times, serif;
   text-align: center;
-  color: #E2B95A ;
-  background-color: #6B886E;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  padding: 3rem;
+  flex-grow: 1;             /* Force le titre à prendre l'espace central */
+}
+
+.icons {
+  width: 120px;             /* Taille plus raisonnable */
+  height: auto;
+  order: 1;                 /* S'assure qu'il est bien après le texte */
+}
+
+.banniere {
+  display: flex;
+  align-items: center;      /* Aligne verticalement au milieu */
+  justify-content: center;  /* Centre horizontalement le bloc titre+logo */
+  background-color: #527456;
+  padding: 1rem 2rem;       
+  margin-top: 49px;         
+  color: #E2B95A;
 }
