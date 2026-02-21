@@ -1,18 +1,47 @@
+
+
+/*commun au pages*/
+
 body {
-  margin: 0;
+  margin: 0%;
   font-family: Arial, sans-serif;
+  overflow-x: hidden; /* Cache tout ce qui tente de dépasser à droite ou à gauche */
 }
 
-/* MENU FIXE EN HAUT */
+* {
+  box-sizing: border-box;
+}
+
+h2 {
+    color: #4f6f4f;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4f6f4f;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #3e5a3e;
+}
+
+/* Menu pages */
 
 .top-menu {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  background: #4D6E54;
-  z-index: 1000;
-    background: linear-gradient(
+  z-index: 1;
+  background: linear-gradient(
     to bottom,
     #4a5e3d,
     #5f6f4f,
@@ -27,155 +56,84 @@ body {
 
 .top-menu a {
   color: #FFFFFF;
-  padding: 20px 20px;
+  padding: 1.5% 1.5%;
   text-decoration: none;
-  transition: background 0.3s;
 }
 
 .top-menu a:hover {
-  background: #234029;
+    background: linear-gradient(
+    to bottom,
+    #2a3522,
+    #5f6f4f,
+    transparent
+  );
 }
 
-
+/*police*/
 
 h1 {
   font-family:Georgia, 'Times New Roman', Times, serif;
-  text-align: center;
-  padding: 4%;
-  flex-grow: 1;   
-          
-}
-
-.icons {
-  width: 10%;             /* Taille plus raisonnable */
-  height: auto;
-  order: 1;               /* S'assure qu'il est bien après le texte */ 
+  text-align: center;           
 }
 
 .france-ancien-livre {
   font-family: 'IM Fell English SC', serif;
 }
 
+/*fond*/
 
+.fond {
+    background-image: url('fond.jpg');  
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 150%;
+    width: 100%;   
+}
 
+/*footer*/
 
-.footer-container{
+.footer-fond{
     background: linear-gradient(
     to top,
     #4a5e3d,
     #5f6f4f,
     transparent
     );
-    width: 100%;
-    margin:auto;
+    width: 100%;  
     display:grid;
     grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap:40px;
-    padding:40px 20px;
+    gap: 2%;
+    padding:2% 1%;
     color:white;
 }
 
-.footer-col h3{
-    margin-bottom:15px;
-    font-size:18px;
-}
-
-.footer-col p,
-.footer-col a{
-    font-size:14px;
-    opacity:0.85;
+.footer-col a {
     color:white;
-    text-decoration:none;
     display:block;
-    margin-bottom:8px;
-}
-
-.footer-bottom{
-    text-align:center;
-    font-size:13px;
-    opacity:0.8;
-    padding-bottom:20px;
+    margin-bottom: 1%;
 }
 
 
 
+/*connexion / inscription / profil*/
 
-
-
-
-
-
-
-
-
-.container {
-    max-width: 1100px;
-    margin: 80px auto;
-    padding: 0 20px;
-}
-
-.scroll-item {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    margin: 100px 0;
-    opacity: 0;
-    transition: all 1s ease;
-}
-
-.scroll-item img {
-    width: 400px;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.text {
-    max-width: 500px;
-}
-
-/* Position initiale */
-.left {
-    transform: translateX(-120px);
-}
-
-.right {
-    transform: translateX(120px);
-    flex-direction: row-reverse;
-}
-
-/* Animation visible */
-.show {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-
-
-
-
-
-
-
-.login-section {
+.login-section, .register-section, .profile-section, .notation {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 100px 20px;
+    padding: 60px 20px;
+    min-height: 100vh;
 }
 
-.login-card {
-    background-color: #FFFFFF ;
-    padding: 50px;
-    width: 400px;
+.login-card, .register-card, .profile-card, .notation-cadre {
+    background-color: #FFFFFF;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
     border-radius: 15px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     text-align: center;
-}
-
-.login-card h2 {
-    color: #4f6f4f;
-    margin-bottom: 30px;
-    font-size: 28px;
 }
 
 .input-group {
@@ -183,7 +141,7 @@ h1 {
     text-align: left;
 }
 
-.input-group label {
+.input-group label, .notation-critere label {
     display: block;
     margin-bottom: 8px;
     color: #4f6f4f;
@@ -196,161 +154,21 @@ h1 {
     border-radius: 8px;
     border: 1px solid #ddd;
     font-size: 14px;
-    transition: 0.3s;
 }
 
-.input-group input:focus {
-    border-color: #d4a017;
-    outline: none;
-    box-shadow: 0 0 5px rgba(212,160,23,0.4);
-}
-
-button {
-    width: 100%;
-    padding: 14px;
-    background-color: #4f6f4f;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background-color: #3e5a3e;
-}
-
-.register-link {
+.login-link, .register-link {
     margin-top: 20px;
     font-size: 14px;
 }
 
-.register-link a {
+.login-link a, .register-link a {
     color: #d4a017;
     text-decoration: none;
     font-weight: bold;
 }
 
-.register-link a:hover {
+.login-link a:hover .register-link a:hover {
     text-decoration: underline;
-}
-
-
-
-
-
-.register-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 100px 20px;
-}
-
-.register-card {
-    background-color: #ffffff;
-    padding: 50px;
-    width: 450px;
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.register-card h2 {
-    color: #4f6f4f;
-    margin-bottom: 30px;
-    font-size: 28px;
-}
-
-.input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #4f6f4f;
-    font-weight: bold;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.input-group input:focus {
-    border-color: #d4a017;
-    outline: none;
-    box-shadow: 0 0 5px rgba(212,160,23,0.4);
-}
-
-.register-card button {
-    width: 100%;
-    padding: 14px;
-    background-color: #4f6f4f;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.register-card button:hover {
-    background-color: #3e5a3e;
-}
-
-.login-link {
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-.login-link a {
-    color: #d4a017;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
-}
-
-
-
-
-
-
-
-
-/* profil */
-
-.profile-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 17% ;
-}
-
-.profile-card {
-    background-color: #ffffff;
-    padding: 50px;
-    width: 450px;
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.profile-card h2 {
-    color: #4f6f4f;
-    margin-bottom: 30px;
-    font-size: 28px;
 }
 
 .profile-info .info-group {
@@ -362,93 +180,21 @@ button:hover {
     text-align: left;
 }
 
-
 .profile-info .label {
-    font-weight: bold;
     color: #4f6f4f;
 }
 
 .profile-info .value {
-    white-space: nowrap;      /* reste sur 1 ligne */
-    overflow: hidden;         /* cache dépassement */
-    text-overflow: ellipsis;  /* ajoute ... */
-    margin-left: 0;           /* ❗ important */
+    white-space: nowrap;      
+    overflow: hidden; 
+    text-overflow: ellipsis;  
 }
-
-
-.edit-btn {
-    padding: 6px 14px;
-    background-color: #4f6f4f;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-left: 0;        /* enlève le décalage */
-    white-space: nowrap;   /* bouton compact */
-}
-
-
-.edit-btn:hover {
-    background-color: #b38f0f;
-}
-
-.logout-btn {
-    margin-top: 30px;
-    width: 100%;
-    padding: 14px;
-    background-color: #4f6f4f;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.logout-btn:hover {
-    background-color: #3e5a3e;
-}
-
-
-
-
 
 /* page de notation */
-
-.notation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 150px;
-}
-
-.notation-cadre {
-    background-color: #ffffff;
-    padding: 6% 4%;
-    width: 450px;
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); /* effet bordure */
-    text-align: center;
-}
-
-.notation-cadre h2 {
-    color: #4f6f4f;
-    margin-bottom: 30px;
-    font-size: 28px;
-}
 
 .notation-critere {
     margin-bottom: 25px;
     text-align: center;
-}
-
-.notation-critere label {
-    display: block;
-    margin-bottom: 15px;
-    color: #4f6f4f;
-    font-weight: bold;
 }
 
 .etoile {
@@ -459,14 +205,12 @@ button:hover {
     cursor: pointer;
 }
 
-/* Survol ET état cliqué */
-.etoile span:hover,
+.etoile span:hover, 
 .etoile span:hover ~ span,
 .etoile span.active,
 .etoile span.active ~ span {
     color: #d4a017;
 }
-
 
 .notation-critere textarea {
     width: 100%;
@@ -484,32 +228,13 @@ button:hover {
     box-shadow: 0 0 5px rgba(212,160,23,0.4);
 }
 
-/* bouton */
-.envoi-notation {
-    width: 100%;
-    padding: 15px;
-    background-color: #4f6f4f;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.envoi-notation:hover {
-    background-color: #3e5a3e;
-}
-
-
 /*presentation*/
 
-/* Centrage global */
 .search-wrapper {
     display: flex;
     justify-content: center;
-    margin: 70px ;
 }
 
-/* Barre */
 .search-bar {
     display: flex;
     align-items: center;
@@ -520,7 +245,6 @@ button:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Input */
 .search-bar input {
     border: none;
     outline: none;
@@ -531,105 +255,44 @@ button:hover {
     color: #2f4f3a;
 }
 
-/* Placeholder */
 .search-bar input::placeholder {
     color: #9bb0a2;
 }
 
-/* Bouton vert (style photo) */
-.search-bar button {
-    border: none;
-    outline: none;
-    background: #4f6f52;   /* vert de la photo */
-    color: white;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-/* Hover */
-.search-bar button:hover {
-    background: #3f5f44;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*fond*/
-
-.ton-conteneur {
-    /* L'image que tu as choisie */
-    background-image: url('fond.jpg');
-    
-    /* Pour que l'image couvre tout l'espace proprement */
-    background-size: cover;
-    
-    /* Centrer l'image */
-    background-position: center;
-    
-    /* LA PROPRIÉTÉ MAGIQUE : fixe l'image */
-    background-attachment: fixed;
-    
-    /* Optionnel : hauteur minimale pour bien voir l'effet */
-    min-height: 100vh; 
-
-    margin-top: -4%;  
-}
-
-/*menu*/
-
 .menu-grid{
-    display:flex;              /* au lieu de grid */
+    display:flex;              
     gap:20px;
     overflow-x:auto;
-    scroll-behavior:smooth;
     padding:30px;
 }
 
-/* pour que les cartes restent sur une ligne */
+
 
 .menu-cadre{
   background-color: #FFFFFF;
   border-radius: 8px;
-  flex: 0 0 200px;   /* 👈 LA règle clé */
-  width: 200px;      /* 👈 sécurité */
-    flex-shrink:0;             /* empêche retour à la ligne */
+  flex: 0 0 200px;
+  width: 200px;
+  flex-shrink:0;
 }
 
-/* optionnel : cacher scrollbar */
+
 .menu-grid::-webkit-scrollbar{display:none}
 .menu-grid{scrollbar-width:none}
 
 .menu-cadre:hover{
-    transform: translateY(-6px);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);   
 }
 
 .menu-img {
     aspect-ratio: 1 / 1;
-    background-size: cover;      /* L'image remplit tout le carré */
-    background-position: center; /* L'image est centrée */
-    
+    background-size: cover;      
+    background-position: center; 
     display: block;
     flex-shrink: 0;
     border-radius: 8px 8px 0 0;
 }
 
-
-/* CONTENU */
 .menu-content{
     padding:12px;
     flex:1;
@@ -638,15 +301,12 @@ button:hover {
     justify-content:space-between;
 }
 
-/* NOM DU PLAT */
 .menu-title{
     font-weight:600;
     font-size:15px;
     color:#333;
     margin-bottom:6px;
 }
-
-/* PRIX */
 
 .menu-price{
     position:absolute;
@@ -660,9 +320,6 @@ button:hover {
 }
 .menu-cadre{position:relative;}
 
-
-
-/*nom titre*/
 
 .menu-title-badge{
     display:flex;
@@ -679,4 +336,278 @@ button:hover {
     font-weight:600;
     box-shadow:0 6px 15px rgba(0,0,0,0.25);
     letter-spacing:1px;
+}
+
+
+/* 
+   PAGE D'ACCUEIL (INDEX)
+ */
+
+.hero-header {
+    display: flex;
+    align-items: center;
+    padding-top: 120px;
+}
+
+
+.hero-left {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 25px; /
+}
+
+.hero-right {
+    flex: 1;
+}
+
+.hero-title {
+    color: #FFFFFF;
+    font-size: 4rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin: 0;
+    padding: 0;
+}
+
+
+.hero-logo {
+    width: 130px;
+    filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.4));
+    transition: transform 0.3s ease;
+}
+
+.hero-logo:hover {
+    transform: scale(1.05);
+}
+
+
+.center-badge {
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.center-grid {
+    justify-content: center;
+    flex-wrap: wrap;      
+    overflow-x: hidden;   
+    margin-bottom: 60px;
+}
+
+
+.chef-recommendation {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.chef-text {
+    color: #4a5e3d;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
+}
+
+
+/* PAGE ADMINISTRATEUR */
+
+.admin-section {
+    padding: 120px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.admin-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+.admin-card h2 {
+    text-align: center;
+}
+
+
+/* Tableau des utilisateurs */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.user-table th {
+    text-align: left;
+    color: #4f6f4f;
+    padding: 12px;
+    border-bottom: 2px solid #eee;
+}
+
+.user-table td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-order { background: #e8f5e9; color: #2e7d32; }
+.status-none { background: #f5f5f5; color: #757575; }
+
+/* Bouton voir profil */
+.view-profile-btn {
+    text-decoration: none;
+    color: #d4a017;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.view-profile-btn:hover {
+    text-decoration: underline;
+}
+
+
+/*PAGE LIVRAISON  */
+
+.delivery-section {
+    padding: 7.5rem 5% 4rem; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    gap: 2rem;              
+    min-height: 100vh; 
+}
+
+.delivery-card {
+    background-color: #ffffff;
+    padding: 2rem; 
+    border-radius: 1rem; 
+    box-shadow: 0 1rem 2.5rem rgba(0,0,0,0.1); 
+    width: 100%;
+    max-width: 28rem; 
+}
+
+/* En-tête de la commande */
+.delivery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee; 
+    padding-bottom: 1rem; 
+    margin-bottom: 1.25rem; 
+}
+
+.delivery-header h2 {
+    color: #4f6f4f;
+    margin: 0;
+    font-size: 1.5rem; 
+}
+
+.status-pending {
+    background: #fff3e0;
+    color: #e65100;
+    padding: 0.25rem 0.75rem; 
+    border-radius: 1rem;
+    font-size: 0.75rem; 
+    font-weight: bold;
+}
+
+/* Bloc d'informations */
+.delivery-info h3 {
+    color: #8B2629; 
+    font-size: 1.125rem; 
+    margin-bottom: 0.75rem;
+}
+
+.address-text {
+    font-size: 1.375rem; 
+    font-weight: bold;
+    color: #222;
+    margin-top: 0;
+    margin-bottom: 1.25rem; 
+    line-height: 1.4;
+}
+
+.details-grid {
+    display: grid;
+    gap: 0.75rem; 
+    background: #f9f9f9;
+    padding: 1rem; 
+    border-radius: 0.5rem; 
+    margin-bottom: 1.25rem; 
+    font-size: 0.95rem; 
+}
+
+.details-grid a {
+    color: #4f6f4f;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.125rem; 
+}
+
+/* Boîte de commentaires (jaune style post-it) */
+.comments-box {
+    background: #fff9c4;
+    padding: 1rem; 
+    border-left: 0.25rem solid #fbc02d; 
+    border-radius: 0.25rem; 
+    margin-bottom: 2rem; 
+    font-size: 0.95rem;
+}
+
+.comments-box p {
+    margin: 0.5rem 0 0 0;
+    font-style: italic;
+    color: #333;
+}
+
+/* Boutons d'action */
+.delivery-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; 
+}
+
+.nav-btn, .finish-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem; 
+    text-align: center;
+    border-radius: 2rem; 
+    font-size: 1rem; 
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    border: none;
+}
+
+/* Bouton GPS bleu */
+.nav-btn {
+    background-color: #2196F3;
+    color: white;
+    box-shadow: 0 0.25rem 0.6rem rgba(33, 150, 243, 0.3);
+}
+
+.nav-btn:hover {
+    background-color: #1976D2;
+    transform: scale(1.02); 
+}
+
+/* Bouton Terminé Vert */
+.finish-btn {
+    background-color: #4f6f4f;
+    color: white;
+    box-shadow: 0 0.25rem 0.6rem rgba(79, 111, 79, 0.3);
+}
+
+.finish-btn:hover {
+    background-color: #3e5a3e;
+    transform: scale(1.02);
 }

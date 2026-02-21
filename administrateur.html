@@ -2,26 +2,71 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>administrateur</title>
+  <title>Administration - Le Groin de Folie</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="groin_de_folie_icons.png">
 </head>
 <body>
 
+<div class="fond">
+
     <header class="top-menu">
-    <nav>
-        <a href="index.html">Accueil</a>
-        <a href="presentation.html">Présentation</a>
-        <a href="connexion.html">Connexion</a>
-        <a href="inscription.html">Inscription</a>
-        <a href="profil.html">Profil</a>
-        <a href="commande.html">Commande</a>
-        <a href="livraison.html">Livraison</a>
-        <a href="notation.html">Notation</a>
-        <a href="administrateur.html">Admin</a>
-    </nav>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="presentation.html">Présentation</a>
+            <a href="connexion.html">Connexion</a>
+            <a href="inscription.html">Inscription</a>
+            <a href="profil.html">Profil</a>
+            <a href="commande.html">Commande</a>
+            <a href="livraison.html">Livraison</a>
+            <a href="notation.html">Notation</a>
+            <a href="administrateur.html">Admin</a>
+        </nav>
     </header>
 
-</body>
+    <main class="admin-section">
+        <div class="admin-card">
+            <h2>Liste de tous les Utilisateurs</h2>
+            
+            <p style="text-align: center; color: #757575; font-size: 14px; margin-bottom: 20px;">
+                <em>Les filtres de tri seront disponibles en phases 2/3</em>
+            </p>
 
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Statut</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jean Dupont</td>
+                        <td>jean.dupont@example.com</td>
+                        <td><span class="status-badge status-order">A commandé</span></td>
+                        <td><a href="profil.html" class="view-profile-btn">Voir Profil</a></td>
+                    </tr>
+                    <tr>
+                        <td>Marie Lecoq</td>
+                        <td>marie.l@example.com</td>
+                        <td><span class="status-badge status-none">Aucune commande</span></td>
+                        <td><a href="profil.html" class="view-profile-btn">Voir Profil</a></td>
+                    </tr>
+                    <tr>
+                        <td>Pierre Durant</td>
+                        <td>p.durant@example.com</td>
+                        <td><span class="status-badge status-order">A commandé</span></td>
+                        <td><a href="profil.html" class="view-profile-btn">Voir Profil</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+
+</body>
 </html>
