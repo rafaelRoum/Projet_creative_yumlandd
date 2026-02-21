@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<div class="ton-conteneur">
+
     <header class="top-menu">
     <nav>
         <a href="index.html">Accueil</a>
@@ -17,6 +19,41 @@
         <a href="profil.html">Profil</a>
         <a href="commande.html">Commande</a>
         <a href="livraison.html">Livraison</a>
+        <a href="notation.html">Notation</a>
         <a href="administrateur.html">Admin</a>
     </nav>
-    </header>  
+    </header> 
+
+<section class="notation">
+    <div class="notation-cadre">
+        <h2>Notation de votre commande</h2>
+
+        <!-- Livraison -->
+        <div class="notation-critere">
+            <label>Qualité de la livraison</label>
+            <div class="etoile" data-type="livraison">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+        </div>
+
+        <!-- Produits -->
+        <div class="notation-critere">
+            <label>Qualité des produits</label>
+            <div class="etoile" data-type="produits">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+        </div>
+
+        <!-- Commentaire -->
+        <div class="notation-critere">
+            <label for="comment">Commentaire (optionnel)</label>
+            <textarea id="commentaire" placeholder="Votre avis..."></textarea>
+        </div>
+
+        <button class="envoi-notation">Envoyer ma note</button>
+    </div>
+</section>
+
+</div>
+
+</body> 

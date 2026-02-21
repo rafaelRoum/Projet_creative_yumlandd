@@ -8,15 +8,50 @@
 </head>
 <body>
 
+<div class="ton-conteneur">
+
     <header class="top-menu">
     <nav>
         <a href="index.html">Accueil</a>
         <a href="presentation.html">Présentation</a>
         <a href="connexion.html">Connexion</a>
         <a href="inscription.html">Inscription</a>
+        <a href="profil.html">Profil</a>
         <a href="commande.html">Commande</a>
         <a href="livraison.html">Livraison</a>
         <a href="notation.html">Notation</a>
         <a href="administrateur.html">Admin</a>
     </nav>
     </header>
+<section class="profile-section">
+    <div class="profile-card">
+        <h2>Mon Profil</h2>
+
+        <div class="profile-info">
+            <div class="info-group">
+                <span class="label">Nom :</span>
+                <span class="value" id="user-name">Jean Dupont</span>
+                <button class="edit-btn" onclick="editField('user-name')">Modifier</button>
+            </div>
+
+            <div class="info-group">
+                <span class="label">Email :</span>
+                <span class="value" id="user-email">jean.dupont@example.com</span>
+                <button class="edit-btn" onclick="editField('user-email')">Modifier</button>
+            </div>
+
+            <div class="info-group">
+                <span class="label">Téléphone :</span>
+                <span class="value" id="user-phone">+33 6 12 34 56 78</span>
+                <button class="edit-btn" onclick="editField('user-phone')">Modifier</button>
+            </div>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">Se déconnecter</button>
+    </div>
+</section>
+
+</div>
+
+</body>
+</html>
