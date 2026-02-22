@@ -102,19 +102,24 @@ h1 {
     );
     width: 100%;  
     display:grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 2%;
+    grid-template-columns: repeat(3,minmax(220px,1fr));;
     padding:2% 1%;
     color:white;
-}
+}   
 
 .footer-col a {
+    margin-left: 30%;
     color:white;
     display:block;
     margin-bottom: 1%;
 }
 
-
+.footer-col h3 {
+    margin-left: 30%;
+    color:white;
+    display:block;
+    margin-bottom: 1%;
+}
 
 /*connexion / inscription / profil*/
 
@@ -597,17 +602,5 @@ h1 {
 
 .nav-btn:hover {
     background-color: #1976D2;
-    transform: scale(1.02); 
 }
 
-/* Bouton Terminé Vert */
-.finish-btn {
-    background-color: #4f6f4f;
-    color: white;
-    box-shadow: 0 0.25rem 0.6rem rgba(79, 111, 79, 0.3);
-}
-
-.finish-btn:hover {
-    background-color: #3e5a3e;
-    transform: scale(1.02);
-}
