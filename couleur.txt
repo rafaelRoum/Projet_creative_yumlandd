@@ -1,19 +1,47 @@
-Vert foncé foncé: #234029
-Vert foncé : #527456
-Vert clair: #6B886E
-Jaune foncé: #B4841D
-Jaune claire: #E2B95A    
-Rose foncé: #B94F5C
-Rose:  #D77581
-Rose claire: #E28B8E
 
 
 
 
 
 
+boutton et hover
+
+#4f6f4f
+#3e5a3e
+
+bouton navigation et hover
+
+ #2196F3
+ #1976D2
+
+top menu / footer(inverse) dégradé
+
+#4a5e3d,
+#5f6f4f,
+
+top menu hover degradé
+
+#34422b,
+#5f6f4f,
+
+etoiles notation et texte
+
+#d4a017
+
+commentaire livraison
+
+#fff9c4
+
+noms plats et autres textes
+
+#000000;
+#FFFFFF
 
 
+ statut et info livraison
+
+ #e65100
+ #8B2629
 
 
 

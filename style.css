@@ -22,7 +22,7 @@ button {
     width: 100%;
     padding: 14px;
     background-color: #4f6f4f;
-    color: white;
+    color: #FFFFFF;
     border: none;
     border-radius: 30px;
     font-size: 16px;
@@ -63,7 +63,7 @@ button:hover {
 .top-menu a:hover {
     background: linear-gradient(
     to bottom,
-    #2a3522,
+    #34422b,
     #5f6f4f,
     transparent
   );
@@ -83,7 +83,7 @@ h1 {
 /*fond*/
 
 .fond {
-    background-image: url('fond.jpg');  
+    background-image: url('images/fond.jpg');  
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -121,9 +121,9 @@ h1 {
     margin-bottom: 1%;
 }
 
-/*connexion / inscription / profil*/
+/*connexion / inscription (profil/notation)*/
 
-.login-section, .register-section, .profile-section, .notation {
+.place-cadre {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,7 +131,7 @@ h1 {
     min-height: 100vh;
 }
 
-.login-card, .register-card, .profile-card, .notation-cadre {
+.cadre {
     background-color: #FFFFFF;
     padding: 40px;
     width: 100%;
@@ -141,19 +141,19 @@ h1 {
     text-align: center;
 }
 
-.input-group {
+.formulaire {
     margin-bottom: 20px;
     text-align: left;
 }
 
-.input-group label, .notation-critere label {
+.formulaire label {
     display: block;
     margin-bottom: 8px;
     color: #4f6f4f;
     font-weight: bold;
 }
 
-.input-group input {
+.formulaire input {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
@@ -161,22 +161,34 @@ h1 {
     font-size: 14px;
 }
 
-.login-link, .register-link {
+.formulaire textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.lien {
     margin-top: 20px;
     font-size: 14px;
 }
 
-.login-link a, .register-link a {
+.lien a {
     color: #d4a017;
     text-decoration: none;
     font-weight: bold;
 }
 
-.login-link a:hover .register-link a:hover {
+.lien a:hover {
     text-decoration: underline;
 }
 
-.profile-info .info-group {
+/*profil*/
+
+.info-profil {
     display: grid;
     grid-template-columns: 120px 1fr auto;
     align-items: center;
@@ -185,22 +197,13 @@ h1 {
     text-align: left;
 }
 
-.profile-info .label {
-    color: #4f6f4f;
-}
-
-.profile-info .value {
+.info-profil value {
     white-space: nowrap;      
     overflow: hidden; 
     text-overflow: ellipsis;  
 }
 
 /* page de notation */
-
-.notation-critere {
-    margin-bottom: 25px;
-    text-align: center;
-}
 
 .etoile {
     display: inline-flex;
@@ -217,30 +220,14 @@ h1 {
     color: #d4a017;
 }
 
-.notation-critere textarea {
-    width: 100%;
-    min-height: 100px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    resize: vertical;
-}
-
-.notation-critere textarea:focus {
-    border-color: #d4a017;
-    outline: none;
-    box-shadow: 0 0 5px rgba(212,160,23,0.4);
-}
-
 /*presentation*/
 
-.search-wrapper {
+.recherche-placement {
     display: flex;
     justify-content: center;
 }
 
-.search-bar {
+.barre-recherche {
     display: flex;
     align-items: center;
     background: #ffffff;
@@ -250,21 +237,16 @@ h1 {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.search-bar input {
+.barre-recherche input {
     border: none;
     outline: none;
     padding: 12px 18px;
     border-radius: 30px;
     font-size: 15px;
     width: 260px;
-    color: #2f4f3a;
 }
 
-.search-bar input::placeholder {
-    color: #9bb0a2;
-}
-
-.menu-grid{
+.ligne-menu{
     display:flex;              
     gap:20px;
     overflow-x:auto;
@@ -282,8 +264,8 @@ h1 {
 }
 
 
-.menu-grid::-webkit-scrollbar{display:none}
-.menu-grid{scrollbar-width:none}
+.ligne-menu::-webkit-scrollbar{display:none}
+.ligne-menu{scrollbar-width:none}
 
 .menu-cadre:hover{
     transform: translateY(-6px);   
@@ -298,7 +280,7 @@ h1 {
     border-radius: 8px 8px 0 0;
 }
 
-.menu-content{
+.menu-contenu{
     padding:12px;
     flex:1;
     display:flex;
@@ -306,14 +288,14 @@ h1 {
     justify-content:space-between;
 }
 
-.menu-title{
+.menu-titre{
     font-weight:600;
     font-size:15px;
-    color:#333;
+    color:#000000;
     margin-bottom:6px;
 }
 
-.menu-price{
+.menu-prix{
     position:absolute;
     bottom:10px;
     right:10px;
@@ -326,13 +308,13 @@ h1 {
 .menu-cadre{position:relative;}
 
 
-.menu-title-badge{
+.categorie-placement{
     display:flex;
     justify-content:left;
     margin: 2% 2%;
 }
 
-.menu-badge{
+.categorie-badge{
     background: #FFFFFF;
     color: #4a5e3d;
     padding:0.5% 2%;
@@ -344,29 +326,27 @@ h1 {
 }
 
 
-/* 
-   PAGE D'ACCUEIL (INDEX)
- */
+/* PAGE D'ACCUEIL (INDEX) */
 
-.hero-header {
+.entete {
     display: flex;
     align-items: center;
     padding-top: 120px;
 }
 
 
-.hero-left {
+.entete-gauche {
     flex: 1;
     display: flex;
     justify-content: flex-end;
     padding-right: 25px; /
 }
 
-.hero-right {
+.entete-droite {
     flex: 1;
 }
 
-.hero-title {
+.entete-titre {
     color: #FFFFFF;
     font-size: 4rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
@@ -375,23 +355,23 @@ h1 {
 }
 
 
-.hero-logo {
+.entete-logo {
     width: 130px;
     filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.4));
     transition: transform 0.3s ease;
 }
 
-.hero-logo:hover {
+.entete-logo:hover {
     transform: scale(1.05);
 }
 
 
-.center-badge {
+.placement-centre {
     justify-content: center;
     margin-top: 40px;
 }
 
-.center-grid {
+.menu-centre {
     justify-content: center;
     flex-wrap: wrap;      
     overflow-x: hidden;   
@@ -399,7 +379,7 @@ h1 {
 }
 
 
-.chef-recommendation {
+.chef-recommandation {
     display: flex;
     align-items: center;
     padding: 20px;
@@ -407,7 +387,7 @@ h1 {
     text-align: center;
 }
 
-.chef-text {
+.chef-texte {
     color: #4a5e3d;
     font-weight: bold;
     font-size: 16px;
@@ -417,70 +397,69 @@ h1 {
 
 /* PAGE ADMINISTRATEUR */
 
-.admin-section {
-    padding: 120px 20px;
+.admin-cadre-placement {
+    padding: 150px 26px;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.admin-card {
+.admin-cadre {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
-.admin-card h2 {
+.admin-cadre h2 {
     text-align: center;
 }
 
 
-/* Tableau des utilisateurs */
-.user-table {
+.tab-utilisateur {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-.user-table th {
+.tab-utilisateur th {
     text-align: left;
     color: #4f6f4f;
     padding: 12px;
     border-bottom: 2px solid #eee;
 }
 
-.user-table td {
+.tab-utilisateur td {
     padding: 15px 12px;
     border-bottom: 1px solid #eee;
     font-size: 14px;
 }
 
-.status-badge {
+.statut-badge {
     padding: 4px 10px;
     border-radius: 12px;
     font-size: 12px;
     font-weight: bold;
 }
 
-.status-order { background: #e8f5e9; color: #2e7d32; }
-.status-none { background: #f5f5f5; color: #757575; }
+.statut-commande { background: #e8f5e9; color: #2e7d32; }
+.statut-vide { background: #f5f5f5; color: #757575; }
 
-/* Bouton voir profil */
-.view-profile-btn {
+
+.voir-profil-btn {
     text-decoration: none;
     color: #d4a017;
     font-weight: bold;
     font-size: 13px;
 }
 
-.view-profile-btn:hover {
+.voir-profil-btn:hover {
     text-decoration: underline;
 }
 
 
-/*PAGE LIVRAISON  */
+/* PAGE LIVRAISON  */
 
-.delivery-section {
+.livraison-placement {
     padding: 7.5rem 5% 4rem; 
     display: flex;
     flex-direction: column; 
@@ -489,7 +468,7 @@ h1 {
     min-height: 100vh; 
 }
 
-.delivery-card {
+.livraison-cadre {
     background-color: #ffffff;
     padding: 2rem; 
     border-radius: 1rem; 
@@ -498,8 +477,8 @@ h1 {
     max-width: 28rem; 
 }
 
-/* En-tête de la commande */
-.delivery-header {
+
+.entete-livraison {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -508,13 +487,13 @@ h1 {
     margin-bottom: 1.25rem; 
 }
 
-.delivery-header h2 {
+.livraison-cadre h2 {
     color: #4f6f4f;
     margin: 0;
     font-size: 1.5rem; 
 }
 
-.status-pending {
+.statut-en-attente {
     background: #fff3e0;
     color: #e65100;
     padding: 0.25rem 0.75rem; 
@@ -523,41 +502,39 @@ h1 {
     font-weight: bold;
 }
 
-/* Bloc d'informations */
-.delivery-info h3 {
+.livraison-info h3 {
     color: #8B2629; 
     font-size: 1.125rem; 
     margin-bottom: 0.75rem;
 }
 
-.address-text {
+.addresse-info {
     font-size: 1.375rem; 
     font-weight: bold;
-    color: #222;
+    color: #000000;
     margin-top: 0;
     margin-bottom: 1.25rem; 
     line-height: 1.4;
 }
 
-.details-grid {
+.details-client {
     display: grid;
     gap: 0.75rem; 
-    background: #f9f9f9;
+    background: #FFFFFF;
     padding: 1rem; 
     border-radius: 0.5rem; 
     margin-bottom: 1.25rem; 
     font-size: 0.95rem; 
 }
 
-.details-grid a {
+.detail-info a {
     color: #4f6f4f;
     font-weight: bold;
     text-decoration: none;
     font-size: 1.125rem; 
 }
 
-/* Boîte de commentaires (jaune style post-it) */
-.comments-box {
+.commentaire-bloc {
     background: #fff9c4;
     padding: 1rem; 
     border-left: 0.25rem solid #fbc02d; 
@@ -566,20 +543,20 @@ h1 {
     font-size: 0.95rem;
 }
 
-.comments-box p {
+.commentaire-bloc p {
     margin: 0.5rem 0 0 0;
     font-style: italic;
-    color: #333;
+    color: #000000;
 }
 
 /* Boutons d'action */
-.delivery-actions {
+.livraison-actions {
     display: flex;
     flex-direction: column;
     gap: 1rem; 
 }
 
-.nav-btn, .finish-btn {
+.nav-btn, .livrer-btn {
     display: block;
     width: 100%;
     padding: 1rem; 
@@ -593,7 +570,6 @@ h1 {
     border: none;
 }
 
-/* Bouton GPS bleu */
 .nav-btn {
     background-color: #2196F3;
     color: white;
