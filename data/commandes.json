@@ -1,0 +1,58 @@
+[
+  {
+    "id_commande": "CMD-001",
+    "id_client": 4, 
+    "statut": "en préparation",
+    "date_heure": "2026-03-18 12:30:00",
+    "type_livraison": "sur place",
+    "adresse": "",
+    
+    "contenu": [
+      {
+        "type": "menu",
+        "id_item": 1,
+        "nom": "Menu Express Midi",
+        "options_choisies": ["Sans oignons dans la quiche"]
+      },
+      {
+        "type": "plat",
+        "id_item": 12,
+        "nom": "Fondant Chocolat",
+        "options_choisies": ["Supplément chantilly"]
+      }
+    ],
+
+    "paiement": {
+      "statut": "payé",
+      "methode": "carte_bancaire",
+      "transaction_api_id": "CYBank-001",
+      "date_transaction": "2026-03-18 12:32:00",
+      "montant_total": 33.00
+    }
+  },
+    {
+    "id_commande": "CMD-002",
+    "id_client": 2, 
+    "statut": "en livraison",
+    "date_heure": "2026-03-19 19:30:00",
+    "type_livraison": "livraison",
+    "adresse": "Good morning",
+    
+    "contenu": [
+      {
+        "type": "menu",
+        "id_item": 2,
+        "nom": "Le Festin du Cochon",
+        "options_choisies": [""]
+      }
+    ],
+
+    "paiement": {
+      "statut": "payé",
+      "methode": "carte_bancaire",
+      "transaction_api_id": "CYBank-002",
+      "date_transaction": "2026-03-20 19:32:00",
+      "montant_total": 45.00
+    }
+  }
+]

@@ -34,8 +34,20 @@
         <h2>Inscription</h2>
         <form>
             <div class="formulaire">
-                <label>Nom complet</label>
+                <label>Nom</label>
                 <input type="text" placeholder="Votre nom complet">
+            <div class="formulaire">
+                <label>Prenom</label>
+                <input type="text" placeholder="Prenom">
+            </div>
+            <div class="formulaire">
+                <label>Date de naissance</label>
+                <input type="text" placeholder="Date de naissance">
+            </div>
+            <div class="formulaire">
+                <label>Adresse</label>
+                <input type="text" placeholder="Adresse">
+            </div>
             </div>
             <div class="formulaire">
                 <label>Email</label>

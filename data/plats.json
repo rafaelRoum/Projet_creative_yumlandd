@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "nom": "Planche Charcuterie",
+    "description": "Assortiment de nos meilleures charcuteries artisanales.",
+    "prix": 9.00,
+    "informations": { "nutritionnelles": "550 kcal", "allergenes": ["Gluten (pain)"] }
+  },
+  {
+    "id": 2,
+    "nom": "Quiche Maison",
+    "description": "Quiche lorraine dorée au four, lardons fumés.",
+    "prix": 9.00,
+    "informations": { "nutritionnelles": "400 kcal", "allergenes": ["Œufs", "Lait", "Gluten"] }
+  },
+  {
+    "id": 3,
+    "nom": "Œufs Mimosa",
+    "description": "Classique œuf dur fourré à la mayonnaise maison.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "250 kcal", "allergenes": ["Œufs", "Moutarde"] }
+  },
+  {
+    "id": 4,
+    "nom": "Foie Gras",
+    "description": "Foie gras de canard mi-cuit, toast brioché et confiture de figues.",
+    "prix": 12.00,
+    "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Gluten"] }
+  },
+  {
+    "id": 5,
+    "nom": "Saumon Fumé",
+    "description": "Tranches de saumon fumé au bois de hêtre.",
+    "prix": 12.00,
+    "informations": { "nutritionnelles": "300 kcal", "allergenes": ["Poisson"] }
+  },
+  {
+    "id": 6,
+    "nom": "Filet Mignon",
+    "description": "Filet mignon de porc tendre, sauce moutarde à l'ancienne.",
+    "prix": 21.00,
+    "informations": { "nutritionnelles": "600 kcal", "allergenes": ["Moutarde", "Lait"] }
+  },
+  {
+    "id": 7,
+    "nom": "Ribs de Porc",
+    "description": "Travers de porc caramélisés au barbecue, frites maison.",
+    "prix": 22.00,
+    "informations": { "nutritionnelles": "850 kcal", "allergenes": ["Soja", "Céleri"] }
+  },
+  {
+    "id": 8,
+    "nom": "Saucisse Lentilles",
+    "description": "Plat traditionnel avec véritable saucisse de Morteau.",
+    "prix": 19.00,
+    "informations": { "nutritionnelles": "650 kcal", "allergenes": ["Aucun"] }
+  },
+  {
+    "id": 9,
+    "nom": "Rôti de Porc",
+    "description": "Tranches de rôti de porc moelleux avec ses petites pommes de terre.",
+    "prix": 23.00,
+    "informations": { "nutritionnelles": "580 kcal", "allergenes": ["Aucun"] }
+  },
+  {
+    "id": 10,
+    "nom": "Pâtes Carbonara",
+    "description": "Véritables spaghettis carbonara au guanciale et pecorino.",
+    "prix": 17.00,
+    "informations": { "nutritionnelles": "700 kcal", "allergenes": ["Gluten", "Œufs", "Lait"] }
+  },
+  {
+    "id": 11,
+    "nom": "Entrecôte",
+    "description": "Belle entrecôte grillée (300g), sauce au poivre.",
+    "prix": 25.00,
+    "informations": { "nutritionnelles": "800 kcal", "allergenes": ["Lait (sauce)"] }
+  },
+  {
+    "id": 12,
+    "nom": "Fondant Chocolat",
+    "description": "Cœur coulant au chocolat noir intense.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Œufs", "Lait", "Gluten"] }
+  },
+  {
+    "id": 13,
+    "nom": "Cheesecake",
+    "description": "Cheesecake crémeux sur lit de spéculoos.",
+    "prix": 8.0,
+    "informations": { "nutritionnelles": "500 kcal", "allergenes": ["Lait", "Gluten"] }
+  },
+  {
+    "id": 14,
+    "nom": "Tiramisu",
+    "description": "Tiramisu traditionnel au café et mascarpone.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "420 kcal", "allergenes": ["Lait", "Œufs", "Gluten"] }
+  },
+  {
+    "id": 15,
+    "nom": "Paris-Brest",
+    "description": "Pâte à choux et crème mousseline pralinée.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "480 kcal", "allergenes": ["Gluten", "Lait", "Œufs", "Fruits à coque"] }
+  }
+]

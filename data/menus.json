@@ -1,0 +1,29 @@
+[
+  {
+    "id_menu": 1,
+    "nom": "Menu Express Midi",
+    "description": "Idéal pour une pause déjeuner rapide : Plat du jour (Saucisse Lentilles ou Quiche) + Dessert classique.",
+    "prix_total": 25.00,
+    "liste_plats": [2, 8, 12, 13],
+    "nombre_personnes_minimum": 1,
+    "creneaux_limites": ["midi", "semaine"]
+  },
+  {
+    "id_menu": 2,
+    "nom": "Le Festin du Cochon",
+    "description": "Le menu complet: Entrée, Plat et Dessert .",
+    "prix_total": 32.00,
+    "liste_plats": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    "nombre_personnes_minimum": 1,
+    "creneaux_limites": ["soir", "weekend"]
+  },
+  {
+    "id_menu": 3,
+    "nom": "Menu Partage & Convivialité",
+    "description": "Une sélection à partager au centre de la table.",
+    "prix_total": 45.00,
+    "liste_plats": [1, 7, 10, 12],
+    "nombre_personnes_minimum": 2,
+    "creneaux_limites": ["tous"]
+  }
+]
