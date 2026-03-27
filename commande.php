@@ -15,18 +15,17 @@
 
 <header class="top-menu">
     <nav>
-        <a href="index.html">Accueil</a>
-        <a href="presentation.html">Présentation</a>
-        <a href="connexion.html">Connexion</a>
-        <a href="inscription.html">Inscription</a>
-        <a href="profil.html">Profil</a>
-        <a href="commande.html">Commande</a>
-        <a href="livraison.html">Livraison</a>
-        <a href="notation.html">Notation</a>
-        <a href="administrateur.html">Admin</a>
+        <a href="index.php">Accueil</a>
+        <a href="presentation.php">Présentation</a>
+        <a href="connexion.php">Connexion</a>
+        <a href="inscription.php">Inscription</a>
+        <a href="profil.php">Profil</a>
+        <a href="commande.php">Commande</a>
+        <a href="livraison.php">Livraison</a>
+        <a href="notation.php">Notation</a>
+        <a href="administrateur.php">Admin</a>
     </nav>
 </header>
-
 <div class="admin-cadre-placement">
     <div class="admin-cadre" style="margin-bottom: 50px;">
         <h2 class="france-ancien-livre">Commandes à préparer</h2>

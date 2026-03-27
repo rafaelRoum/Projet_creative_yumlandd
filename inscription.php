@@ -1,3 +1,68 @@
+<?php
+
+session_start();
+$message_erreur = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $email = htmlspecialchars($_POST['email']);
+    $nom = htmlspecialchars($_POST['nom']);
+    $prenom = htmlspecialchars($_POST['prenom']);
+    $dateNaissance = htmlspecialchars($_POST['date_naissance']);
+    $adresse = htmlspecialchars($_POST['adresse']);
+    $password1 = htmlspecialchars($_POST['password1']);
+    $password2 = htmlspecialchars($_POST['password2']);
+
+
+    $fichier_json = 'data/utilisateurs.json';
+    $utilisateurs = [];
+    if (file_exists($fichier_json)) {
+        $json_data = file_get_contents($fichier_json);
+        $utilisateurs = json_decode($json_data, true) ?? [];
+    }
+
+    $email_existe = false;
+    foreach ($utilisateurs as $user) {
+        if ($user['email'] === $email) {
+            $email_existe = true;
+            break;
+        }
+    }
+
+    if ($email_existe) {
+        $message_erreur = "Cette email est déjà utilisé. Veuillez en choisir une autre.";
+    } elseif ($password1!==$password2) { 
+        $message_erreur1 = "Les mots de passe ne sont pas identiques";
+    } else {
+        $nouvel_id = count($utilisateurs) > 0 ? max(array_column($utilisateurs, 'id')) + 1 : 1;
+        
+        $nouvel_utilisateur = [
+            "id" => $nouvel_id,
+            "email" => $email,
+            "mot_de_passe" => $password1 , // Sécurisation du mot de passe password_hash($password1, PASSWORD_DEFAULT)
+            "role" => "client",
+            "informations" => [
+                "nom" => $nom,
+                "prenom" => $prenom,
+                "naissance" => $dateNaissance,
+                "adresse" => $adresse   
+            ],
+            "dates" => [
+                "inscription" => date("Y-m-d"),
+                "derniere_connexion" => ""
+            ],
+            "statut" => "Standard",
+            "niveau de remise" => 0
+        ];
+
+        $utilisateurs[] = $nouvel_utilisateur;
+        file_put_contents($fichier_json, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+        
+        $message_succes = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -17,52 +82,61 @@
 
 <header class="top-menu">
     <nav>
-        <a href="index.html">Accueil</a>
-        <a href="presentation.html">Présentation</a>
-        <a href="connexion.html">Connexion</a>
-        <a href="inscription.html">Inscription</a>
-        <a href="profil.html">Profil</a>
-        <a href="commande.html">Commande</a>
-        <a href="livraison.html">Livraison</a>
-        <a href="notation.html">Notation</a>
-        <a href="administrateur.html">Admin</a>
+        <a href="index.php">Accueil</a>
+        <a href="presentation.php">Présentation</a>
+        <a href="connexion.php">Connexion</a>
+        <a href="inscription.php">Inscription</a>
+        <a href="profil.php">Profil</a>
+        <a href="commande.php">Commande</a>
+        <a href="livraison.php">Livraison</a>
+        <a href="notation.php">Notation</a>
+        <a href="administrateur.php">Admin</a>
     </nav>
 </header>
 
 <section class="place-cadre">
     <div class="cadre">
         <h2>Inscription</h2>
-        <form>
+        <form method="POST">
             <div class="formulaire">
                 <label>Nom</label>
-                <input type="text" placeholder="Votre nom complet">
+                <input type="text" name="nom"placeholder="Nom">
+            
             <div class="formulaire">
                 <label>Prenom</label>
-                <input type="text" placeholder="Prenom">
+                <input type="text" name="prenom"placeholder="Prenom">
             </div>
             <div class="formulaire">
                 <label>Date de naissance</label>
-                <input type="text" placeholder="Date de naissance">
+                <input type="date" name="date_naissance"placeholder="Date de naissance">
             </div>
             <div class="formulaire">
                 <label>Adresse</label>
-                <input type="text" placeholder="Adresse">
+                <input type="text" name="adresse" placeholder="Adresse">
             </div>
             </div>
             <div class="formulaire">
                 <label>Email</label>
-                <input type="email" placeholder="Votre email">
+                <input type="email" name="email" placeholder="Votre email">
+                <p style="color: #ff4d4d; font-weight: bold; text-align: center;"><?php echo $message_erreur; ?></p>
             </div>
             <div class="formulaire">
                 <label>Mot de passe</label>
-                <input type="password" placeholder="Créer un mot de passe">
+                <input type="password" name="password1" placeholder="Créer un mot de passe">
             </div>
             <div class="formulaire">
                 <label>Confirmer le mot de passe</label>
-                <input type="password" placeholder="Confirmer le mot de passe">
+                <input type="password" name="password2" placeholder="Confirmer le mot de passe">
+                <p style="color: #ff4d4d; font-weight: bold; text-align: center;"><?php echo $message_erreur1; ?></p>
             </div>
             <button type="submit">Créer mon compte</button>
         </form>
+        <?php if ($message_erreur): ?>
+<?php endif; ?>
+
+<?php if (isset($message_succes)): ?>
+    <p style="color: #2ecc71; font-weight: bold; text-align: center;"><?php echo $message_succes; ?></p>
+<?php endif; ?>
         <p class="lien">
             Déjà inscrit ? <a href="connexion.html">Se connecter</a>
         </p>
