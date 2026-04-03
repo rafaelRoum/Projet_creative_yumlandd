@@ -1,3 +1,26 @@
+<?php
+session_start();
+
+$fichier_json = 'data/utilisateurs.json';
+$utilisateurs = json_decode(file_get_contents('data/utilisateurs.json'), true);
+
+$mon_id = $_SESSION['id']; 
+$mon_profil = null;
+
+foreach ($utilisateurs as $user) {
+    if ($user['id'] == $mon_id) {
+        $mon_profil = $user;
+        break;
+    }
+}
+
+if (isset($_POST['deco'])) { 
+    session_destroy();   
+    header("Location: index.php");
+    exit();
+}
+ ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,38 +36,110 @@
 
 <header class="top-menu">
     <nav>
-        <a href="index.php">Accueil</a>
-        <a href="presentation.php">Présentation</a>
-        <a href="connexion.php">Connexion</a>
-        <a href="inscription.php">Inscription</a>
-        <a href="profil.php">Profil</a>
-        <a href="commande.php">Commande</a>
-        <a href="livraison.php">Livraison</a>
-        <a href="notation.php">Notation</a>
-        <a href="administrateur.php">Admin</a>
+        <?php if (!isset($_SESSION['role'])): ?>
+            <a href="index.php">Accueil</a>
+            <a href="presentation.php">Présentation</a>
+            <a href="connexion.php">Connexion</a>
+            <a href="inscription.php">Inscription</a>
+
+        <?php elseif ($_SESSION['role'] === 'admin'): ?>
+            <a href="index.php">Accueil</a>
+            <a href="presentation.php">Présentation</a>
+            <a href="administrateur.php">Administrtaeur</a>
+            <a href="profil.php">Mon Profil</a>
+
+        <?php elseif ($_SESSION['role'] === 'restaurateur'): ?>
+            <a href="index.php">Accueil</a>
+            <a href="presentation.php">Présentation</a>
+            <a href="commandes.php">Commandes à préparer</a>
+            <a href="profil.php">Mon Profil</a>
+
+        <?php elseif ($_SESSION['role'] === 'livreur'): ?>
+            <a href="index.php">Accueil</a>
+            <a href="presentation.php">Présentation</a>
+            <a href="livraison.php">Commande en cours</a>
+            <a href="profil.php">Mon Profil</a>
+
+        <?php elseif ($_SESSION['role'] === 'client'): ?>
+            <a href="index.php">Accueil</a>
+            <a href="presentation.php">Présentation</a>
+            <a href="profil.php">Mon Profil</a>
+        <?php endif; ?>
     </nav>
 </header>
+
 
 
 <section class="place-cadre">
     <div class="cadre">
         <h2>Mon Profil</h2>
-            <div class="info-profil">
-                <label>Nom :</label>
-                <value id="user-name">Jean Dupont</value>
-                <button>Modifier</button>
-            </div>
-            <div class="info-profil">
-                <label>Email :</label>
-                <value id="user-email">jean.dupont@example.com</value>
-                <button >Modifier</button>
-            </div>
-            <div class="info-profil">
-                <label>Téléphone :</label>
-                <value id="user-phone">+33 6 12 34 56 78</value>
-                <button >Modifier</button>
-            </div>
-        <button>Se déconnecter</button>
+
+        <table class="tab-utilisateur" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Nom</strong></td>
+                    <td><?php echo strtoupper(htmlspecialchars($mon_profil['informations']['nom'])); ?></td>
+                    <td><button>Modifier</button></td>
+                </tr>
+                <tr>
+                    <td><strong>Prénom</strong></td>
+                    <td><?php echo htmlspecialchars($mon_profil['informations']['prenom']); ?></td>
+                    <td><button>Modifier</button></td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><?php echo htmlspecialchars($mon_profil['email']); ?></td>
+                    <td><button>Modifier</button></td>
+                </tr>
+                <tr>
+                    <td><strong>Naissance</strong></td>
+                    <td><?php echo htmlspecialchars($mon_profil['informations']['naissance']); ?></td>
+                    <td><button >Modifier</button></td>
+                </tr>
+                <tr>
+                    <td><strong>Adresse</strong></td>
+                    <td><?php echo htmlspecialchars($mon_profil['informations']['adresse']); ?></td>
+                    <td><button >Modifier</button></td>
+                </tr>
+
+                <tr>
+                    <td><strong>Rôle</strong></td>
+                    <td><?php echo ucfirst(htmlspecialchars($mon_profil['role'])); ?></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><strong>Statut</strong></td>
+                    <td><?php echo htmlspecialchars($mon_profil['statut']); ?></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><strong>Remise</strong></td>
+                    <td><?php echo htmlspecialchars($mon_profil['niveau de remise']); ?> %</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><strong>Inscription</strong></td>
+                    <td><?php echo htmlspecialchars($mon_profil['dates']['inscription']); ?></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><strong>Dernière Connexion</strong></td>
+                    <td><?php echo htmlspecialchars($mon_profil['dates']['derniere_connexion']); ?></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form method="POST" style="margin-top: 30px; text-align: center;">
+            <button type="submit" name="deco" class="btn-deco">Se déconnecter</button>
+        </form>
     </div>
 </section>
 

@@ -6,6 +6,7 @@
     "date_heure": "2026-03-18 12:30:00",
     "type_livraison": "sur place",
     "adresse": "",
+    "livreur": "",
     
     "contenu": [
       {
@@ -18,7 +19,7 @@
         "type": "plat",
         "id_item": 12,
         "nom": "Fondant Chocolat",
-        "options_choisies": ["Supplément chantilly"]
+        "options_choisies": ["Aucune"]
       }
     ],
 
@@ -37,6 +38,7 @@
     "date_heure": "2026-03-19 19:30:00",
     "type_livraison": "livraison",
     "adresse": "Good morning",
+    "livreur": "Rayane",
     
     "contenu": [
       {
@@ -53,6 +55,70 @@
       "transaction_api_id": "CYBank-002",
       "date_transaction": "2026-03-20 19:32:00",
       "montant_total": 45.00
+    }
+  },
+    {
+    "id_commande": "CMD-003",
+    "id_client": 4, 
+    "statut": "terminée",
+    "date_heure": "2026-03-18 12:30:00",
+    "type_livraison": "sur place",
+    "adresse": "",
+    "livreur": "",
+    
+    "contenu": [
+      {
+        "type": "menu",
+        "id_item": 1,
+        "nom": "Menu Express Midi",
+        "options_choisies": ["Sans oignons dans la quiche"]
+      },
+      {
+        "type": "plat",
+        "id_item": 12,
+        "nom": "Fondant Chocolat",
+        "options_choisies": ["Aucune"]
+      }
+    ],
+
+    "paiement": {
+      "statut": "payé",
+      "methode": "carte_bancaire",
+      "transaction_api_id": "CYBank-001",
+      "date_transaction": "2026-03-18 12:32:00",
+      "montant_total": 33.00
+    }
+  },
+      {
+    "id_commande": "CMD-004",
+    "id_client": 4, 
+    "statut": "prêt",
+    "date_heure": "2026-03-18 12:30:00",
+    "type_livraison": "livraison",
+    "adresse": "12 rue du Jambon, RDC",
+    "livreur": "",
+    
+    "contenu": [
+      {
+        "type": "menu",
+        "id_item": 1,
+        "nom": "Menu Express Midi",
+        "options_choisies": ["Sans oignons dans la quiche"]
+      },
+      {
+        "type": "plat",
+        "id_item": 12,
+        "nom": "Fondant Chocolat",
+        "options_choisies": ["Aucune"]
+      }
+    ],
+
+    "paiement": {
+      "statut": "payé",
+      "methode": "carte_bancaire",
+      "transaction_api_id": "CYBank-001",
+      "date_transaction": "2026-03-18 12:32:00",
+      "montant_total": 33.00
     }
   }
 ]

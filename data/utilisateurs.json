@@ -12,16 +12,17 @@
         },
         "dates": {
             "inscription": "2026-18-03",
-            "derniere_connexion": "2026-03-27 15:24:29"
+            "derniere_connexion": "2026-04-03 15:01:04"
         },
-        "statut": "actif",
-        "niveau de remise": 0
+        "statut": "Premium",
+        "niveau de remise": 0,
+        "droit": "normal"
     },
     {
         "id": 2,
         "email": "rayane@gmail.com",
         "mot_de_passe": "Can vol\u00e9 2025",
-        "role": "client",
+        "role": "livreur",
         "informations": {
             "nom": "Houari",
             "prenom": "Rayane",
@@ -33,13 +34,14 @@
             "derniere_connexion": "2026-03-18 19:45:00"
         },
         "statut": "Premium",
-        "niveau de remise": 0
+        "niveau de remise": 0,
+        "droit": "normal"
     },
     {
         "id": 3,
         "email": "marie@gmail.com",
         "mot_de_passe": "MiamCochon75",
-        "role": "client",
+        "role": "restaurateur",
         "informations": {
             "nom": "Lecoq",
             "prenom": "Marie",
@@ -51,7 +53,8 @@
             "derniere_connexion": "2026-03-18 12:00:00"
         },
         "statut": "Standard",
-        "niveau de remise": 0
+        "niveau de remise": 0,
+        "droit": "normal"
     },
     {
         "id": 4,
@@ -69,7 +72,8 @@
             "derniere_connexion": "2026-03-18 19:30:00"
         },
         "statut": "Premium",
-        "niveau de remise": 5
+        "niveau de remise": 5,
+        "droit": "normal"
     },
     {
         "id": 5,
@@ -87,7 +91,8 @@
             "derniere_connexion": "2026-03-18 10:45:00"
         },
         "statut": "Standard",
-        "niveau de remise": 0
+        "niveau de remise": 0,
+        "droit": "desactiver"
     },
     {
         "id": 6,
@@ -105,7 +110,8 @@
             "derniere_connexion": "2026-03-18 21:10:00"
         },
         "statut": "VIP",
-        "niveau de remise": 10
+        "niveau de remise": 10,
+        "droit": "bloquer"
     },
     {
         "id": 7,
@@ -122,8 +128,9 @@
             "inscription": "2026-03-18",
             "derniere_connexion": "2026-03-19 19:45:00"
         },
-        "statut": "actif",
-        "niveau de remise": 0
+        "statut": "VIP",
+        "niveau de remise": 0,
+        "droit": "normal"
     },
     {
         "id": 8,
@@ -141,7 +148,8 @@
             "derniere_connexion": ""
         },
         "statut": "Standard",
-        "niveau de remise": 0
+        "niveau de remise": 0,
+        "droit": "normal"
     },
     {
         "id": 9,
@@ -159,7 +167,8 @@
             "derniere_connexion": ""
         },
         "statut": "Standard",
-        "niveau de remise": 0
+        "niveau de remise": 0,
+        "droit": "normal"
     },
     {
         "id": 10,
@@ -177,7 +186,8 @@
             "derniere_connexion": ""
         },
         "statut": "Standard",
-        "niveau de remise": 0
+        "niveau de remise": 0,
+        "droit": "desactiver"
     },
     {
         "id": 11,
@@ -195,7 +205,8 @@
             "derniere_connexion": ""
         },
         "statut": "Standard",
-        "niveau de remise": 0
+        "niveau de remise": 0,
+        "droit": "bloquer"
     },
     {
         "id": 12,
@@ -213,6 +224,26 @@
             "derniere_connexion": "2026-03-27 15:15:00"
         },
         "statut": "Standard",
-        "niveau de remise": 0
+        "niveau de remise": 0,
+        "droit": "bloquer"
+    },
+    {
+        "id": 13,
+        "email": "snu@g.com",
+        "mot_de_passe": "azerty",
+        "role": "client",
+        "informations": {
+            "nom": "azertyu",
+            "prenom": "iuytreza",
+            "naissance": "2026-04-16",
+            "adresse": "uytrez"
+        },
+        "dates": {
+            "inscription": "2026-04-03",
+            "derniere_connexion": ""
+        },
+        "statut": "Standard",
+        "niveau de remise": 0,
+        "droit": "normal"
     }
 ]

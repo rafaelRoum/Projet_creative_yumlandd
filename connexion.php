@@ -34,10 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($utilisateur_trouve) {
-        $_SESSION['utilisateur_id'] = $utilisateur_trouve['id'];
-        $_SESSION['utilisateur_email'] = $utilisateur_trouve['email'];
-        $_SESSION['utilisateur_role'] = $utilisateur_trouve['role'];
-        $_SESSION['utilisateur_nom'] = $utilisateur_trouve['informations']['prenom'] . " " . $utilisateur_trouve['informations']['nom'];
+        $_SESSION['id'] = $utilisateur_trouve['id'];
+        $_SESSION['email'] = $utilisateur_trouve['email'];
+        $_SESSION['role'] = $utilisateur_trouve['role'];
+        $_SESSION['nom'] = $utilisateur_trouve['informations']['prenom'] . " " . $utilisateur_trouve['informations']['nom'];
 
         header("Location: index.php");
         exit();
@@ -62,15 +62,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="fond">
     <header class="top-menu">
         <nav>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="connexion.php">Connexion</a>
-            <a href="inscription.php">Inscription</a>
-            <a href="profil.php">Profil</a>
-            <a href="commande.php">Commande</a>
-            <a href="livraison.php">Livraison</a>
-            <a href="notation.php">Notation</a>
-            <a href="administrateur.php">Admin</a>
+            <?php if (!isset($_SESSION['role'])): ?>
+                <a href="index.php">Accueil</a>
+                <a href="presentation.php">Présentation</a>
+                <a href="connexion.php">Connexion</a>
+                <a href="inscription.php">Inscription</a>
+
+            <?php elseif ($_SESSION['role'] === 'admin'): ?>
+                <a href="index.php">Accueil</a>
+                <a href="presentation.php">Présentation</a>
+                <a href="administrateur.php">Administrtaeur</a>
+                <a href="profil.php">Mon Profil</a>
+
+            <?php elseif ($_SESSION['role'] === 'restaurateur'): ?>
+                <a href="index.php">Accueil</a>
+                <a href="presentation.php">Présentation</a>
+                <a href="commandes.php">Commandes à préparer</a>
+                <a href="profil.php">Mon Profil</a>
+
+            <?php elseif ($_SESSION['role'] === 'livreur'): ?>
+                <a href="index.php">Accueil</a>
+                <a href="presentation.php">Présentation</a>
+                <a href="livraison.php">Commande en cours</a>
+                <a href="profil.php">Mon Profil</a>
+
+            <?php elseif ($_SESSION['role'] === 'client'): ?>
+                <a href="index.php">Accueil</a>
+                <a href="presentation.php">Présentation</a>
+                <a href="profil.php">Mon Profil</a>
+            <?php endif; ?>
         </nav>
     </header>
 

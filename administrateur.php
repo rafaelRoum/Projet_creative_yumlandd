@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// --- 2. CHARGEMENT DES DONNÉES ---
+$fichier_json = 'data/utilisateurs.json';
+$utilisateurs = [];
+
+if (file_exists($fichier_json)) {
+    $json_data = file_get_contents($fichier_json);
+    $utilisateurs = json_decode($json_data, true) ?? [];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,90 +21,149 @@
 </head>
 
 <body>
-
 <div class="fond">
 
 <header class="top-menu">
     <nav>
         <a href="index.php">Accueil</a>
         <a href="presentation.php">Présentation</a>
-        <a href="connexion.php">Connexion</a>
-        <a href="inscription.php">Inscription</a>
-        <a href="profil.php">Profil</a>
-        <a href="commande.php">Commande</a>
-        <a href="livraison.php">Livraison</a>
-        <a href="notation.php">Notation</a>
-        <a href="administrateur.php">Admin</a>
+        <a href="administrateur.php">Administration</a>
+        <a href="profil.php">Mon Profil</a>
     </nav>
 </header>
 
 <main class="admin-cadre-placement">
     <div class="admin-cadre">
-        <h2>Liste de tous les Utilisateurs</h2>            
-        <p style="text-align: center; color: #757575; font-size: 14px; margin-bottom: 20px;">
-            <em>Les filtres de tri seront disponibles en phases 2/3</em>
-        </p>
-        <table class="tab-utilisateur">
+        <h2>Gestion des Utilisateurs</h2>            
+        <table class="tab-utilisateur" style="width: 100%; border-collapse: collapse;">
             <thead>
-                <tr>
-                    <th>Nom</th>
+                <tr style="background-color: #f2f2f2;">
+                    <th>Nom & Prénom</th>
                     <th>Email</th>
+                    <th>Rôle</th>
                     <th>Statut</th>
-                    <th>Action</th>
+                    <th>Remise</th>
+                    <th>Droit</th>
+                    <th>detail</th>
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($utilisateurs as $user): ?>
                 <tr>
-                    <td>Jean Dupont</td>
-                    <td>jean.dupont@example.com</td>
-                    <td><span class="statut-badge statut-commande">A commandé</span></td>
-                    <td><a href="" class="voir-profil-btn">Voir Profil</a></td>
+                    <td>
+                        <strong><?php echo ($user['informations']['nom']); ?></strong> 
+                        <?php echo ($user['informations']['prenom']); ?>
+                    </td>
+
+                    <td>
+                        <?php echo ($user['email']); ?>
+                    </td>
+
+                    <td>
+                        <span class="role-badge role-<?php echo ($user['role']); ?>">
+                            <?php echo ($user['role']); ?>
+                        </span>
+                    </td>
+                    <td>
+                        <?php if($user['statut'] === "Standard"): ?>
+                            <select>
+                                <option>Standard</option>
+                                <option>Premium</option>
+                                <option>VIP</option>
+                            </select>
+                        <?php endif; ?>
+                        <?php if($user['statut'] === "Premium"): ?>
+                            <select>
+                                <option>Premium</option>
+                                <option>Standard</option>
+                                <option>VIP</option>
+                            </select>
+                        <?php endif; ?>
+                        <?php if($user['statut'] === "VIP"): ?>
+                            <select>
+                                <option>VIP</option>
+                                <option>Standard</option>
+                                <option>Premium</option>
+                            </select>
+                        <?php endif; ?>
+                    </td>
+
+                    <td class="admin-actions">
+                        <input type="number" value="<?php echo $user['niveau de remise']?>" class="input-remise" min="O" max="50" oninput="if(this.value < 0) this.value = 0; if(this.value > 50) this.value = 50;"> <p>%</p>                     
+                    </td>
+                    <td>
+                        <?php if($user['droit'] === "normal"): ?>
+                            <select>
+                                <option>normal</option>
+                                <option>bloquer</option>
+                                <option>désactiver</option>
+                            </select>
+                        <?php endif; ?>
+                        <?php if($user['droit'] === "bloquer"): ?>
+                            <select>
+                                <option>bloquer</option>
+                                <option>débloquer</option>
+                                <option>désactiver</option>
+                            </select>
+                        <?php endif; ?>
+                        <?php if($user['droit'] === "desactiver"): ?>
+                            <select>
+                                <option>désactiver</option>
+                                <option>bloquer</option>
+                                <option>débloquer</option>
+                            </select>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <a href="#user-<?php echo $user['id']; ?>" class="voir-profil-btn">Détails</a>
+                        <div id="user-<?php echo $user['id']; ?>" class="modal-fond">
+                            <div class="modal-contenu">
+                                
+                                <h2>Fiche de <?php echo ($user['informations']['prenom']); ?></h2>
+                                <hr>
+                                <div class="infos-details">
+                                    <p><strong>Identifiant :</strong> <?php echo ($user['id']); ?></p>                                    
+                                    <p><strong>Nom :</strong> <?php echo strtoupper($user['informations']['nom']); ?></p>                                    
+                                    <p><strong>Prénom :</strong> <?php echo ($user['informations']['prenom']); ?></p>                     
+                                    <p><strong>Email :</strong> <?php echo ($user['email']); ?></p>                                    
+                                    <p><strong>Date de naissance :</strong> <?php echo ($user['informations']['naissance']); ?></p>                                   
+                                    <p><strong>Adresse :</strong> <?php echo ($user['informations']['adresse']); ?></p>   
+                                    <p><strong>Rôle :</strong> <?php echo ($user['role']); ?></p>
+                                    <p><strong>Statut :</strong> <?php echo ($user['statut']); ?></p>
+                                    <p><strong>Niveau de remise :</strong> <?php echo ($user['niveau de remise']); ?> %</p>
+                                    <p><strong>Droit :</strong> <?php echo ($user['droit']); ?></p>
+                                    <p><strong>Date d'inscription :</strong> <?php echo ($user['dates']['inscription']); ?></p>
+                                    <p><strong>Dernière connexion :</strong> <?php echo ($user['dates']['derniere_connexion']); ?></p>
+                                </div>
+                                <br>
+                                <button > <a href=administrateur.php style="color: white; text-decoration: none;">Fermer</a> </button>
+                            </div>
+                        </div>
+                    </td>
+
                 </tr>
-                <tr>
-                    <td>Marie Lecoq</td>
-                    <td>marie.l@example.com</td>
-                    <td><span class="statut-badge statut-vide">Aucune commande</span></td>
-                    <td><a href="" class="voir-profil-btn">Voir Profil</a></td>
-                </tr>
-                <tr>
-                    <td>Pierre Durant</td>
-                    <td>p.durant@example.com</td>
-                    <td><span class="statut-badge statut-commande">A commandé</span></td>
-                    <td><a href="" class="voir-profil-btn">Voir Profil</a></td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </main>
 
-</body>
-
 <footer>
     <div class="footer-fond">
         <div class="footer-col">
            <h3>Navigation</h3>
-           <a href="index.html">Accueil</a>
-           <a href="presentation.html">Présentation</a>
-           <a href="connexion.html">Connexion</a>
-           <a href="inscription.html">Inscription</a>
-           <a href="profil.html">Profil</a>
-        </div>
-        <div class="footer-col">
-           <h3>&nbsp</h3>
-           <a href="commande.html">Commande</a>
-           <a href="livraison.html">Livraison</a>
-           <a href="notation.html">Notation</a>
-           <a href="administrateur.html">Admin</a>
+           <a href="index.php">Accueil</a>
+           <a href="presentation.php">Présentation</a>
+           <a href="profil.php">Profil</a>
         </div>
         <div class="footer-col">
             <h3>Contact</h3>
-           <a href="">📍 12 rue du Jambon, Paris</a>
-           <a href="">📞 01 23 45 67 89</a>
-           <a href="">✉️ contact@groindefolie.com</a>
+           <p>📍 12 rue du Jambon, Paris</p>
+           <p>📞 01 23 45 67 89</p>
         </div>
     </div>
 </footer>
 
 </div>
-
+</body>
 </html>
