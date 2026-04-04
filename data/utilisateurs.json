@@ -12,7 +12,7 @@
         },
         "dates": {
             "inscription": "2026-18-03",
-            "derniere_connexion": "2026-04-03 15:01:04"
+            "derniere_connexion": "2026-04-04 15:03:59"
         },
         "statut": "Premium",
         "niveau de remise": 0,
@@ -31,7 +31,7 @@
         },
         "dates": {
             "inscription": "2026-03-18",
-            "derniere_connexion": "2026-03-18 19:45:00"
+            "derniere_connexion": "2026-04-04 13:40:59"
         },
         "statut": "Premium",
         "niveau de remise": 0,
@@ -69,7 +69,7 @@
         },
         "dates": {
             "inscription": "2026-03-18",
-            "derniere_connexion": "2026-03-18 19:30:00"
+            "derniere_connexion": "2026-04-04 15:42:26"
         },
         "statut": "Premium",
         "niveau de remise": 5,
@@ -241,6 +241,63 @@
         "dates": {
             "inscription": "2026-04-03",
             "derniere_connexion": ""
+        },
+        "statut": "Standard",
+        "niveau de remise": 0,
+        "droit": "normal"
+    },
+    {
+        "id": 14,
+        "email": "a@g",
+        "mot_de_passe": "a",
+        "role": "client",
+        "informations": {
+            "nom": "a",
+            "prenom": "a",
+            "naissance": "2026-04-09",
+            "adresse": "a"
+        },
+        "dates": {
+            "inscription": "2026-04-04",
+            "derniere_connexion": "2026-04-04 15:29:52"
+        },
+        "statut": "Standard",
+        "niveau de remise": 0,
+        "droit": "normal"
+    },
+    {
+        "id": 15,
+        "email": "aa@gma",
+        "mot_de_passe": "a",
+        "role": "client",
+        "informations": {
+            "nom": "a",
+            "prenom": "a",
+            "naissance": "2026-04-08",
+            "adresse": "aa"
+        },
+        "dates": {
+            "inscription": "2026-04-04",
+            "derniere_connexion": "2026-04-04"
+        },
+        "statut": "Standard",
+        "niveau de remise": 0,
+        "droit": "normal"
+    },
+    {
+        "id": 16,
+        "email": "a@gfda",
+        "mot_de_passe": "a",
+        "role": "client",
+        "informations": {
+            "nom": "aa",
+            "prenom": "aeae",
+            "naissance": "2026-04-15",
+            "adresse": "aa"
+        },
+        "dates": {
+            "inscription": "2026-04-04",
+            "derniere_connexion": "2026-04-04"
         },
         "statut": "Standard",
         "niveau de remise": 0,

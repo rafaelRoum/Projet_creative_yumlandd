@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// --- 2. CHARGEMENT DES DONNÉES ---
 $fichier_json = 'data/utilisateurs.json';
 $utilisateurs = [];
 
@@ -11,26 +10,10 @@ if (file_exists($fichier_json)) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Administration - Le Groin de Folie</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="groin_de_folie_icons.png">
-</head>
-
-<body>
-<div class="fond">
-
-<header class="top-menu">
-    <nav>
-        <a href="index.php">Accueil</a>
-        <a href="presentation.php">Présentation</a>
-        <a href="administrateur.php">Administration</a>
-        <a href="profil.php">Mon Profil</a>
-    </nav>
-</header>
+<?php
+$titre_page = "Administrateur - Le Groin de Folie";
+include 'includes/header.php';
+?>
 
 <main class="admin-cadre-placement">
     <div class="admin-cadre">
@@ -148,22 +131,6 @@ if (file_exists($fichier_json)) {
     </div>
 </main>
 
-<footer>
-    <div class="footer-fond">
-        <div class="footer-col">
-           <h3>Navigation</h3>
-           <a href="index.php">Accueil</a>
-           <a href="presentation.php">Présentation</a>
-           <a href="profil.php">Profil</a>
-        </div>
-        <div class="footer-col">
-            <h3>Contact</h3>
-           <p>📍 12 rue du Jambon, Paris</p>
-           <p>📞 01 23 45 67 89</p>
-        </div>
-    </div>
-</footer>
-
-</div>
-</body>
-</html>
+<?php
+include 'includes/footer.php';
+?>

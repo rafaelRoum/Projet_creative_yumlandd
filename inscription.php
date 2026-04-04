@@ -2,6 +2,8 @@
 
 session_start();
 $message_erreur = "";
+$message_erreur1 = "";
+$nom = $prenom = $dateNaissance = $adresse = $email = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -49,70 +51,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ],
             "dates" => [
                 "inscription" => date("Y-m-d"),
-                "derniere_connexion" => ""
+                "derniere_connexion" => date("Y-m-d")
             ],
             "statut" => "Standard",
-            "niveau de remise" => 0
+            "niveau de remise" => 0,
+            "droit" => "normal"
         ];
 
         $utilisateurs[] = $nouvel_utilisateur;
         file_put_contents($fichier_json, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+
+        $_SESSION['id'] = $nouvel_utilisateur['id'];
+        $_SESSION['email'] = $nouvel_utilisateur['email'];
+        $_SESSION['role'] = $nouvel_utilisateur['role'];
+        $_SESSION['nom'] = $nouvel_utilisateur['informations']['prenom'] . " " . $nouvel_utilisateur['informations']['nom'];
+
+        $_SESSION['flash_message'] = "Inscription réussie ! Bienvenue parmi nous.";
+        header("Location: index.php");
+        exit();
         
         $message_succes = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
     }
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  <meta charset="UTF-8">
-  <title> inscription</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="groin_de_folie_icons.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-</head>
-
-<body>
-
-<div class="fond">
-
-<header class="top-menu">
-    <nav>
-        <?php if (!isset($_SESSION['role'])): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="connexion.php">Connexion</a>
-            <a href="inscription.php">Inscription</a>
-
-        <?php elseif ($_SESSION['role'] === 'admin'): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="administrateur.php">Administrtaeur</a>
-            <a href="profil.php">Mon Profil</a>
-
-        <?php elseif ($_SESSION['role'] === 'restaurateur'): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="commandes.php">Commandes à préparer</a>
-            <a href="profil.php">Mon Profil</a>
-
-        <?php elseif ($_SESSION['role'] === 'livreur'): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="livraison.php">Commande en cours</a>
-            <a href="profil.php">Mon Profil</a>
-
-        <?php elseif ($_SESSION['role'] === 'client'): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="profil.php">Mon Profil</a>
-        <?php endif; ?>
-    </nav>
-</header>
+<?php
+$titre_page = "Inscriptions - Le Groin de Folie";
+include 'includes/header.php';
+?>
 
 <section class="place-cadre">
     <div class="cadre">
@@ -120,24 +86,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="POST">
             <div class="formulaire">
                 <label>Nom</label>
-                <input type="text" name="nom"placeholder="Nom">
+                <input type="text" name="nom"placeholder="Nom"  value="<?php echo $nom ?>" >
             
             <div class="formulaire">
                 <label>Prenom</label>
-                <input type="text" name="prenom"placeholder="Prenom">
+                <input type="text" name="prenom"placeholder="Prenom"  value="<?php echo $prenom ?>" >
             </div>
             <div class="formulaire">
                 <label>Date de naissance</label>
-                <input type="date" name="date_naissance"placeholder="Date de naissance">
+                <input type="date" name="date_naissance"placeholder="Date de naissance"  value="<?php echo $dateNaissance ?>">
             </div>
             <div class="formulaire">
                 <label>Adresse</label>
-                <input type="text" name="adresse" placeholder="Adresse">
+                <input type="text" name="adresse" placeholder="Adresse"  value="<?php echo $adresse ?>" >
             </div>
             </div>
             <div class="formulaire">
                 <label>Email</label>
-                <input type="email" name="email" placeholder="Votre email">
+                <input type="email" name="email" placeholder="Votre email"  value="<?php echo $email ?>" >
                 <p style="color: #ff4d4d; font-weight: bold; text-align: center;"><?php echo $message_erreur; ?></p>
             </div>
             <div class="formulaire">

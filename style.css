@@ -89,6 +89,7 @@ h1 {
     background-attachment: fixed;
     height: 150%;
     width: 100%;   
+    min-height: 100vh;
 }
 
 /*footer*/
@@ -293,7 +294,7 @@ h1 {
 }
 
 .menu-prix{
-    position:absolute;
+/*     position: absolute; */
     bottom:10px;
     right:10px;
     background:#4a5e3d;
@@ -301,6 +302,7 @@ h1 {
     padding:6px 12px;
     border-radius:20px;
     font-size:13px;
+    text-align: center;
 }
 .menu-cadre{position:relative;}
 
@@ -568,8 +570,8 @@ h1 {
 }
 
 .nav-btn {
-    background-color: #2196F3;
-    color: white;
+    background-color: #ffffff;
+    color: rgb(20, 65, 187);
     box-shadow: 0 0.25rem 0.6rem rgba(33, 150, 243, 0.3);
 }
 
@@ -607,7 +609,7 @@ h1 {
 
 /* 3. Le bloc au milieu  */
 .modal-contenu {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     margin: 10% auto;
     padding: 30px;
     border-radius: 12px;
@@ -627,3 +629,25 @@ h1 {
     border-radius: 10px; 
     font-size: 14px;
 }
+
+
+/* --- SECTION PANIER --- */
+
+.form-ajout-panier {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.input-quantite {
+    width: 50px;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.margin-bot{
+    margin-bottom: 100px;
+}
+
+

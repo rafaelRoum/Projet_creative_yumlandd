@@ -2,6 +2,8 @@
   {
     "id": 1,
     "nom": "Planche Charcuterie",
+    "categorie": "Entrées / Apéro",
+    "image": "images/charcuterie.png",
     "description": "Assortiment de nos meilleures charcuteries artisanales.",
     "prix": 9.00,
     "informations": { "nutritionnelles": "550 kcal", "allergenes": ["Gluten (pain)"] }
@@ -9,6 +11,8 @@
   {
     "id": 2,
     "nom": "Quiche Maison",
+    "categorie": "Entrées / Apéro",
+    "image": "images/quiche.png",
     "description": "Quiche lorraine dorée au four, lardons fumés.",
     "prix": 9.00,
     "informations": { "nutritionnelles": "400 kcal", "allergenes": ["Œufs", "Lait", "Gluten"] }
@@ -16,6 +20,8 @@
   {
     "id": 3,
     "nom": "Œufs Mimosa",
+    "categorie": "Entrées / Apéro",
+    "image": "images/oeuf_mimosa.png",
     "description": "Classique œuf dur fourré à la mayonnaise maison.",
     "prix": 8.00,
     "informations": { "nutritionnelles": "250 kcal", "allergenes": ["Œufs", "Moutarde"] }
@@ -23,6 +29,8 @@
   {
     "id": 4,
     "nom": "Foie Gras",
+    "categorie": "Entrées / Apéro",
+    "image": "images/fois_gras.png",
     "description": "Foie gras de canard mi-cuit, toast brioché et confiture de figues.",
     "prix": 12.00,
     "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Gluten"] }
@@ -30,6 +38,8 @@
   {
     "id": 5,
     "nom": "Saumon Fumé",
+    "categorie": "Entrées / Apéro",
+    "image": "images/saumon_fume.png",
     "description": "Tranches de saumon fumé au bois de hêtre.",
     "prix": 12.00,
     "informations": { "nutritionnelles": "300 kcal", "allergenes": ["Poisson"] }
@@ -37,6 +47,8 @@
   {
     "id": 6,
     "nom": "Filet Mignon",
+    "categorie": "Plats",
+    "image": "images/filetmignon.png",
     "description": "Filet mignon de porc tendre, sauce moutarde à l'ancienne.",
     "prix": 21.00,
     "informations": { "nutritionnelles": "600 kcal", "allergenes": ["Moutarde", "Lait"] }
@@ -44,6 +56,8 @@
   {
     "id": 7,
     "nom": "Ribs de Porc",
+    "categorie": "Plats",
+    "image": "images/ribs_porc.png",
     "description": "Travers de porc caramélisés au barbecue, frites maison.",
     "prix": 22.00,
     "informations": { "nutritionnelles": "850 kcal", "allergenes": ["Soja", "Céleri"] }
@@ -51,6 +65,8 @@
   {
     "id": 8,
     "nom": "Saucisse Lentilles",
+    "categorie": "Plats",
+    "image": "images/saucisse_lentille.png",
     "description": "Plat traditionnel avec véritable saucisse de Morteau.",
     "prix": 19.00,
     "informations": { "nutritionnelles": "650 kcal", "allergenes": ["Aucun"] }
@@ -58,6 +74,8 @@
   {
     "id": 9,
     "nom": "Rôti de Porc",
+    "categorie": "Plats",
+    "image": "images/roti_porc.png",
     "description": "Tranches de rôti de porc moelleux avec ses petites pommes de terre.",
     "prix": 23.00,
     "informations": { "nutritionnelles": "580 kcal", "allergenes": ["Aucun"] }
@@ -65,6 +83,8 @@
   {
     "id": 10,
     "nom": "Pâtes Carbonara",
+    "categorie": "Plats",
+    "image": "images/pate_carbo.png",
     "description": "Véritables spaghettis carbonara au guanciale et pecorino.",
     "prix": 17.00,
     "informations": { "nutritionnelles": "700 kcal", "allergenes": ["Gluten", "Œufs", "Lait"] }
@@ -72,6 +92,8 @@
   {
     "id": 11,
     "nom": "Entrecôte",
+    "categorie": "Plats",
+    "image": "images/entrecote.png",
     "description": "Belle entrecôte grillée (300g), sauce au poivre.",
     "prix": 25.00,
     "informations": { "nutritionnelles": "800 kcal", "allergenes": ["Lait (sauce)"] }
@@ -79,6 +101,8 @@
   {
     "id": 12,
     "nom": "Fondant Chocolat",
+    "categorie": "Desserts",
+    "image": "images/fondant.png",
     "description": "Cœur coulant au chocolat noir intense.",
     "prix": 8.00,
     "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Œufs", "Lait", "Gluten"] }
@@ -86,13 +110,17 @@
   {
     "id": 13,
     "nom": "Cheesecake",
+    "categorie": "Desserts",
+    "image": "images/cheesecake.png",
     "description": "Cheesecake crémeux sur lit de spéculoos.",
-    "prix": 8.0,
+    "prix": 8.00,
     "informations": { "nutritionnelles": "500 kcal", "allergenes": ["Lait", "Gluten"] }
   },
   {
     "id": 14,
     "nom": "Tiramisu",
+    "categorie": "Desserts",
+    "image": "images/tiramisu.png",
     "description": "Tiramisu traditionnel au café et mascarpone.",
     "prix": 8.00,
     "informations": { "nutritionnelles": "420 kcal", "allergenes": ["Lait", "Œufs", "Gluten"] }
@@ -100,8 +128,136 @@
   {
     "id": 15,
     "nom": "Paris-Brest",
+    "categorie": "Desserts",
+    "image": "images/paris_brest.png",
     "description": "Pâte à choux et crème mousseline pralinée.",
     "prix": 8.00,
     "informations": { "nutritionnelles": "480 kcal", "allergenes": ["Gluten", "Lait", "Œufs", "Fruits à coque"] }
+  },
+  {
+    "id": 16,
+    "nom": "Gougères",
+    "categorie": "Entrées / Apéro",
+    "image": "images/gougere.png",
+    "description": "Petits choux au fromage dorés au four.",
+    "prix": 7.00,
+    "informations": { "nutritionnelles": "350 kcal", "allergenes": ["Lait", "Œufs", "Gluten"] }
+  },
+  {
+    "id": 17,
+    "nom": "Fromage",
+    "categorie": "Entrées / Apéro",
+    "image": "images/frommage.png",
+    "description": "Sélection de nos meilleurs fromages affinés.",
+    "prix": 9.00,
+    "informations": { "nutritionnelles": "400 kcal", "allergenes": ["Lait"] }
+  },
+  {
+    "id": 18,
+    "nom": "Salade",
+    "categorie": "Entrées / Apéro",
+    "image": "images/salade.png",
+    "description": "Salade fraîche de saison et sa vinaigrette maison.",
+    "prix": 12.00,
+    "informations": { "nutritionnelles": "200 kcal", "allergenes": ["Moutarde"] }
+  },
+  {
+    "id": 19,
+    "nom": "Chèvres chaud",
+    "categorie": "Entrées / Apéro",
+    "image": "images/chevre_chaud.png",
+    "description": "Toasts de chèvre chaud sur lit de salade.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "380 kcal", "allergenes": ["Lait", "Gluten", "Moutarde"] }
+  },
+  {
+    "id": 20,
+    "nom": "Tartare de Bœuf",
+    "categorie": "Plats",
+    "image": "images/tartare.png",
+    "description": "Tartare de bœuf préparé, câpres et oignons frais.",
+    "prix": 19.00,
+    "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Œufs", "Moutarde"] }
+  },
+  {
+    "id": 21,
+    "nom": "Poulet Rôti",
+    "categorie": "Plats",
+    "image": "images/poulet_roti.png",
+    "description": "Demi-poulet rôti fermier, jus au thym.",
+    "prix": 18.00,
+    "informations": { "nutritionnelles": "550 kcal", "allergenes": ["Aucun"] }
+  },
+  {
+    "id": 22,
+    "nom": "Big Groin",
+    "categorie": "Plats",
+    "image": "images/big_groin.png",
+    "description": "Notre burger signature 100% cochon avec frites.",
+    "prix": 18.00,
+    "informations": { "nutritionnelles": "800 kcal", "allergenes": ["Gluten", "Lait", "Sésame", "Œufs"] }
+  },
+  {
+    "id": 23,
+    "nom": "Frites",
+    "categorie": "Accompagnements",
+    "image": "images/frite.png",
+    "description": "Portion de frites croustillantes faites maison.",
+    "prix": 5.00,
+    "informations": { "nutritionnelles": "300 kcal", "allergenes": ["Aucun"] }
+  },
+  {
+    "id": 24,
+    "nom": "Potatoes",
+    "categorie": "Accompagnements",
+    "image": "images/potatoes.png",
+    "description": "Quartiers de pommes de terre épicés.",
+    "prix": 5.00,
+    "informations": { "nutritionnelles": "320 kcal", "allergenes": ["Aucun"] }
+  },
+  {
+    "id": 25,
+    "nom": "Crème Brûlée",
+    "categorie": "Desserts",
+    "image": "images/creme_brule.png",
+    "description": "Crème vanille onctueuse et croûte de sucre caramélisé.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "400 kcal", "allergenes": ["Lait", "Œufs"] }
+  },
+  {
+    "id": 26,
+    "nom": "Tarte Tatin",
+    "categorie": "Desserts",
+    "image": "images/tarte_tatin.png",
+    "description": "La célèbre tarte aux pommes caramélisées inversée.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "350 kcal", "allergenes": ["Gluten", "Lait"] }
+  },
+  {
+    "id": 27,
+    "nom": "Mille Feuille",
+    "categorie": "Desserts",
+    "image": "images/millefeuille.png",
+    "description": "Pâte feuilletée croustillante et crème pâtissière.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Gluten", "Lait", "Œufs"] }
+  },
+  {
+    "id": 28,
+    "nom": "Ile Flottante",
+    "categorie": "Desserts",
+    "image": "images/ile_flotante.png",
+    "description": "Blancs en neige sur crème anglaise, éclats de caramel.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "250 kcal", "allergenes": ["Œufs", "Lait"] }
+  },
+  {
+    "id": 29,
+    "nom": "Donut Choco",
+    "categorie": "Desserts",
+    "image": "images/donut_choco.png",
+    "description": "Beignet moelleux avec un glaçage gourmand au chocolat.",
+    "prix": 8.00,
+    "informations": { "nutritionnelles": "380 kcal", "allergenes": ["Gluten", "Lait", "Œufs"] }
   }
 ]

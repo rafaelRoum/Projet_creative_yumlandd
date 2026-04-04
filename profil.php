@@ -19,54 +19,25 @@ if (isset($_POST['deco'])) {
     header("Location: index.php");
     exit();
 }
- ?>
+$toutes_les_commandes = json_decode(file_get_contents('data/commandes.json'), true) ?? [];
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title> Profil</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="groin_de_folie_icons.png">
-</head>
+$commandes = [];
 
-<body>
+foreach ($toutes_les_commandes as $cmd) {
+    if ($cmd['id_client'] == $mon_id) {
+        $commandes[] = $cmd;
+    }
+}
 
-<div class="fond">
+ 
+?>
 
-<header class="top-menu">
-    <nav>
-        <?php if (!isset($_SESSION['role'])): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="connexion.php">Connexion</a>
-            <a href="inscription.php">Inscription</a>
 
-        <?php elseif ($_SESSION['role'] === 'admin'): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="administrateur.php">Administrtaeur</a>
-            <a href="profil.php">Mon Profil</a>
 
-        <?php elseif ($_SESSION['role'] === 'restaurateur'): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="commandes.php">Commandes à préparer</a>
-            <a href="profil.php">Mon Profil</a>
-
-        <?php elseif ($_SESSION['role'] === 'livreur'): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="livraison.php">Commande en cours</a>
-            <a href="profil.php">Mon Profil</a>
-
-        <?php elseif ($_SESSION['role'] === 'client'): ?>
-            <a href="index.php">Accueil</a>
-            <a href="presentation.php">Présentation</a>
-            <a href="profil.php">Mon Profil</a>
-        <?php endif; ?>
-    </nav>
-</header>
+<?php
+$titre_page = "Profil - Le Groin de Folie";
+include 'includes/header.php';
+?>
 
 
 
@@ -143,34 +114,105 @@ if (isset($_POST['deco'])) {
     </div>
 </section>
 
-</body>
+<main class="admin-cadre-placement">
+    <div class="admin-cadre">
+        <h2 class="france-ancien-livre">Historique des commandes</h2>
+        
+        <table class="tab-utilisateur" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <thead>
+                <tr style="background-color: #f2f2f2; text-align: left;">
+                    <th>N°</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                    <th>Livreur/Récuperer</th>
+                    <th>Détails</th>
+                    <th>Noter</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($commandes as $cmd): ?>
+                <tr>
 
-<footer>
-    <div class="footer-fond">
-        <div class="footer-col">
-           <h3>Navigation</h3>
-           <a href="index.html">Accueil</a>
-           <a href="presentation.html">Présentation</a>
-           <a href="connexion.html">Connexion</a>
-           <a href="inscription.html">Inscription</a>
-           <a href="profil.html">Profil</a>
-        </div>
-        <div class="footer-col">
-           <h3>&nbsp</h3>
-           <a href="commande.html">Commande</a>
-           <a href="livraison.html">Livraison</a>
-           <a href="notation.html">Notation</a>
-           <a href="administrateur.html">Admin</a>
-        </div>
-        <div class="footer-col">
-            <h3>Contact</h3>
-           <a href="">📍 12 rue du Jambon, Paris</a>
-           <a href="">📞 01 23 45 67 89</a>
-           <a href="">✉️ contact@groindefolie.com</a>
-        </div>
+                    <td><strong><?php echo $cmd['id_commande']; ?></strong></td>
+
+                    <td><?php echo $cmd['date_heure']?></td>
+                    
+                    <td>
+                        <?php if($cmd['statut'] === "en préparation"): ?>
+                            <p style="color:#2196F3">En préparation</p>
+                        <?php endif; ?>
+                        <?php if($cmd['statut'] === "prêt"): ?>
+                            <p style="color:#ff9102">Prêt</p>
+                        <?php endif; ?>
+                        <?php if($cmd['statut'] === "en livraison"): ?>
+                            <p style="color:#ff9102">En livraison</p>
+                        <?php endif; ?>
+                        <?php if($cmd['statut'] === "terminée"): ?>
+                            <p style="color:#08a021">Terminée</p>
+                        <?php endif; ?>
+                    </td>
+
+                    <td>
+                        <?php if ($cmd['type_livraison'] === 'livraison'): ?> 
+                            <?php if($cmd['statut'] === 'prêt'): ?>
+                                <p>Non attribué</p>
+                            <?php endif; ?>
+                            <?php if($cmd['statut'] === 'en préparation'): ?>
+                                <p>Non attribué</p>
+                            <?php endif; ?>
+                            <?php if($cmd['statut'] === 'en livraison' || $cmd['statut'] === 'en livraison' ): ?>
+                                <?php echo ($cmd['livreur']); ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+
+                        <?php if ($cmd['type_livraison'] === 'sur place'): ?>
+                            <?php if($cmd['statut'] === 'prêt'): ?>
+                                <p>A récuperer</p>
+                            <?php endif; ?>
+                            <?php if($cmd['statut'] === 'en préparation'): ?>
+                                <p style="display:center">-</p>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+
+                    <td style="text-align: center;"> 
+                        <a href="#detail-<?php echo $cmd['id_commande']; ?>" class="voir-profil-btn" >Détails</a>
+                        <div id="detail-<?php echo $cmd['id_commande']; ?>" class="modal-fond">
+                            <div class="modal-contenu">
+                                <h3>Commande <?php echo $cmd['id_commande']; ?></h3>
+                                <p>Type : <?php echo $cmd['type_livraison']; ?> | Date : <?php echo $cmd['date_heure']; ?></p>
+                                <hr>
+                                
+                                <div style="margin: 15px">
+                                    <h4 style="margin-bottom: 15px;">Articles à préparer :</h4>
+                                    <?php foreach ($cmd['contenu'] as $item): ?>
+                                        <strong><?php echo ($item['nom']); ?></strong>
+                                        <p>Note : <?php echo implode(', ', $item['options_choisies']); ?></p>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <div class="paiement">
+                                    <p><strong>Total :</strong> <?php echo number_format($cmd['paiement']['montant_total'], 2); ?> €</p>
+                                    <p><strong>Paiement :</strong> <?php echo strtoupper($cmd['paiement']['methode']); ?> <span style="color:#08a021"> <?php echo $cmd['paiement']['statut']; ?> </span> </p>
+                                    <?php if(!empty($cmd['adresse'])): ?>
+                                        <p><strong>Adresse :</strong> <?php echo ($cmd['adresse']); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                                <button > <a href=# style="color: white; text-decoration: none;">Fermer</a> </button>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <a href="notation.php" class="voir-profil-btn">Noter</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
-</footer>
+</main>
 
-</div>
-
-</html>
+<?php
+include 'includes/footer.php';
+?>

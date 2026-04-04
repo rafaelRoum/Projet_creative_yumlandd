@@ -16,26 +16,10 @@ function getNomClient($id, $liste) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Le Groin de Folie - Gestion des Commandes</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="groin_de_folie_icons.png">
-</head>
-
-<body>
-<div class="fond">
-
-<header class="top-menu">
-    <nav>
-        <a href="index.php">Accueil</a>
-        <a href="presentation.php">Présentation</a>
-        <a href="commandes.php">Commandes</a>
-        <a href="profil.php">Mon Profil</a>
-    </nav>
-</header>
+<?php
+$titre_page = "Commande - Le Groin de Folie";
+include 'includes/header.php';
+?>
 
 <main class="admin-cadre-placement">
     <div class="admin-cadre">
@@ -160,20 +144,6 @@ function getNomClient($id, $liste) {
     </div>
 </main>
 
-<footer>
-    <div class="footer-fond">
-        <div class="footer-col">
-            <h3>Le Groin de Folie</h3>
-            <p>Gestion simplifiée pour restaurateurs passionnés.</p>
-        </div>
-        <div class="footer-col">
-            <h3>Contact</h3>
-            <p>📍 12 rue du Jambon, Paris</p>
-            <p>📞 01 23 45 67 89</p>
-        </div>
-    </div>
-</footer>
-
-</div>
-</body>
-</html>
+<?php
+include 'includes/footer.php';
+?>
