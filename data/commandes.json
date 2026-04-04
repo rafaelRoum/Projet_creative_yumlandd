@@ -39,6 +39,7 @@
     "type_livraison": "livraison",
     "adresse": "Good morning",
     "livreur": "Rayane",
+    "id_livreur": "2",
     
     "contenu": [
       {
@@ -62,9 +63,10 @@
     "id_client": 4, 
     "statut": "terminée",
     "date_heure": "2026-03-18 12:30:00",
-    "type_livraison": "sur place",
-    "adresse": "",
-    "livreur": "",
+    "type_livraison": "livraison",
+    "adresse": "2 rue du port ",
+    "livreur": "Rayane",
+    "id_livreur": "2",
     
     "contenu": [
       {
@@ -96,7 +98,8 @@
     "date_heure": "2026-03-18 12:30:00",
     "type_livraison": "livraison",
     "adresse": "12 rue du Jambon, RDC",
-    "livreur": "",
+    "livreur": "Rayane",
+    "id_livreur": "2",
     
     "contenu": [
       {

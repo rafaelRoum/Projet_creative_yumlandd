@@ -12,7 +12,7 @@
         },
         "dates": {
             "inscription": "2026-18-03",
-            "derniere_connexion": "2026-04-04 15:03:59"
+            "derniere_connexion": "2026-04-04 16:38:55"
         },
         "statut": "Premium",
         "niveau de remise": 0,
@@ -21,7 +21,7 @@
     {
         "id": 2,
         "email": "rayane@gmail.com",
-        "mot_de_passe": "Can vol\u00e9 2025",
+        "mot_de_passe": "canvol2025",
         "role": "livreur",
         "informations": {
             "nom": "Houari",
@@ -31,7 +31,7 @@
         },
         "dates": {
             "inscription": "2026-03-18",
-            "derniere_connexion": "2026-04-04 13:40:59"
+            "derniere_connexion": "2026-04-04 16:40:17"
         },
         "statut": "Premium",
         "niveau de remise": 0,
@@ -69,7 +69,7 @@
         },
         "dates": {
             "inscription": "2026-03-18",
-            "derniere_connexion": "2026-04-04 15:42:26"
+            "derniere_connexion": "2026-04-04 15:59:49"
         },
         "statut": "Premium",
         "niveau de remise": 5,
@@ -286,18 +286,18 @@
     },
     {
         "id": 16,
-        "email": "a@gfda",
+        "email": "a@a",
         "mot_de_passe": "a",
-        "role": "client",
+        "role": "livreur",
         "informations": {
             "nom": "aa",
-            "prenom": "aeae",
+            "prenom": "aa",
             "naissance": "2026-04-15",
             "adresse": "aa"
         },
         "dates": {
             "inscription": "2026-04-04",
-            "derniere_connexion": "2026-04-04"
+            "derniere_connexion": "2026-04-04 16:21:31"
         },
         "statut": "Standard",
         "niveau de remise": 0,

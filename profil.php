@@ -160,7 +160,7 @@ include 'includes/header.php';
                             <?php if($cmd['statut'] === 'en préparation'): ?>
                                 <p>Non attribué</p>
                             <?php endif; ?>
-                            <?php if($cmd['statut'] === 'en livraison' || $cmd['statut'] === 'en livraison' ): ?>
+                            <?php if($cmd['statut'] === 'en livraison' || $cmd['statut'] === 'terminée' ): ?>
                                 <?php echo ($cmd['livreur']); ?>
                             <?php endif; ?>
                         <?php endif; ?>
@@ -169,8 +169,8 @@ include 'includes/header.php';
                             <?php if($cmd['statut'] === 'prêt'): ?>
                                 <p>A récuperer</p>
                             <?php endif; ?>
-                            <?php if($cmd['statut'] === 'en préparation'): ?>
-                                <p style="display:center">-</p>
+                            <?php if($cmd['statut'] === 'en préparation' || $cmd['statut'] === 'terminée'): ?>
+                                <p>-</p>
                             <?php endif; ?>
                         <?php endif; ?>
                     </td>
