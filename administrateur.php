@@ -119,7 +119,7 @@ include 'includes/header.php';
                                     <p><strong>Dernière connexion :</strong> <?php echo ($user['dates']['derniere_connexion']); ?></p>
                                 </div>
                                 <br>
-                                <button > <a href=administrateur.php style="color: white; text-decoration: none;">Fermer</a> </button>
+                                <button > <a href=# style="color: white; text-decoration: none;">Fermer</a> </button>
                             </div>
                         </div>
                     </td>

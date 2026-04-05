@@ -76,7 +76,6 @@ include 'includes/header.php';
                             
                             <div id="detail-<?php echo $cmd['id_commande']; ?>" class="modal-fond">
                                 <div class="modal-contenu">
-                                    <a href="#" class="fermer-modal">&times;</a>
                                     <h3 style="color: #5d7358;">Commande <?php echo $cmd['id_commande']; ?></h3>
                                     <hr>
                                     <div style="text-align: left; margin: 15px 0;">
@@ -91,7 +90,7 @@ include 'includes/header.php';
                                         </ul>
                                         <p><strong>Montant Total :</strong> <?php echo number_format($cmd['paiement']['montant_total'], 2); ?> €</p>
                                     </div>
-                                    <a href="#" class="btn-save-cmd" style="text-decoration: none; display: block;">Fermer</a>
+                                    <button > <a href=# style="color: white; text-decoration: none;">Fermer</a> </button>
                                 </div>
                             </div>
                         </td>

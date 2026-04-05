@@ -33,13 +33,13 @@
         <?php elseif ($_SESSION['role'] === 'restaurateur'): ?>
             <a href="index.php">Accueil</a>
             <a href="presentation.php">Présentation</a>
-            <a href="commandes.php">Commandes à préparer</a>
+            <a href="commandes.php">Commandes</a>
             <a href="profil.php">Mon Profil</a>
 
         <?php elseif ($_SESSION['role'] === 'livreur'): ?>
             <a href="index.php">Accueil</a>
             <a href="presentation.php">Présentation</a>
-            <a href="livraison.php">Commande en cours</a>
+            <a href="livraison.php">Livraison</a>
             <a href="profil.php">Mon Profil</a>
 
         <?php elseif ($_SESSION['role'] === 'client'): ?>
