@@ -100,6 +100,9 @@ include 'includes/header.php';
                             <?php if($cmd['statut'] === 'en livraison'): ?>
                                 <?php echo ($cmd['livreur']); ?>
                             <?php endif; ?>
+                            <?php if($cmd['statut'] === "terminée"): ?>
+                                <p> <?php echo$cmd['livreur'] ?> </p>
+                            <?php endif; ?>
                         <?php endif; ?>
                         <?php if ($cmd['type_livraison'] === 'sur place'): ?>
                             <p>Sur place</p>
@@ -129,7 +132,7 @@ include 'includes/header.php';
                                         <p><strong>Adresse :</strong> <?php echo ($cmd['adresse']); ?></p>
                                     <?php endif; ?>
                                 </div>
-                                <button > <a href=commande.php style="color: white; text-decoration: none;">Fermer</a> </button>
+                                    <a href="#!" class="btn-lien-paiement">Fermer</a> 
                             </div>
                         </div>
                     </td>

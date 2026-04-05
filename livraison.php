@@ -24,7 +24,7 @@ $titre_page = "Toutes mes livraisons";
 include 'includes/header.php';
 ?>
 
-<main class="admin-cadre-placement">
+<main class="admin-cadre-placement" style="margin-bottom: 15%">
     <div class="admin-cadre">
         <h2 class="france-ancien-livre">Mes commandes</h2>
         
@@ -90,7 +90,9 @@ include 'includes/header.php';
                                         </ul>
                                         <p><strong>Montant Total :</strong> <?php echo number_format($cmd['paiement']['montant_total'], 2); ?> €</p>
                                     </div>
-                                    <button > <a href=# style="color: white; text-decoration: none;">Fermer</a> </button>
+                                    <button> 
+                                        <a href="#!" style="color: white; text-decoration: none;">Fermer</a> 
+                                    </button>
                                 </div>
                             </div>
                         </td>

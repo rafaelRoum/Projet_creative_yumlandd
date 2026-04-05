@@ -29,11 +29,18 @@
             <a href="livraison.php">Livraison</a>
             <a href="notation.php">Notation</a>
             <a href="administrateur.php">Admin</a>
+            <?php
+            $nombre_articles_panier = 0;
+            if (isset($_SESSION['panier'])) {
+                $nombre_articles_panier = array_sum($_SESSION['panier']); // Additionne toutes les quantités
+                }
+            ?>
+            <a href="panier.php">Panier (<?php echo $nombre_articles_panier; ?>)</a>
 
         <?php elseif ($_SESSION['role'] === 'restaurateur'): ?>
             <a href="index.php">Accueil</a>
             <a href="presentation.php">Présentation</a>
-            <a href="commandes.php">Commandes</a>
+            <a href="commande.php">Commandes</a>
             <a href="profil.php">Mon Profil</a>
 
         <?php elseif ($_SESSION['role'] === 'livreur'): ?>

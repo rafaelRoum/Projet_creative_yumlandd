@@ -104,7 +104,7 @@ include 'includes/header.php';
                                 
                                 <h2>Fiche de <?php echo ($user['informations']['prenom']); ?></h2>
                                 <hr>
-                                <div class="infos-details">
+                                <div class="infos-details" style="margin-bottom: 10px">
                                     <p><strong>Identifiant :</strong> <?php echo ($user['id']); ?></p>                                    
                                     <p><strong>Nom :</strong> <?php echo strtoupper($user['informations']['nom']); ?></p>                                    
                                     <p><strong>Prénom :</strong> <?php echo ($user['informations']['prenom']); ?></p>                     
@@ -118,8 +118,7 @@ include 'includes/header.php';
                                     <p><strong>Date d'inscription :</strong> <?php echo ($user['dates']['inscription']); ?></p>
                                     <p><strong>Dernière connexion :</strong> <?php echo ($user['dates']['derniere_connexion']); ?></p>
                                 </div>
-                                <br>
-                                <button > <a href=# style="color: white; text-decoration: none;">Fermer</a> </button>
+                                    <a href="#!" class="btn-lien-paiement">Fermer</a> 
                             </div>
                         </div>
                     </td>

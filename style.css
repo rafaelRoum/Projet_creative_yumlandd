@@ -651,3 +651,114 @@ h1 {
 }
 
 
+/* Rend la div parente capable de contenir le lien absolu */
+.menu-cadre {
+    position: relative; 
+}
+
+/* Lien invisible qui s'étire sur 100% de la carte */
+.lien-carte-entiere {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Passe le formulaire au premier plan pour qu'on puisse toujours cliquer sur Ajouter et modifier la quantité */
+.form-ajout-groupe {
+    position: relative;
+    z-index: 2; 
+}
+
+/* --- AFFICHAGE MODALE PLAT --- */
+
+.modal-titre-plat {
+    margin: 0 0 5px 0;
+    font-size: 1.5rem;
+    color: #000;
+}
+
+.modal-categorie-plat {
+    color: #666;
+    margin-top: 0;
+    font-size: 0.9rem;
+}
+
+/* L'image prend toute la largeur avec un effet bannière cover */
+.modal-image-plat {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; 
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.modal-prix-plat {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4f6f4f;
+    margin: 20px 0;
+}
+
+/* Retire le soulignage bleu standard du lien dans le bouton */
+.btn-fermer {
+    color: #FFFFFF;
+    text-decoration: none;
+    display: block;
+}
+
+/* panier */
+
+.grille-options {
+    display: flex;
+    gap: 50px;
+}
+
+.colonne-choix {
+    flex: 1;
+}
+
+.option-label {
+    display: block;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option-label:hover {
+    border-color: #5d7358;
+}
+
+
+/* --- SECTION VALIDATION PANIER --- */
+
+.conteneur-validation {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Transforme le lien en un faux bouton qui reprend tes couleurs */
+.btn-lien-paiement {
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    background-color: #4f6f4f;
+    color: #FFFFFF;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    box-sizing: border-box; /* Évite que le padding ne casse la largeur */
+    text-align: center;
+}
+
+.btn-lien-paiement:hover {
+    background-color: #3e5a3e;
+}

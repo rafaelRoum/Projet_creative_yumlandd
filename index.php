@@ -16,13 +16,6 @@ include 'includes/header.php';
     </div>
 </div>
 
-<div class="recherche-placement">
-    <form class="barre-recherche center-grid">
-        <input type="text" placeholder="Rechercher un plat, une envie..." />
-        <button type="submit">Rechercher</button>
-    </form>
-</div>
-
 <div class="categorie-placement placement-centre">
     <span class="categorie-badge">🌟 Plat du jour</span>
 </div>

@@ -30,6 +30,8 @@
                <a href="livraison.php">Livraison</a>
                <a href="notation.php">Notation</a>
                <a href="administrateur.php">Admin</a>
+               <a href="panier.php">Panier </a>
+
 
            <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'restaurateur'): ?>
                <a href="commandes.php">Commandes à préparer</a>

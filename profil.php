@@ -116,7 +116,7 @@ include 'includes/header.php';
 
 <main class="admin-cadre-placement">
     <div class="admin-cadre">
-        <h2 class="france-ancien-livre">Historique des commandes</h2>
+        <h2 id="commandes"class="france-ancien-livre">Historique des commandes</h2>
         
         <table class="tab-utilisateur" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <thead>
@@ -198,7 +198,7 @@ include 'includes/header.php';
                                         <p><strong>Adresse :</strong> <?php echo ($cmd['adresse']); ?></p>
                                     <?php endif; ?>
                                 </div>
-                                <button > <a href=# style="color: white; text-decoration: none;">Fermer</a> </button>
+                                    <a href="#!" class="btn-lien-paiement">Fermer</a> 
                             </div>
                         </div>
                     </td>
