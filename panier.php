@@ -14,6 +14,75 @@ if (isset($_POST['modifier_qte'])) {
     exit();
 }
 
+
+
+if (isset($_POST['valider_paiement'])) {
+    $fichier_commandes = 'data/commandes.json';
+    $commandes = file_exists($fichier_commandes) ? json_decode(file_get_contents($fichier_commandes), true) : [];
+    
+    $tous_les_plats = get_plats();
+    $contenu_commande = [];
+    $total = 0;
+
+    foreach ($_SESSION['panier'] as $id_plat => $qte) {
+        foreach ($tous_les_plats as $p) {
+            if ($p['id'] == $id_plat) {
+                $contenu_commande[] = [
+                    "type" => "plat",
+                    "id_item" => $p['id'],
+                    "nom" => $p['nom'],
+                    "options_choisies" => ["Quantité : " . $qte]
+                ];
+                $total += $p['prix'] * $qte;
+                break;
+            }
+        }
+    }
+
+    $adresse_client = "";
+    if ($_POST['type_livraison'] === 'livraison') {
+        $utils = file_exists('data/utilisateurs.json') ? json_decode(file_get_contents('data/utilisateurs.json'), true) : [];
+        foreach($utils as $u) {
+            if(isset($_SESSION['id']) && $u['id'] == $_SESSION['id']) {
+                $adresse_client = $u['informations']['adresse'];
+                break;
+            }
+        }
+    }
+
+    $num = count($commandes) + 1;
+    $id_commande = "CMD-" . str_pad($num, 3, "0", STR_PAD_LEFT);
+
+    $nouvelle_commande = [
+        "id_commande" => $id_commande,
+        "id_client" => isset($_SESSION['id']) ? $_SESSION['id'] : 0,
+        "statut" => "en préparation",
+        "date_heure" => date("Y-m-d H:i:s"),
+        "type_livraison" => $_POST['type_livraison'] === 'emporter' ? 'sur place' : 'livraison',
+        "adresse" => $adresse_client,
+        "livreur" => "",
+        "id_livreur" => "",
+        "contenu" => $contenu_commande,
+        "paiement" => [
+            "statut" => "payé",
+            "methode" => "cy bank",
+            "transaction_api_id" => "CY-" . uniqid(),
+            "date_transaction" => date("Y-m-d H:i:s"),
+            "montant_total" => $total
+        ]
+    ];
+
+    // 5. On sauvegarde dans le JSON
+    $commandes[] = $nouvelle_commande;
+    file_put_contents($fichier_commandes, json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+    // 6. On vide le panier et on redirige !
+    unset($_SESSION['panier']);
+    header("Location: profil.php#commandes");
+    exit();
+}
+// ---------------------------------------------------------------
+
 $titre_page = "Mon Panier - Le Groin de Folie";
 include 'includes/header.php';
 $tous_les_plats = get_plats();
@@ -69,7 +138,7 @@ $total_commande = 0;
 
             <h3 class="france-ancien-livre" style="margin-bottom:25px;">Validation de la commande</h3>
             
-            <form action="profil.php#commandes" method="POST">
+            <form method="POST">
                 <div class="grille-options">
                     
                     <div class="colonne-choix">
@@ -114,7 +183,7 @@ $total_commande = 0;
                             <p>Total à régler : <strong><?= number_format($total_commande, 2) ?> €</strong></p>
                         </div>
                         
-                        <button type="submit">Payer avec CY Bank</button>
+                        <button type="submit" name="valider_paiement">Payer avec CY Bank</button>
                         
                         <button type="button"> 
                             <a href="#!" class="btn-fermer">Fermer</a> 

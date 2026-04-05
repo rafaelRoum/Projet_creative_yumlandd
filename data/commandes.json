@@ -1,127 +1,289 @@
 [
-  {
-    "id_commande": "CMD-001",
-    "id_client": 4, 
-    "statut": "en préparation",
-    "date_heure": "2026-03-18 12:30:00",
-    "type_livraison": "sur place",
-    "adresse": "",
-    "livreur": "",
-    
-    "contenu": [
-      {
-        "type": "menu",
-        "id_item": 1,
-        "nom": "Menu Express Midi",
-        "options_choisies": ["Sans oignons dans la quiche"]
-      },
-      {
-        "type": "plat",
-        "id_item": 12,
-        "nom": "Fondant Chocolat",
-        "options_choisies": ["Aucune"]
-      }
-    ],
-
-    "paiement": {
-      "statut": "payé",
-      "methode": "carte_bancaire",
-      "transaction_api_id": "CYBank-001",
-      "date_transaction": "2026-03-18 12:32:00",
-      "montant_total": 33.00
-    }
-  },
     {
-    "id_commande": "CMD-002",
-    "id_client": 2, 
-    "statut": "en livraison",
-    "date_heure": "2026-03-19 19:30:00",
-    "type_livraison": "livraison",
-    "adresse": "Good morning",
-    "livreur": "Rayane",
-    "id_livreur": "2",
-    
-    "contenu": [
-      {
-        "type": "menu",
-        "id_item": 2,
-        "nom": "Le Festin du Cochon",
-        "options_choisies": [""]
-      }
-    ],
-
-    "paiement": {
-      "statut": "payé",
-      "methode": "carte_bancaire",
-      "transaction_api_id": "CYBank-002",
-      "date_transaction": "2026-03-20 19:32:00",
-      "montant_total": 45.00
-    }
-  },
+        "id_commande": "CMD-001",
+        "id_client": 4,
+        "statut": "en préparation",
+        "date_heure": "2026-03-18 12:30:00",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "contenu": [
+            {
+                "type": "menu",
+                "id_item": 1,
+                "nom": "Menu Express Midi",
+                "options_choisies": [
+                    "Sans oignons dans la quiche"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 12,
+                "nom": "Fondant Chocolat",
+                "options_choisies": [
+                    "Aucune"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "carte_bancaire",
+            "transaction_api_id": "CYBank-001",
+            "date_transaction": "2026-03-18 12:32:00",
+            "montant_total": 33
+        }
+    },
     {
-    "id_commande": "CMD-003",
-    "id_client": 4, 
-    "statut": "terminée",
-    "date_heure": "2026-03-18 12:30:00",
-    "type_livraison": "livraison",
-    "adresse": "2 rue du port ",
-    "livreur": "Rayane",
-    "id_livreur": "2",
-    
-    "contenu": [
-      {
-        "type": "menu",
-        "id_item": 1,
-        "nom": "Menu Express Midi",
-        "options_choisies": ["Sans oignons dans la quiche"]
-      },
-      {
-        "type": "plat",
-        "id_item": 12,
-        "nom": "Fondant Chocolat",
-        "options_choisies": ["Aucune"]
-      }
-    ],
-
-    "paiement": {
-      "statut": "payé",
-      "methode": "carte_bancaire",
-      "transaction_api_id": "CYBank-001",
-      "date_transaction": "2026-03-18 12:32:00",
-      "montant_total": 33.00
+        "id_commande": "CMD-002",
+        "id_client": 2,
+        "statut": "en livraison",
+        "date_heure": "2026-03-19 19:30:00",
+        "type_livraison": "livraison",
+        "adresse": "Good morning",
+        "livreur": "Rayane",
+        "id_livreur": "2",
+        "contenu": [
+            {
+                "type": "menu",
+                "id_item": 2,
+                "nom": "Le Festin du Cochon",
+                "options_choisies": [
+                    ""
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "carte_bancaire",
+            "transaction_api_id": "CYBank-002",
+            "date_transaction": "2026-03-20 19:32:00",
+            "montant_total": 45
+        }
+    },
+    {
+        "id_commande": "CMD-003",
+        "id_client": 4,
+        "statut": "terminée",
+        "date_heure": "2026-03-18 12:30:00",
+        "type_livraison": "livraison",
+        "adresse": "2 rue du port ",
+        "livreur": "Rayane",
+        "id_livreur": "2",
+        "contenu": [
+            {
+                "type": "menu",
+                "id_item": 1,
+                "nom": "Menu Express Midi",
+                "options_choisies": [
+                    "Sans oignons dans la quiche"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 12,
+                "nom": "Fondant Chocolat",
+                "options_choisies": [
+                    "Aucune"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "carte_bancaire",
+            "transaction_api_id": "CYBank-001",
+            "date_transaction": "2026-03-18 12:32:00",
+            "montant_total": 33
+        }
+    },
+    {
+        "id_commande": "CMD-004",
+        "id_client": 4,
+        "statut": "prêt",
+        "date_heure": "2026-03-18 12:30:00",
+        "type_livraison": "livraison",
+        "adresse": "12 rue du Jambon, RDC",
+        "livreur": "Rayane",
+        "id_livreur": "2",
+        "contenu": [
+            {
+                "type": "menu",
+                "id_item": 1,
+                "nom": "Menu Express Midi",
+                "options_choisies": [
+                    "Sans oignons dans la quiche"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 12,
+                "nom": "Fondant Chocolat",
+                "options_choisies": [
+                    "Aucune"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "carte_bancaire",
+            "transaction_api_id": "CYBank-001",
+            "date_transaction": "2026-03-18 12:32:00",
+            "montant_total": 33
+        }
+    },
+    {
+        "id_commande": "CMD-005",
+        "id_client": 1,
+        "statut": "en préparation",
+        "date_heure": "2026-04-05 14:21:49",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 4,
+                "nom": "Foie Gras",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-69d26ffd88133",
+            "date_transaction": "2026-04-05 14:21:49",
+            "montant_total": 12
+        }
+    },
+    {
+        "id_commande": "CMD-006",
+        "id_client": 1,
+        "statut": "en préparation",
+        "date_heure": "2026-04-05 14:23:02",
+        "type_livraison": "livraison",
+        "adresse": "Good Morning 3eme étage",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 1,
+                "nom": "Planche Charcuterie",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 3,
+                "nom": "Œufs Mimosa",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 8,
+                "nom": "Saucisse Lentilles",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 24,
+                "nom": "Potatoes",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 14,
+                "nom": "Tiramisu",
+                "options_choisies": [
+                    "Quantité : 1000"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-69d27046d9c0a",
+            "date_transaction": "2026-04-05 14:23:02",
+            "montant_total": 8050
+        }
+    },
+    {
+        "id_commande": "CMD-007",
+        "id_client": 1,
+        "statut": "en préparation",
+        "date_heure": "2026-04-05 14:23:33",
+        "type_livraison": "livraison",
+        "adresse": "Good Morning 3eme étage",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 3,
+                "nom": "Œufs Mimosa",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-69d27065d1eb1",
+            "date_transaction": "2026-04-05 14:23:33",
+            "montant_total": 8
+        }
+    },
+    {
+        "id_commande": "CMD-008",
+        "id_client": 1,
+        "statut": "en préparation",
+        "date_heure": "2026-04-05 15:03:30",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 1,
+                "nom": "Planche Charcuterie",
+                "options_choisies": [
+                    "Quantité : 2"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 3,
+                "nom": "Œufs Mimosa",
+                "options_choisies": [
+                    "Quantité : 20"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-69d279c29b111",
+            "date_transaction": "2026-04-05 15:03:30",
+            "montant_total": 178
+        }
     }
-  },
-      {
-    "id_commande": "CMD-004",
-    "id_client": 4, 
-    "statut": "prêt",
-    "date_heure": "2026-03-18 12:30:00",
-    "type_livraison": "livraison",
-    "adresse": "12 rue du Jambon, RDC",
-    "livreur": "Rayane",
-    "id_livreur": "2",
-    
-    "contenu": [
-      {
-        "type": "menu",
-        "id_item": 1,
-        "nom": "Menu Express Midi",
-        "options_choisies": ["Sans oignons dans la quiche"]
-      },
-      {
-        "type": "plat",
-        "id_item": 12,
-        "nom": "Fondant Chocolat",
-        "options_choisies": ["Aucune"]
-      }
-    ],
-
-    "paiement": {
-      "statut": "payé",
-      "methode": "carte_bancaire",
-      "transaction_api_id": "CYBank-001",
-      "date_transaction": "2026-03-18 12:32:00",
-      "montant_total": 33.00
-    }
-  }
 ]

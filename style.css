@@ -321,7 +321,8 @@ h1 {
     font-size:18px;
     font-weight:600;
     box-shadow:0 6px 15px rgba(0,0,0,0.25);
-    letter-spacing:1px;
+    letter-spacing:1px; 
+
 }
 
 
@@ -762,3 +763,69 @@ h1 {
 .btn-lien-paiement:hover {
     background-color: #3e5a3e;
 }
+
+
+
+
+
+/* Container de la carte */
+.menu-cadre {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 250px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin: 10px;
+}
+
+/* Image et Icône */
+.badge-vignette {
+    position: absolute; bottom: 8px; left: 8px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%; width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Textes */
+.menu-titre-plat { font-weight: bold; margin: 12px 10px 2px 10px; color: #333; }
+.menu-detail-plat { font-size: 0.85rem; color: #777; margin: 0 10px 15px 10px; }
+
+/* Formulaire et Quantité */
+.ligne-prix-quantite {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+/* Style de l'input quantité sans JS */
+.selecteur-quantite input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    border: 2px solid #5a7d5a;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #5a7d5a;
+    outline: none;
+}
+
+.prix-display { font-weight: bold; font-size: 1.1rem; color: #444; }
+
+/* Bouton Ajouter */
+.btn-ajouter-vert {
+    width: calc(100% - 20px);
+    margin: 0 10px 15px 10px;
+    background-color: #5a7d5a;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-ajouter-vert:hover { background-color: #456345; }
