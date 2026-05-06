@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title><?php echo isset($titre_page) ? $titre_page : "Le Groin de Folie"; ?></title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/groin_de_folie_icons.png">
+    <link rel="stylesheet" href="style.css" id="style">
+    <link id="icon" rel="icon" type="image/png" href="images/groin_de_folie_icons.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -18,6 +18,31 @@
             <a href="presentation.php">Présentation</a>
             <a href="connexion.php">Connexion</a>
             <a href="inscription.php">Inscription</a>
+            <div class="theme-change">
+                <button id="theme" onclick="basculerTheme()"> 🌙</button>
+            </div>
+            <script>
+                function basculerTheme() {
+    let lienCss = document.getElementById('style');
+    let bouton = document.getElementById('theme');
+    let nouveauTheme = "";
+    let icon = document.getElementById('icons');
+
+    if (lienCss.getAttribute("href") === "style.css") {
+        nouveauTheme = "sombre";
+        lienCss.href = "sombre.css";
+        bouton.innerHTML = "☀️"; 
+        icon.src = "images/groin_de_folie_icons-inverser.png"
+    } else {
+        nouveauTheme = "clair";
+        lienCss.href = "style.css";
+        bouton.innerHTML = "🌙"; 
+        icon.src = "images/groin_de_folie_icons.png"
+    }
+
+    document.cookie = "theme=" + nouveauTheme + "; max-age=" + (30*24*60*60) + "; path=/";
+}
+            </script>
 
         <?php elseif ($_SESSION['role'] === 'admin'): ?>
             <a href="index.php">Accueil</a>

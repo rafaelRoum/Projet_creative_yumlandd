@@ -285,5 +285,48 @@
             "date_transaction": "2026-04-05 15:03:30",
             "montant_total": 178
         }
+    },
+    {
+        "id_commande": "CMD-009",
+        "id_client": 1,
+        "statut": "en préparation",
+        "date_heure": "2026-04-10 14:05:14",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 7,
+                "nom": "Ribs de Porc",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 23,
+                "nom": "Frites",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 14,
+                "nom": "Tiramisu",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-69d8e77ab241c",
+            "date_transaction": "2026-04-10 14:05:14",
+            "montant_total": 35
+        }
     }
 ]

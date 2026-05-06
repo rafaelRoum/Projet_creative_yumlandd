@@ -8,7 +8,7 @@ include 'includes/header.php';
 <div class="entete">
     <div class="entete-gauche">
         <a href="presentation.php">
-            <img src="images/groin_de_folie_icons.png" alt="Logo Accueil" class="entete-logo">
+            <img id="icons" src="images/groin_de_folie_icons.png" alt="Logo Accueil" class="entete-logo">
         </a>
     </div>    
     <h1 class="france-ancien-livre entete-titre">Le Groin de Folie</h1>
