@@ -873,3 +873,281 @@ h1 {
         border: 2px solid #2ecc71;
         background-color: #f5fff7;
     }
+
+/* ─── COMPTEURS DE CARACTÈRES ─── */
+.compteur-chars {
+    font-size: 12px;
+    color: #aaa;
+    text-align: right;
+    display: block;
+    margin-top: 2px;
+}
+.compteur-chars.compteur-alerte {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+/* ─── PANNEAU FILTRES & TRIS ─── */
+.panneau-filtres {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    max-width: 1100px;
+    overflow: hidden;
+}
+.panneau-filtres > details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 24px;
+    font-weight: bold;
+    font-size: 1em;
+    color: #4a537d;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+.panneau-filtres > details > summary::-webkit-details-marker { display: none; }
+.panneau-filtres > details > summary::before {
+    content: "▶";
+    font-size: 0.75em;
+    transition: transform 0.2s;
+    color: #4a537d;
+}
+.panneau-filtres > details[open] > summary::before { content: "▼"; }
+.panneau-corps {
+    padding: 0 24px 20px;
+    border-top: 1px solid #eee;
+}
+.filtres-grille {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    padding-top: 18px;
+}
+.filtres-groupe h4 {
+    margin: 0 0 10px;
+    font-size: 0.78em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #3d4463;
+    font-weight: bold;
+}
+.filtres-groupe label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    font-size: 0.93em;
+    color: #333;
+}
+.filtres-groupe input[type="checkbox"] {
+    accent-color: #4a537d;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+.tris-separateur {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 16px 0 12px;
+}
+.tris-ligne {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.tris-ligne > span {
+    font-size: 0.82em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #3d4463;
+    margin-right: 4px;
+}
+.btn-tri {
+    padding: 7px 18px;
+    border: 2px solid #4a537d;
+    border-radius: 30px;
+    background: transparent;
+    color: #4a537d;
+    cursor: pointer;
+    font-size: 0.88em;
+    font-weight: bold;
+    transition: background 0.15s, color 0.15s;
+    width: auto;
+    margin-top: 0;
+}
+.btn-tri:hover, .btn-tri.actif {
+    background: #4a537d;
+    color: #fff;
+}
+#zone-plats-filtrés { min-height: 200px; }
+.msg-filtre-vide {
+    text-align: center;
+    padding: 50px;
+    color: #888;
+    font-size: 1.05em;
+}
+
+/* ─── BOUTONS MODALES & ACTIONS ─── */
+.btn-annuler {
+    background-color: #999;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    margin-right: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: auto;
+    margin-top: 0;
+}
+.btn-annuler:hover { background-color: #777; }
+
+.btn-valider-modale {
+    background-color: #4a537d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: auto;
+    margin-top: 0;
+}
+.btn-valider-modale:hover { background-color: #383f5e; }
+
+.btn-paiement-cy {
+    background: #4a537d;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+.btn-paiement-cy:hover { background: #383f5e; }
+
+.btn-save-cmd {
+    background-color: #4a537d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    width: auto;
+    margin-top: 0;
+}
+.btn-save-cmd:hover { background-color: #383f5e; }
+
+.btn-modifier-profil {
+    background-color: #4a537d;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    width: auto;
+    margin-top: 0;
+}
+.btn-modifier-profil:hover { background-color: #383f5e; }
+
+.btn-deco {
+    background-color: #c0392b;
+    width: auto;
+    padding: 10px 25px;
+}
+.btn-deco:hover { background-color: #a93226; }
+
+/* ─── STATUTS TEXTE ─── */
+.statut-texte-attente    { color: #e67e22; font-weight: bold; }
+.statut-texte-preparation { color: #2196F3; font-weight: bold; }
+.statut-texte-pret       { color: #ff9102; font-weight: bold; }
+.statut-texte-livraison  { color: #ff9102; font-weight: bold; }
+.statut-texte-termine    { color: #08a021; font-weight: bold; }
+.texte-dore   { color: #d4a017; font-weight: bold; }
+.texte-info   { color: #aaa; font-style: italic; }
+.texte-finalise { color: #08a021; font-weight: bold; }
+
+/* ─── LISTES CONTENU COMMANDE ─── */
+.liste-contenu { list-style: none; padding: 0; }
+.liste-item {
+    background: #f9f9f9;
+    margin-bottom: 5px;
+    padding: 8px;
+    border-left: 3px solid #545e82;
+}
+
+/* ─── MODALE LARGE ─── */
+.modal-contenu-large {
+    max-width: 600px;
+    width: 90%;
+}
+
+/* ─── EN-TÊTE DE TABLEAU ─── */
+.entete-tableau {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+/* ─── INPUTS & SELECTS ─── */
+.statut-select {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.select-alerte { border: 2px solid #ff9102 !important; }
+
+.input-modal {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+.input-qte-petite {
+    width: 55px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.input-qte-moyenne {
+    width: 60px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.textarea-modal {
+    width: 100%;
+    height: 70px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    resize: none;
+    box-sizing: border-box;
+}
+
+/* ─── MESSAGES ─── */
+.msg-paiement {
+    color: #e67e22;
+    font-weight: bold;
+    margin-top: 10px;
+    display: none;
+}
+.msg-erreur-champ {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-top: 6px;
+    display: none;
+}

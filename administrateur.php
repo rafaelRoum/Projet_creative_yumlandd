@@ -9,9 +9,6 @@ if (file_exists($fichier_json)) {
     $utilisateurs = json_decode($json_data, true) ?? [];
 }
 
-// =========================================================================
-//  PARTIE 1 : TRAITEMENTS ASYNCHRONES (AJAX)
-// =========================================================================
 $inputRaw = file_get_contents('php://input');
 $input = json_decode($inputRaw, true);
 
@@ -21,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action'])) {
     $id_user = $input['id_utilisateur'] ?? '';
     $mise_a_jour_ok = false;
 
-    // --- CAS A : MODIFICATION DES DROITS ---
     if ($input['action'] === 'changer_droit') {
         $nouveau_droit = $input['droit'] ?? '';
         $droits_autorises = ['normal', 'bloquer', 'desactiver'];
@@ -37,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action'])) {
         }
     }
 
-    // --- CAS B : MODIFICATION DU STATUT ---
     if ($input['action'] === 'changer_statut') {
         $nouveau_statut = $input['statut'] ?? '';
         $statuts_autorises = ['Standard', 'Premium', 'VIP'];
@@ -53,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action'])) {
         }
     }
 
-    // --- CAS C : MODIFICATION DE LA REMISE ---
     if ($input['action'] === 'changer_remise') {
         $nouvelle_remise = intval($input['remise'] ?? 0);
         
@@ -68,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action'])) {
         }
     }
 
-    // Sauvegarde globale si tout est bon
     if ($mise_a_jour_ok) {
         file_put_contents($fichier_json, json_encode($utilisateurs, JSON_PRETTY_PRINT));
         echo json_encode(['success' => true]);
@@ -183,18 +176,16 @@ include 'includes/header.php';
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Fonction globale pour envoyer les requêtes AJAX et afficher un feedback visuel (coche verte)
-    function envoyerModification(DonneesPayload, idUser, elementNotifId) {
+    function envoyerModification(donnees, idUser, idNotification) {
         fetch("", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(DonneesPayload)
+            body: JSON.stringify(donnees)
         })
-        .then(response => response.json())
+        .then(reponse => reponse.json())
         .then(data => {
             if (data.success) {
-                // Feedback visuel temporaire (coche verte)
-                const notif = document.getElementById(elementNotifId + idUser);
+                const notif = document.getElementById(idNotification + idUser);
                 if (notif) {
                     notif.style.display = "inline";
                     setTimeout(() => { notif.style.opacity = "0"; setTimeout(() => { notif.style.display = "none"; notif.style.opacity = "1"; }, 300); }, 1000);
@@ -203,13 +194,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Erreur : " + data.message);
             }
         })
-        .catch(error => {
-            console.error("Erreur:", error);
+        .catch(() => {
             alert("Erreur réseau lors de la mise à jour.");
         });
     }
 
-    // 1. Écouteur sur le changement de DROIT
     document.querySelectorAll(".select-droit").forEach(select => {
         select.addEventListener("change", function () {
             const idUser = this.getAttribute("data-id");
@@ -228,7 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 2. Écouteur sur le changement de STATUT
     document.querySelectorAll(".select-statut").forEach(select => {
         select.addEventListener("change", function () {
             const idUser = this.getAttribute("data-id");
@@ -244,7 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 3. Écouteur sur le changement de REMISE (se déclenche dès qu'on quitte ou change le nombre)
     document.querySelectorAll(".input-remise").forEach(input => {
         input.addEventListener("change", function () {
             const idUser = this.getAttribute("data-id");

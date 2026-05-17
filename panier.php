@@ -56,7 +56,7 @@ if (isset($_POST['valider_paiement'])) {
     $nouvelle_commande = [
         "id_commande" => $id_commande,
         "id_client" => isset($_SESSION['id']) ? $_SESSION['id'] : 0,
-        "statut" => "en préparation",
+        "statut" => "payée",
         "date_heure" => date("Y-m-d H:i:s"),
         "type_livraison" => $_POST['type_livraison'] === 'emporter' ? 'sur place' : 'livraison',
         "adresse" => $adresse_client,

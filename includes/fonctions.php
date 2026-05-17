@@ -1,5 +1,4 @@
 <?php
-// Fonction pour récupérer tous les plats depuis le fichier JSON
 function get_plats() {
     $fichier_json = 'data/plats.json';
     if (file_exists($fichier_json)) {

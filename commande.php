@@ -11,7 +11,6 @@ $livreurs = array_filter($utilisateurs, function($u) {
     return isset($u['role']) && $u['role'] === 'livreur';
 });
 
-// --- TRAITEMENT DE LA MISE À JOUR (CLIC ENREGISTRER) ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_modifier'])) {
     $id_commande_cible = $_POST['id_commande_modif'] ?? '';
     $nouveau_statut = $_POST['nouveau_statut'] ?? '';
@@ -22,26 +21,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_modifier'])) {
     foreach ($commandes as $index => $cmd) {
         if ($cmd['id_commande'] == $id_commande_cible) {
             
-            // ÉTAPE 1 : Si un livreur est sélectionné, le statut passe FORCÉMENT à "en livraison"
             if (!empty($id_livreur_choisi)) {
                 $commandes[$index]['statut'] = "en livraison";
-                // CORRECTION : On enregistre l'ID du livreur pour le lien dynamique
-                $commandes[$index]['id_livreur'] = $id_livreur_choisi; 
-                
-                // On cherche le nom du livreur pour l'enregistrer dans la commande
+                $commandes[$index]['id_livreur'] = $id_livreur_choisi;
                 foreach ($livreurs as $liv) {
                     if ($liv['id'] == $id_livreur_choisi) {
                         $commandes[$index]['livreur'] = htmlspecialchars($liv['informations']['prenom'] . " " . strtoupper($liv['informations']['nom']));
                         break;
                     }
                 }
-            } 
-            // ÉTAPE 2 : Sinon, on applique le changement de statut classique du sélecteur
-            else {
+            } else {
                 if (!empty($nouveau_statut)) {
                     $commandes[$index]['statut'] = $nouveau_statut;
-                    
-                    // Si on rétrograde le statut en préparation ou prête, on nettoie les liaisons livreurs
                     if ($nouveau_statut === "en préparation" || $nouveau_statut === "prête") {
                         $commandes[$index]['livreur'] = "";
                         $commandes[$index]['id_livreur'] = "";
@@ -61,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_modifier'])) {
     }
 }
 
-function getNomClient($id, $liste) {
+function obtenirNomClient($id, $liste) {
     foreach ($liste as $u) {
         if ($u['id'] == $id) return htmlspecialchars($u['informations']['prenom'] . " " . strtoupper($u['informations']['nom']));
     }
@@ -98,7 +89,7 @@ include 'includes/header.php';
 
                         <td><strong><?php echo $cmd['id_commande']; ?></strong></td>
 
-                        <td><?php echo getNomClient($cmd['id_client'], $utilisateurs); ?></td>
+                        <td><?php echo obtenirNomClient($cmd['id_client'], $utilisateurs); ?></td>
                         
                         <td>
                             <?php if ($cmd['type_livraison'] === 'livraison'): ?> 
@@ -124,7 +115,10 @@ include 'includes/header.php';
                                         <option value="prête">Prête (À servir)</option>
                                     </select>
                                 <?php elseif ($cmd['statut'] === 'prête'): ?>
-                                    <p style="color:#2ecc71; font-weight: bold;">Prêt pour le client</p>
+                                    <select name="nouveau_statut" class="statut-select">
+                                        <option value="prête" selected>Prête (À servir)</option>
+                                        <option value="terminée">Terminée</option>
+                                    </select>
                                 <?php endif; ?>
                             <?php endif; ?>
 
@@ -136,8 +130,7 @@ include 'includes/header.php';
                         <td>
                             <?php if ($cmd['type_livraison'] === 'livraison'): ?> 
                                 <?php if($cmd['statut'] === 'prête'): ?>
-                                    <!-- Le choix du livreur s'ouvre uniquement si la commande est prête -->
-                                    <select name="livreur_assigne" class="statut-select" style="border: 2px solid #ff9102;">
+                                                <select name="livreur_assigne" class="statut-select" style="border: 2px solid #ff9102;">
                                         <option value="">Choisir livreur...</option>
                                         <?php foreach ($livreurs as $liv): ?>
                                             <option value="<?php echo $liv['id']; ?>">
@@ -188,7 +181,6 @@ include 'includes/header.php';
                         </td>
 
                         <td>
-                            <!-- Laisse le bouton Enregistrer si la commande n'est ni finie, ni sur place-prête, pour permettre la bascule complète -->
                             <?php if ($cmd['statut'] !== 'terminée'): ?>
                                 <button type="submit" class="btn-save-cmd" style="cursor: pointer; padding: 5px 10px; font-weight: bold;">Enregistrer</button>
                             <?php endif; ?>

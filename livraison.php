@@ -26,9 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_livreur'])) {
             } 
             elseif ($statut_selectionne === "abandonnee") {
 
-                $commandes[$index]['statut'] = "prête"; 
-                $commandes[$index]['livreur'] = ""; // On efface le nom du livreur
-                $commandes[$index]['id_livreur'] = null; // On supprime l'ID du livreur
+                $commandes[$index]['statut'] = "prête";
+                $commandes[$index]['livreur'] = "";
+                $commandes[$index]['id_livreur'] = null;
             } 
             elseif ($statut_selectionne === "en livraison") {
                 $commandes[$index]['statut'] = "en livraison";
@@ -55,7 +55,7 @@ $mes_livraisons = array_filter($commandes, function($cmd) use ($mon_id, $mon_nom
     return ($correspondance_id || $correspondance_nom) && $cmd['type_livraison'] === 'livraison';
 });
 
-function getNomClient($id_client, $liste_utilisateurs) {
+function obtenirNomClient($id_client, $liste_utilisateurs) {
     foreach ($liste_utilisateurs as $u) {
         if ($u['id'] == $id_client) {
             return htmlspecialchars($u['informations']['prenom'] . " " . strtoupper($u['informations']['nom']));
@@ -100,7 +100,7 @@ include 'includes/header.php';
                             <td style="padding: 15px;"><strong><?php echo $cmd['id_commande']; ?></strong></td>
                             
                             <td>
-                                <strong><?php echo getNomClient($cmd['id_client'], $utilisateurs); ?></strong>
+                                <strong><?php echo obtenirNomClient($cmd['id_client'], $utilisateurs); ?></strong>
                             </td>
                             
                             <td>
