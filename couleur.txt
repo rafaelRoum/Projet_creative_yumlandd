@@ -46,3 +46,25 @@ noms plats et autres textes
 
 
 
+
+couleur inversé mode
+
+
+/* Couleurs principales */
+  --vert-principal: #4f6f4f;
+  --vert-hover: #3e5a3e;
+  
+  /* Navigation & Éléments bleus */
+  --bleu-navigation: #2196F3;
+  --bleu-hover: #1976D2;
+  
+  /* Dégradés */
+  --kaki-menu: #4a5e3d;
+  --kaki-menu-hover: #34422b;
+  --vert-sauge: #5f6f4f;
+  
+  /* Système & Accentuation */
+  --or-notation: #d4a017;
+  --jaune-commentaire: #fff9c4;
+  --orange-statut: #e65100;
+  --bordeaux-livraison: #8b2629;

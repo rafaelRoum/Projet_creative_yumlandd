@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "email": "n@n",
-        "mot_de_passe": "n",
+        "email": "n@n.c",
+        "mot_de_passe": "numance",
         "role": "admin",
         "informations": {
             "nom": "saint clair",
@@ -12,30 +12,30 @@
         },
         "dates": {
             "inscription": "2026-18-03",
-            "derniere_connexion": "2026-04-10 14:04:33"
+            "derniere_connexion": "2026-05-17 14:02:59"
         },
-        "statut": "Premium",
-        "niveau de remise": 0,
+        "statut": "VIP",
+        "niveau de remise": 25,
         "droit": "normal"
     },
     {
         "id": 2,
-        "email": "r@r",
-        "mot_de_passe": "r",
+        "email": "r@r.c",
+        "mot_de_passe": "rayanee",
         "role": "livreur",
         "informations": {
-            "nom": "Houari",
+            "nom": "Houarii",
             "prenom": "Rayane",
             "naissance": "1995-08-22",
             "adresse": "Good Morning 2nd \u00e9tage"
         },
         "dates": {
             "inscription": "2026-03-18",
-            "derniere_connexion": "2026-04-05 13:47:09"
+            "derniere_connexion": "2026-05-17 14:15:48"
         },
         "statut": "Premium",
         "niveau de remise": 0,
-        "droit": "normal"
+        "droit": "bloquer"
     },
     {
         "id": 3,

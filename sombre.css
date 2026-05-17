@@ -835,3 +835,41 @@ h1 {
 }
 
 .btn-ajouter-vert:hover { background-color: #434d6e; }
+
+    .champ-mdp {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .toggle-password {
+        position: absolute;
+        right: 12px;
+        cursor: pointer;
+        user-select: none;
+        width: 22px;
+        height: auto;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+    .toggle-password:hover {
+        opacity: 1;
+    }
+    .champ-mdp input {
+        padding-right: 40px !important;
+    }
+    
+    .msg-erreur-js {
+        color: #ff4d4d;
+        font-size: 13px;
+        margin-top: 5px;
+        font-weight: bold;
+        display: none;
+    }
+    .formulaire input.saisie-erreur {
+        border: 2px solid #ff4d4d;
+        background-color: #fff5f5;
+    }
+    .formulaire input.saisie-valide {
+        border: 2px solid #2ecc71;
+        background-color: #f5fff7;
+    }
