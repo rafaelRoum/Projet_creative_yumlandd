@@ -12,7 +12,7 @@
         },
         "dates": {
             "inscription": "2026-18-03",
-            "derniere_connexion": "2026-05-17 14:02:59"
+            "derniere_connexion": "2026-05-17 19:48:06"
         },
         "statut": "VIP",
         "niveau de remise": 25,
@@ -20,8 +20,8 @@
     },
     {
         "id": 2,
-        "email": "r@r.c",
-        "mot_de_passe": "rayanee",
+        "email": "r@r.com",
+        "mot_de_passe": "rayaneee",
         "role": "livreur",
         "informations": {
             "nom": "Houarii",
@@ -31,11 +31,11 @@
         },
         "dates": {
             "inscription": "2026-03-18",
-            "derniere_connexion": "2026-05-17 14:15:48"
+            "derniere_connexion": "2026-05-17 19:58:19"
         },
         "statut": "Premium",
         "niveau de remise": 0,
-        "droit": "bloquer"
+        "droit": "normal"
     },
     {
         "id": 3,
@@ -229,22 +229,23 @@
     },
     {
         "id": 13,
-        "email": "snu@g.com",
+        "email": "snug@gmail.co",
         "mot_de_passe": "azerty",
         "role": "client",
         "informations": {
             "nom": "azertyu",
-            "prenom": "iuytreza",
+            "prenom": "aeaea",
             "naissance": "2026-04-16",
             "adresse": "uytrez"
         },
         "dates": {
             "inscription": "2026-04-03",
-            "derniere_connexion": ""
+            "derniere_connexion": "2026-05-17 19:58:49"
         },
         "statut": "Standard",
         "niveau de remise": 0,
-        "droit": "normal"
+        "droit": "normal",
+        "avoir": 135
     },
     {
         "id": 14,
@@ -286,8 +287,8 @@
     },
     {
         "id": 16,
-        "email": "l@l",
-        "mot_de_passe": "l",
+        "email": "l@l.com",
+        "mot_de_passe": "llllll",
         "role": "livreur",
         "informations": {
             "nom": "aa",
@@ -297,7 +298,7 @@
         },
         "dates": {
             "inscription": "2026-04-04",
-            "derniere_connexion": "2026-04-05 12:29:18"
+            "derniere_connexion": "2026-05-17 19:57:40"
         },
         "statut": "Standard",
         "niveau de remise": 0,

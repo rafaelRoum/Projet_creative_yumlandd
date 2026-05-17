@@ -6,6 +6,7 @@
     "image": "images/charcuterie.png",
     "description": "Assortiment de nos meilleures charcuteries artisanales.",
     "prix": 9.00,
+    "tags": ["salé"],
     "informations": { "nutritionnelles": "550 kcal", "allergenes": ["Gluten (pain)"] }
   },
   {
@@ -15,6 +16,7 @@
     "image": "images/quiche.png",
     "description": "Quiche lorraine dorée au four, lardons fumés.",
     "prix": 9.00,
+    "tags": ["salé"],
     "informations": { "nutritionnelles": "400 kcal", "allergenes": ["Œufs", "Lait", "Gluten"] }
   },
   {
@@ -24,6 +26,7 @@
     "image": "images/oeuf_mimosa.png",
     "description": "Classique œuf dur fourré à la mayonnaise maison.",
     "prix": 8.00,
+    "tags": ["salé", "végétarien"],
     "informations": { "nutritionnelles": "250 kcal", "allergenes": ["Œufs", "Moutarde"] }
   },
   {
@@ -33,6 +36,7 @@
     "image": "images/fois_gras.png",
     "description": "Foie gras de canard mi-cuit, toast brioché et confiture de figues.",
     "prix": 12.00,
+    "tags": ["salé", "sucré"],
     "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Gluten"] }
   },
   {
@@ -42,6 +46,7 @@
     "image": "images/saumon_fume.png",
     "description": "Tranches de saumon fumé au bois de hêtre.",
     "prix": 12.00,
+    "tags": ["salé"],
     "informations": { "nutritionnelles": "300 kcal", "allergenes": ["Poisson"] }
   },
   {
@@ -51,6 +56,7 @@
     "image": "images/filetmignon.png",
     "description": "Filet mignon de porc tendre, sauce moutarde à l'ancienne.",
     "prix": 21.00,
+    "tags": ["salé"],
     "informations": { "nutritionnelles": "600 kcal", "allergenes": ["Moutarde", "Lait"] }
   },
   {
@@ -60,6 +66,7 @@
     "image": "images/ribs_porc.png",
     "description": "Travers de porc caramélisés au barbecue, frites maison.",
     "prix": 22.00,
+    "tags": ["salé", "épicé"],
     "informations": { "nutritionnelles": "850 kcal", "allergenes": ["Soja", "Céleri"] }
   },
   {
@@ -69,7 +76,8 @@
     "image": "images/saucisse_lentille.png",
     "description": "Plat traditionnel avec véritable saucisse de Morteau.",
     "prix": 19.00,
-    "informations": { "nutritionnelles": "650 kcal", "allergenes": ["Aucun"] }
+    "tags": ["salé"],
+    "informations": { "nutritionnelles": "650 kcal", "allergenes": [] }
   },
   {
     "id": 9,
@@ -78,7 +86,8 @@
     "image": "images/roti_porc.png",
     "description": "Tranches de rôti de porc moelleux avec ses petites pommes de terre.",
     "prix": 23.00,
-    "informations": { "nutritionnelles": "580 kcal", "allergenes": ["Aucun"] }
+    "tags": ["salé"],
+    "informations": { "nutritionnelles": "580 kcal", "allergenes": [] }
   },
   {
     "id": 10,
@@ -87,6 +96,7 @@
     "image": "images/pate_carbo.png",
     "description": "Véritables spaghettis carbonara au guanciale et pecorino.",
     "prix": 17.00,
+    "tags": ["salé"],
     "informations": { "nutritionnelles": "700 kcal", "allergenes": ["Gluten", "Œufs", "Lait"] }
   },
   {
@@ -96,6 +106,7 @@
     "image": "images/entrecote.png",
     "description": "Belle entrecôte grillée (300g), sauce au poivre.",
     "prix": 25.00,
+    "tags": ["salé", "épicé"],
     "informations": { "nutritionnelles": "800 kcal", "allergenes": ["Lait (sauce)"] }
   },
   {
@@ -105,6 +116,7 @@
     "image": "images/fondant.png",
     "description": "Cœur coulant au chocolat noir intense.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Œufs", "Lait", "Gluten"] }
   },
   {
@@ -114,6 +126,7 @@
     "image": "images/cheesecake.png",
     "description": "Cheesecake crémeux sur lit de spéculoos.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "500 kcal", "allergenes": ["Lait", "Gluten"] }
   },
   {
@@ -123,6 +136,7 @@
     "image": "images/tiramisu.png",
     "description": "Tiramisu traditionnel au café et mascarpone.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "420 kcal", "allergenes": ["Lait", "Œufs", "Gluten"] }
   },
   {
@@ -132,6 +146,7 @@
     "image": "images/paris_brest.png",
     "description": "Pâte à choux et crème mousseline pralinée.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "480 kcal", "allergenes": ["Gluten", "Lait", "Œufs", "Fruits à coque"] }
   },
   {
@@ -141,6 +156,7 @@
     "image": "images/gougere.png",
     "description": "Petits choux au fromage dorés au four.",
     "prix": 7.00,
+    "tags": ["salé", "végétarien"],
     "informations": { "nutritionnelles": "350 kcal", "allergenes": ["Lait", "Œufs", "Gluten"] }
   },
   {
@@ -150,6 +166,7 @@
     "image": "images/frommage.png",
     "description": "Sélection de nos meilleurs fromages affinés.",
     "prix": 9.00,
+    "tags": ["salé", "végétarien"],
     "informations": { "nutritionnelles": "400 kcal", "allergenes": ["Lait"] }
   },
   {
@@ -159,6 +176,7 @@
     "image": "images/salade.png",
     "description": "Salade fraîche de saison et sa vinaigrette maison.",
     "prix": 12.00,
+    "tags": ["salé", "végétarien", "vegan"],
     "informations": { "nutritionnelles": "200 kcal", "allergenes": ["Moutarde"] }
   },
   {
@@ -168,6 +186,7 @@
     "image": "images/chevre_chaud.png",
     "description": "Toasts de chèvre chaud sur lit de salade.",
     "prix": 8.00,
+    "tags": ["salé", "végétarien"],
     "informations": { "nutritionnelles": "380 kcal", "allergenes": ["Lait", "Gluten", "Moutarde"] }
   },
   {
@@ -177,6 +196,7 @@
     "image": "images/tartare.png",
     "description": "Tartare de bœuf préparé, câpres et oignons frais.",
     "prix": 19.00,
+    "tags": ["salé"],
     "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Œufs", "Moutarde"] }
   },
   {
@@ -186,7 +206,8 @@
     "image": "images/poulet_roti.png",
     "description": "Demi-poulet rôti fermier, jus au thym.",
     "prix": 18.00,
-    "informations": { "nutritionnelles": "550 kcal", "allergenes": ["Aucun"] }
+    "tags": ["salé"],
+    "informations": { "nutritionnelles": "550 kcal", "allergenes": [] }
   },
   {
     "id": 22,
@@ -195,6 +216,7 @@
     "image": "images/big_groin.png",
     "description": "Notre burger signature 100% cochon avec frites.",
     "prix": 18.00,
+    "tags": ["salé"],
     "informations": { "nutritionnelles": "800 kcal", "allergenes": ["Gluten", "Lait", "Sésame", "Œufs"] }
   },
   {
@@ -204,7 +226,8 @@
     "image": "images/frite.png",
     "description": "Portion de frites croustillantes faites maison.",
     "prix": 5.00,
-    "informations": { "nutritionnelles": "300 kcal", "allergenes": ["Aucun"] }
+    "tags": ["salé", "végétarien", "vegan"],
+    "informations": { "nutritionnelles": "300 kcal", "allergenes": [] }
   },
   {
     "id": 24,
@@ -213,7 +236,8 @@
     "image": "images/potatoes.png",
     "description": "Quartiers de pommes de terre épicés.",
     "prix": 5.00,
-    "informations": { "nutritionnelles": "320 kcal", "allergenes": ["Aucun"] }
+    "tags": ["salé", "végétarien", "vegan", "épicé"],
+    "informations": { "nutritionnelles": "320 kcal", "allergenes": [] }
   },
   {
     "id": 25,
@@ -222,6 +246,7 @@
     "image": "images/creme_brule.png",
     "description": "Crème vanille onctueuse et croûte de sucre caramélisé.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "400 kcal", "allergenes": ["Lait", "Œufs"] }
   },
   {
@@ -231,6 +256,7 @@
     "image": "images/tarte_tatin.png",
     "description": "La célèbre tarte aux pommes caramélisées inversée.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "350 kcal", "allergenes": ["Gluten", "Lait"] }
   },
   {
@@ -240,6 +266,7 @@
     "image": "images/millefeuille.png",
     "description": "Pâte feuilletée croustillante et crème pâtissière.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "450 kcal", "allergenes": ["Gluten", "Lait", "Œufs"] }
   },
   {
@@ -249,6 +276,7 @@
     "image": "images/ile_flotante.png",
     "description": "Blancs en neige sur crème anglaise, éclats de caramel.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "250 kcal", "allergenes": ["Œufs", "Lait"] }
   },
   {
@@ -258,6 +286,7 @@
     "image": "images/donut_choco.png",
     "description": "Beignet moelleux avec un glaçage gourmand au chocolat.",
     "prix": 8.00,
+    "tags": ["sucré", "végétarien"],
     "informations": { "nutritionnelles": "380 kcal", "allergenes": ["Gluten", "Lait", "Œufs"] }
   }
 ]
