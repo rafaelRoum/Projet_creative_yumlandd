@@ -2,7 +2,7 @@
     {
         "id_commande": "CMD-001",
         "id_client": 4,
-        "statut": "pr\u00eate",
+        "statut": "termin\u00e9e",
         "date_heure": "2026-03-18 12:30:00",
         "type_livraison": "sur place",
         "adresse": "",
@@ -133,7 +133,7 @@
     {
         "id_commande": "CMD-005",
         "id_client": 1,
-        "statut": "en pr\u00e9paration",
+        "statut": "termin\u00e9e",
         "date_heure": "2026-04-05 14:21:49",
         "type_livraison": "sur place",
         "adresse": "",
@@ -254,7 +254,7 @@
     {
         "id_commande": "CMD-008",
         "id_client": 1,
-        "statut": "en pr\u00e9paration",
+        "statut": "termin\u00e9e",
         "date_heure": "2026-04-05 15:03:30",
         "type_livraison": "sur place",
         "adresse": "",
@@ -289,7 +289,7 @@
     {
         "id_commande": "CMD-009",
         "id_client": 1,
-        "statut": "en pr\u00e9paration",
+        "statut": "termin\u00e9e",
         "date_heure": "2026-04-10 14:05:14",
         "type_livraison": "sur place",
         "adresse": "",
@@ -448,12 +448,12 @@
     {
         "id_commande": "CMD-014",
         "id_client": 1,
-        "statut": "pr\u00eate",
+        "statut": "termin\u00e9e",
         "date_heure": "2026-05-17 13:32:55",
         "type_livraison": "livraison",
         "adresse": "Good Morning 3eme \u00e9tage",
-        "livreur": "",
-        "id_livreur": null,
+        "livreur": "Rayane HOUARII",
+        "id_livreur": "2",
         "contenu": [
             {
                 "type": "plat",
@@ -470,6 +470,11 @@
             "transaction_api_id": "CY-6a09c387d1631",
             "date_transaction": "2026-05-17 13:32:55",
             "montant_total": 9
+        },
+        "notation": {
+            "note_livraison": 5,
+            "note_produits": 4,
+            "commentaire": "parfait"
         }
     },
     {
@@ -519,7 +524,7 @@
                 "id_item": 1,
                 "nom": "Planche Charcuterie",
                 "options_choisies": [
-                    "Quantit\u00e9 : 1"
+                    "Quantit\u00e9 : 3"
                 ]
             }
         ],
@@ -528,7 +533,7 @@
             "methode": "cy bank",
             "transaction_api_id": "CY-6a0a153bc9606",
             "date_transaction": "2026-05-17 19:21:31",
-            "montant_total": 9
+            "montant_total": 27
         }
     },
     {
@@ -658,6 +663,205 @@
             "transaction_api_id": "CY-6a0a1bdb8f519",
             "date_transaction": "2026-05-17 19:49:47",
             "montant_total": 9
+        }
+    },
+    {
+        "id_commande": "CMD-021",
+        "id_client": 17,
+        "statut": "pay\u00e9e",
+        "date_heure": "2026-05-21 23:19:08",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 3,
+                "nom": "\u0152ufs Mimosa",
+                "options_choisies": [
+                    "Quantit\u00e9 : 2"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "pay\u00e9",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-6a0f92ecf3905",
+            "date_transaction": "2026-05-21 23:19:08",
+            "montant_total": 16
+        }
+    },
+    {
+        "id_commande": "CMD-022",
+        "id_client": 1,
+        "statut": "termin\u00e9e",
+        "date_heure": "2026-05-29 11:19:52",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 3,
+                "nom": "\u0152ufs Mimosa",
+                "options_choisies": [
+                    "Quantit\u00e9 : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "pay\u00e9",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-6a19765846f09",
+            "date_transaction": "2026-05-29 11:19:52",
+            "montant_total": 8
+        }
+    },
+    {
+        "id_commande": "CMD-023",
+        "id_client": 1,
+        "statut": "termin\u00e9e",
+        "date_heure": "2026-05-31 10:05:31",
+        "type_livraison": "livraison",
+        "adresse": "Good Morning 3eme \u00e9tage",
+        "livreur": "Rayane HOUARII",
+        "id_livreur": "2",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantit\u00e9 : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "pay\u00e9",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-6a1c07ebb0546",
+            "date_transaction": "2026-05-31 10:05:31",
+            "montant_total": 9
+        },
+        "notation": {
+            "note_livraison": 5,
+            "note_produits": 5,
+            "commentaire": "tres bon"
+        }
+    },
+    {
+        "id_commande": "CMD-024",
+        "id_client": 1,
+        "statut": "termin\u00e9e",
+        "date_heure": "2026-05-31 10:21:44",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantit\u00e9 : 3"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "pay\u00e9",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-6a1c0bb8c17d6",
+            "date_transaction": "2026-05-31 10:21:44",
+            "montant_brut": 27,
+            "remise_appliquee": 25,
+            "montant_total": 20.25
+        },
+        "notation": {
+            "note_livraison": 5,
+            "note_produits": 4,
+            "commentaire": "tres beau lieu"
+        }
+    },
+    {
+        "id_commande": "CMD-025",
+        "id_client": 1,
+        "statut": "termin\u00e9e",
+        "date_heure": "2026-05-31 10:35:03",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantit\u00e9 : 5"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 1,
+                "nom": "Planche Charcuterie",
+                "options_choisies": [
+                    "Quantit\u00e9 : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "pay\u00e9",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-6a1c0ed73f184",
+            "date_transaction": "2026-05-31 10:35:03",
+            "montant_brut": 54,
+            "remise_appliquee": 22,
+            "montant_total": 42.12
+        },
+        "notation": {
+            "note_livraison": 5,
+            "note_produits": 5,
+            "commentaire": "succulent"
+        }
+    },
+    {
+        "id_commande": "CMD-026",
+        "id_client": 1,
+        "statut": "termin\u00e9e",
+        "date_heure": "2026-05-31 10:36:02",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantit\u00e9 : 4"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 1,
+                "nom": "Planche Charcuterie",
+                "options_choisies": [
+                    "Quantit\u00e9 : 2"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "pay\u00e9",
+            "methode": "cy bank",
+            "transaction_api_id": "CY-6a1c0f1222bd9",
+            "date_transaction": "2026-05-31 10:36:02",
+            "montant_brut": 54,
+            "remise_appliquee": 22,
+            "montant_total": 42.12
         }
     }
 ]

@@ -54,7 +54,6 @@ $texteBouton = ($themeActuel === 'sombre.css') ? '☀️' : '🌙';
             <a href="profil.php">Profil</a>
             <a href="commande.php">Commande</a>
             <a href="livraison.php">Livraison</a>
-            <a href="notation.php">Notation</a>
             <a href="administrateur.php">Admin</a>
             <?php
             $nombre_articles_panier = 0;

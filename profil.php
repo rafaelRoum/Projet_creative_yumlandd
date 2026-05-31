@@ -50,6 +50,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input) {
 
         if ($cmd_trouvee) {
             file_put_contents($fichier_json_commandes, json_encode($toutes_les_cmd, JSON_PRETTY_PRINT));
+
+            // Ajouter directement dans notations.json
+            $fichier_notations = 'data/notations.json';
+            $notations = file_exists($fichier_notations)
+                ? json_decode(file_get_contents($fichier_notations), true) ?? []
+                : [];
+
+            $cmd_notee = $toutes_les_cmd[$index];
+            $notations[] = [
+                'id_commande'    => $id_cmd,
+                'type_livraison' => $cmd_notee['type_livraison'],
+                'note_produits'  => $note_produits,
+                'note_livraison' => $cmd_notee['type_livraison'] === 'livraison' ? $note_livraison : null,
+                'commentaire'    => $commentaire,
+                'date'           => date('Y-m-d'),
+            ];
+
+            file_put_contents($fichier_notations, json_encode($notations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Commande introuvable.']);
@@ -195,9 +214,9 @@ include 'includes/header.php';
             <input type="text" id="input-nouvelle-valeur" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-bottom: 15px;">
             <p id="msg-erreur-ajax" style="color: red; font-weight: bold; display: none;"></p>
         </div>
-        <div style="text-align: right;">
-            <button type="button" id="btn-annuler-profil" style="background-color: #999; color: white; border: none; padding: 8px 15px; border-radius: 4px; margin-right: 5px; cursor: pointer; font-weight: bold;">Annuler</button>
-            <button type="button" id="btn-valider-profil" class="btn-valider-modale" style="color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">Valider</button>
+        <div style="margin-top: 20px;">
+            <button type="button" id="btn-annuler-profil" style="background-color: #999; color: white; border: none; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 10px;">Annuler</button>
+            <button type="button" id="btn-valider-profil" class="btn-valider-modale" style="display: block; width: 100%; padding: 10px 25px;">Valider</button>
         </div>
     </div>
 </div>
@@ -229,9 +248,13 @@ include 'includes/header.php';
         
         <p id="msg-erreur-notation" style="color: red; font-weight: bold; display: none; text-align: left;"></p>
 
-        <div style="text-align: right; margin-top: 15px;">
-            <button type="button" id="btn-annuler-notation" style="background-color: #999; color: white; border: none; padding: 8px 15px; border-radius: 4px; margin-right: 5px; cursor: pointer; font-weight: bold;">Annuler</button>
-            <button type="button" id="btn-valider-notation" class="btn-valider-modale" style="color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">Envoyer ma note</button>
+        <div class="modal-buttons">
+            <button type="button" id="btn-valider-notation" class="btn-modal btn-valider">
+                Envoyer ma note
+            </button>
+            <button type="button" id="btn-annuler-notation" class="btn-modal btn-annuler">
+                Annuler
+            </button>
         </div>
     </div>
 </div>
@@ -247,7 +270,7 @@ include 'includes/header.php';
                     <th>Date</th>
                     <th>Statut</th>
                     <th>Livreur/Récupérer</th>
-                    <th>Détails</th>
+                    <th>Actions</th>
                     <th>Noter</th>
                 </tr>
             </thead>
@@ -285,16 +308,14 @@ include 'includes/header.php';
                         <?php endif; ?>
                     </td>
                     <td style="text-align: center;">
-                        <a href="#detail-<?php echo $cmd['id_commande']; ?>" class="voir-profil-btn">Détails</a>
+                        <div style="margin-bottom: 5px;">
+                            <a href="#detail-<?php echo $cmd['id_commande']; ?>" class="voir-profil-btn">Détails</a>
+                        </div>
 
                         <?php if ($cmd['statut'] === 'payée'): ?>
-                        <button type="button" class="voir-profil-btn btn-modifier-commande"
-                                style="margin-left:6px; background:#e67e22;"
-                                data-id="<?php echo $cmd['id_commande']; ?>"
-                                data-contenu="<?php echo htmlspecialchars(json_encode($cmd['contenu']), ENT_QUOTES); ?>"
-                                data-total="<?php echo $cmd['paiement']['montant_total']; ?>">
-                            Modifier
-                        </button>
+                        <div>
+                            <a href="#" class="voir-profil-btn btn-modifier-commande" data-id="<?php echo $cmd['id_commande']; ?>" data-contenu="<?php echo htmlspecialchars(json_encode($cmd['contenu']), ENT_QUOTES); ?>" data-total="<?php echo $cmd['paiement']['montant_total']; ?>">Modifier</a>
+                        </div>
                         <?php endif; ?>
 
                         <div id="detail-<?php echo $cmd['id_commande']; ?>" class="modal-fond">
@@ -327,11 +348,12 @@ include 'includes/header.php';
                             </span>
                         <?php else: ?>
                             <?php if ($cmd['statut'] === 'terminée'): ?>
-                                <button type="button" class="voir-profil-btn btn-ouvrir-notation" 
-                                        data-id="<?php echo $cmd['id_commande']; ?>" 
-                                        data-type="<?php echo $cmd['type_livraison']; ?>">
-                                    Noter
-                                </button>
+<a href="#" 
+   class="voir-profil-btn btn-ouvrir-notation" 
+   data-id="<?php echo $cmd['id_commande']; ?>" 
+   data-type="<?php echo $cmd['type_livraison']; ?>">
+   Noter
+</a>
                             <?php else: ?>
                                 <span style="color:#999; font-style:italic;">En attente</span>
                             <?php endif; ?>
@@ -345,17 +367,35 @@ include 'includes/header.php';
 </main>
 
 
-<!-- Modal modification de commande -->
 <div id="modal-modifier-commande" class="modal-fond" style="display:none; visibility:visible; opacity:1;">
     <div class="modal-contenu" style="max-width:600px; width:90%;">
         <h3 style="text-align:left;">Modifier la commande <span id="mc-id-cmd"></span></h3>
         <hr>
-        <div id="mc-liste-items" style="margin:15px 0;"></div>
+        <?php $remise_profil = intval($mon_profil['niveau de remise'] ?? 0); ?>
 
-        <div style="margin:15px 0; border-top:1px solid #eee; padding-top:12px;">
-            <strong>Ajouter un plat :</strong>
+        <?php if ($remise_profil > 0): ?>
+            <div style="background:#f0f7ee; border-left:4px solid #5d7358; padding:8px 12px; border-radius:4px; margin-bottom:12px;">
+                <strong style="color:#5d7358;">Réduction <?= htmlspecialchars($mon_profil['statut'] ?? '') ?> : -<?= $remise_profil ?>% appliquée</strong>
+            </div>
+        <?php endif; ?>
+
+        <table style="width:100%; border-collapse:collapse; margin-bottom:12px;">
+            <thead>
+                <tr style="background:#f2f2f2; text-align:left; font-size:13px;">
+                    <th style="padding:8px;">Plat</th>
+                    <th style="padding:8px;">Prix unit.</th>
+                    <th style="padding:8px;">Quantité</th>
+                    <th style="padding:8px;">Sous-total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="mc-liste-items"></tbody>
+        </table>
+
+        <div style="border-top:1px solid #eee; padding-top:12px; margin-bottom:12px;">
+            <strong style="font-size:13px;">Ajouter un plat :</strong>
             <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
-                <select id="mc-select-plat" style="flex:1; padding:6px; border:1px solid #ccc; border-radius:4px;">
+                <select id="mc-select-plat" style="flex:1; padding:6px; border:1px solid #ccc; border-radius:4px; font-size:13px;">
                     <?php foreach ($tous_les_plats_profil as $p): ?>
                     <option value="<?= $p['id'] ?>" data-prix="<?= $p['prix'] ?>" data-nom="<?= htmlspecialchars($p['nom']) ?>">
                         <?= htmlspecialchars($p['nom']) ?> — <?= number_format($p['prix'], 2, ',', ' ') ?> €
@@ -367,21 +407,26 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <div style="margin-top:14px; font-size:1.1em;">
-            <strong>Total : <span id="mc-total">0,00</span> €</strong>
+        <div style="margin:16px 0 8px 0;">
+            <?php if ($remise_profil > 0): ?>
+                <p id="mc-total-brut" style="color:#999; text-decoration:line-through; margin:0; font-size:13px;">0,00 €</p>
+            <?php endif; ?>
+            <h3 style="margin:4px 0;"><strong>Total : <span id="mc-total">0,00</span> €</strong></h3>
+            <?php if ($remise_profil > 0): ?>
+                <p id="mc-economie" style="color:#5d7358; font-size:13px; font-weight:bold; margin:2px 0 0 0;">Économie : 0,00 €</p>
+            <?php endif; ?>
         </div>
 
         <p id="mc-msg-paiement" style="color:#e67e22; font-weight:bold; margin-top:10px; display:none;"></p>
         <p id="mc-msg-erreur"   style="color:#e74c3c; font-weight:bold; margin-top:6px;  display:none;"></p>
 
-        <div style="text-align:right; margin-top:18px;">
-            <button type="button" id="mc-btn-annuler" style="background:#999; color:#fff; border:none; padding:8px 15px; border-radius:4px; margin-right:6px; cursor:pointer; font-weight:bold;">Annuler</button>
-            <button type="button" id="mc-btn-valider" class="btn-valider-modale" style="color:#fff; border:none; padding:8px 15px; border-radius:4px; cursor:pointer; font-weight:bold;">Valider les modifications</button>
+        <div style="margin-top:18px;">
+            <button type="button" id="mc-btn-annuler" style="background:#999; color:#fff; border:none; padding:10px; border-radius:4px; cursor:pointer; font-weight:bold; width:100%; margin-bottom:10px;">Annuler</button>
+            <button type="button" id="mc-btn-valider" class="btn-valider-modale" style="color:#fff; border:none; padding:10px; border-radius:4px; cursor:pointer; font-weight:bold; width:100%;">Valider les modifications</button>
         </div>
     </div>
 </div>
 
-<!-- Modal paiement supplément (commande plus chère) -->
 <div id="modal-paiement-supplement" class="modal-fond" style="display:none; visibility:visible; opacity:1;">
     <div class="modal-contenu">
         <h2>Paiement sécurisé</h2>
@@ -396,7 +441,6 @@ include 'includes/header.php';
     </div>
 </div>
 
-<!-- Modal remboursement (commande moins chère) -->
 <div id="modal-remboursement" class="modal-fond" style="display:none; visibility:visible; opacity:1;">
     <div class="modal-contenu" style="text-align:center;">
         <h2 style="color:#4f6f4f;">Remboursement en cours</h2>
@@ -612,32 +656,53 @@ document.addEventListener("DOMContentLoaded", function () {
     let mcBtnActif   = null;
     let mcItems = [];
 
+    const MC_REMISE = <?= intval($mon_profil['niveau de remise'] ?? 0) ?>;
+    const mcTotalBrut  = document.getElementById('mc-total-brut');
+    const mcEconomie   = document.getElementById('mc-economie');
+
     function recalculerTotal() {
-        const total = mcItems.reduce((s, it) => s + it.prix * it.quantite, 0);
-        mcTotal.textContent = total.toFixed(2).replace('.', ',');
-        return total;
+        const brut   = mcItems.reduce((s, it) => s + it.prix * it.quantite, 0);
+        const remise = brut * (1 - MC_REMISE / 100);
+        mcTotal.textContent = remise.toFixed(2).replace('.', ',');
+        if (mcTotalBrut) mcTotalBrut.textContent = brut.toFixed(2).replace('.', ',') + ' €';
+        if (mcEconomie)  mcEconomie.textContent  = 'Économie : ' + (brut - remise).toFixed(2).replace('.', ',') + ' €';
+        return remise;
     }
 
     function afficherItems() {
         mcListe.innerHTML = '';
         mcItems.forEach((it, idx) => {
-            const row = document.createElement('div');
-            row.style.cssText = 'display:flex; align-items:center; gap:10px; margin-bottom:8px; padding:6px; background:#f9f9f9; border-radius:4px;';
-            row.innerHTML = `
-                <span style="flex:1; font-weight:bold;">${it.nom}</span>
-                <span style="color:#888;">${it.prix.toFixed(2).replace('.', ',')} €</span>
-                <input type="number" value="${it.quantite}" min="1" max="10"
-                       style="width:55px; padding:4px; border:1px solid #ccc; border-radius:4px;"
-                       data-idx="${idx}" class="mc-qte-item">
-                <button type="button" data-idx="${idx}" class="mc-btn-suppr"
-                        style="background:#e74c3c; color:#fff; border:none; padding:4px 10px; border-radius:4px; cursor:pointer;">✕</button>`;
-            mcListe.appendChild(row);
+            const prixRemise   = it.prix * (1 - MC_REMISE / 100);
+            const sousTotal    = prixRemise * it.quantite;
+            const prixAffiche  = MC_REMISE > 0
+                ? `<span style="text-decoration:line-through;color:#999;font-size:11px;">${it.prix.toFixed(2).replace('.',',')} €</span><br><span style="color:#5d7358;font-weight:bold;">${prixRemise.toFixed(2).replace('.',',')} €</span>`
+                : `${it.prix.toFixed(2).replace('.',',')} €`;
+
+            const tr = document.createElement('tr');
+            tr.style.cssText = 'border-bottom:1px solid #eee;';
+            tr.innerHTML = `
+                <td style="padding:8px; font-weight:bold;">${it.nom}</td>
+                <td style="padding:8px; font-size:13px;">${prixAffiche}</td>
+                <td style="padding:8px;">
+                    <input type="number" value="${it.quantite}" min="1" max="10"
+                           style="width:55px; padding:4px; border:1px solid #ccc; border-radius:4px;"
+                           data-idx="${idx}" class="mc-qte-item">
+                </td>
+                <td style="padding:8px; color:#5d7358; font-weight:bold;" id="mc-sous-total-${idx}">${sousTotal.toFixed(2).replace('.',',')} €</td>
+                <td style="padding:8px;">
+                    <button type="button" data-idx="${idx}" class="mc-btn-suppr"
+                            style="background:#e74c3c; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; width:auto; margin-top:0; font-size:12px; flex-shrink:0;">✕</button>
+                </td>`;
+            mcListe.appendChild(tr);
         });
 
         mcListe.querySelectorAll('.mc-qte-item').forEach(input => {
             input.addEventListener('input', () => {
                 const idx = parseInt(input.dataset.idx);
                 mcItems[idx].quantite = Math.max(1, parseInt(input.value) || 1);
+                const prixRemise = mcItems[idx].prix * (1 - MC_REMISE / 100);
+                const st = document.getElementById('mc-sous-total-' + idx);
+                if (st) st.textContent = (prixRemise * mcItems[idx].quantite).toFixed(2).replace('.', ',') + ' €';
                 recalculerTotal();
             });
         });
@@ -652,7 +717,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.querySelectorAll('.btn-modifier-commande').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             mcCommandeId = btn.dataset.id;
             mcBtnActif   = btn;
             mcIdCmd.textContent = mcCommandeId;
@@ -709,6 +775,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const payload = {
             id_commande: mcCommandeId,
+            remise_pct: MC_REMISE,
             contenu: mcItems.map(it => ({ id_plat: it.id_plat, quantite: it.quantite }))
         };
 
@@ -746,8 +813,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     detailModal.querySelectorAll('p').forEach(p => {
                         if (p.innerHTML.includes('Montant')) {
-                            const total = parseFloat(data.nouveau_total).toFixed(2).replace('.', ',');
-                            p.innerHTML = `<strong> Montant :</strong> ${total} €`;
+                            const totalBrut   = parseFloat(data.total_brut).toFixed(2).replace('.', ',');
+                            const totalFinal  = parseFloat(data.nouveau_total).toFixed(2).replace('.', ',');
+                            if (data.remise_pct > 0) {
+                                p.innerHTML = `<strong> Montant :</strong> <span style="text-decoration:line-through;color:#999;font-size:0.9em;">${totalBrut} €</span> <strong style="color:#5d7358;">${totalFinal} €</strong> <span style="color:#5d7358;font-size:0.85em;">(-${data.remise_pct}%)</span>`;
+                            } else {
+                                p.innerHTML = `<strong> Montant :</strong> ${totalFinal} €`;
+                            }
                         }
                     });
                 }
@@ -773,7 +845,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Fermer les popups paiement/remboursement (sans rechargement)
     document.getElementById('btn-payer-supplement').addEventListener('click', () => {
         document.getElementById('modal-paiement-supplement').style.display = 'none';
     });

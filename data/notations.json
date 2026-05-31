@@ -1,0 +1,34 @@
+[
+    {
+        "id_commande": "CMD-014",
+        "type_livraison": "livraison",
+        "note_produits": 4,
+        "note_livraison": 5,
+        "commentaire": "parfait",
+        "date": "2026-05-31"
+    },
+    {
+        "id_commande": "CMD-023",
+        "type_livraison": "livraison",
+        "note_produits": 5,
+        "note_livraison": 5,
+        "commentaire": "tres bon",
+        "date": "2026-05-31"
+    },
+    {
+        "id_commande": "CMD-025",
+        "type_livraison": "sur place",
+        "note_produits": 5,
+        "note_livraison": null,
+        "commentaire": "succulent",
+        "date": "2026-05-31"
+    },
+    {
+        "id_commande": "CMD-024",
+        "type_livraison": "sur place",
+        "note_produits": 4,
+        "note_livraison": null,
+        "commentaire": "tres beau lieu",
+        "date": "2026-05-31"
+    }
+]

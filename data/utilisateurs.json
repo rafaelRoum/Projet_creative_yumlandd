@@ -5,17 +5,17 @@
         "mot_de_passe": "numance",
         "role": "admin",
         "informations": {
-            "nom": "saint clair",
+            "nom": "SAINT CLAIRE",
             "prenom": "Numance",
             "naissance": "2000-05-15",
             "adresse": "Good Morning 3eme \u00e9tage"
         },
         "dates": {
             "inscription": "2026-18-03",
-            "derniere_connexion": "2026-05-17 19:48:06"
+            "derniere_connexion": "2026-05-31 11:05:44"
         },
         "statut": "VIP",
-        "niveau de remise": 25,
+        "niveau de remise": 22,
         "droit": "normal"
     },
     {
@@ -31,7 +31,7 @@
         },
         "dates": {
             "inscription": "2026-03-18",
-            "derniere_connexion": "2026-05-17 19:58:19"
+            "derniere_connexion": "2026-05-31 11:05:28"
         },
         "statut": "Premium",
         "niveau de remise": 0,
@@ -39,8 +39,8 @@
     },
     {
         "id": 3,
-        "email": "m@m",
-        "mot_de_passe": "m",
+        "email": "m@m.com",
+        "mot_de_passe": "marinee",
         "role": "restaurateur",
         "informations": {
             "nom": "Lecoq",
@@ -50,7 +50,7 @@
         },
         "dates": {
             "inscription": "2026-03-18",
-            "derniere_connexion": "2026-04-05 13:46:13"
+            "derniere_connexion": "2026-05-29 11:17:37"
         },
         "statut": "Standard",
         "niveau de remise": 0,

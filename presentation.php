@@ -29,18 +29,19 @@ foreach ($tous_les_plats as $plat) {
         $resultats_trouves++;
     }
 }
+
+// Vérification de la connexion de l'utilisateur
+$est_connecte = isset($_SESSION['id']);
 ?>
 
 
 
 <div class="recherche-placement">
-    <form action="presentation.php" method="GET" class="barre-recherche center-grid">
-        <input type="text" name="q" value="<?= htmlspecialchars($recherche) ?>" placeholder="Rechercher un plat, une envie..." />
-        <button type="submit">Rechercher</button>
+    <form action="presentation.php" method="GET" id="form-barre-recherche" class="barre-recherche center-grid">
+        <input type="text" id="input-recherche" name="q" value="<?= htmlspecialchars($recherche) ?>" placeholder="Rechercher un plat, une envie..." autocomplete="off" />
     </form>
 </div>
 
-<!-- Panneau filtres & tris -->
 <div class="panneau-filtres">
     <details>
         <summary>Filtres &amp; Tris</summary>
@@ -112,11 +113,15 @@ foreach ($tous_les_plats as $plat) {
                             <input type="hidden" name="id_plat" value="<?= $plat['id'] ?>">
                             <div class="ligne-prix-quantite">
                                 <div class="selecteur-quantite">
-                                    <input type="number" name="quantite" value="1" min="1" max="10">
+                                    <input type="number" name="quantite" value="1" min="1" max="10" <?= !$est_connecte ? 'disabled style="opacity:0.6; cursor:not-allowed;"' : '' ?>>
                                 </div>
                                 <div class="prix-display"><?= number_format($plat['prix'], 2, ',', ' ') ?> €</div>
                             </div>
-                            <button type="submit" class="btn-ajouter-vert">Ajouter</button>
+                            <?php if ($est_connecte): ?>
+                                <button type="submit" class="btn-ajouter-vert">Ajouter</button>
+                            <?php else: ?>
+                                <button type="button" onclick="window.location.href='connexion.php'" class="btn-ajouter-vert" style="background-color: #6c757d; font-size: 11px;">Se connecter</button>
+                            <?php endif; ?>
                         </form>
                     </div>
                 </div>
@@ -143,19 +148,17 @@ foreach ($tous_les_plats as $plat) {
     <?php endif; ?>
 <?php endforeach; ?>
 
-</div><!-- #zone-plats-filtrés -->
-
-<script>
+</div><script>
+const estConnecte = <?= $est_connecte ? 'true' : 'false' ?>;
 const tousLesPlats = <?= json_encode(array_values($tous_les_plats), JSON_UNESCAPED_UNICODE) ?>;
 
 let triActif = '';
 
 function construireCartes(plats) {
     if (plats.length === 0) {
-        return '<div class="msg-filtre-vide">Aucun plat ne correspond aux filtres sélectionnés.</div>';
+        return '<div class="msg-filtre-vide">Aucun plat ne correspond aux critères sélectionnés.</div>';
     }
 
-    // Grouper par catégorie en conservant l'ordre défini
     const ordreCategories = ['Entrées / Apéro', 'Plats', 'Accompagnements', 'Desserts'];
     const groupes = {};
     plats.forEach(p => {
@@ -172,9 +175,13 @@ function construireCartes(plats) {
         groupes[cat].forEach(plat => {
             const img = plat.image || 'images/groin_de_folie.png';
             const prix = plat.prix.toFixed(2).replace('.', ',');
-            const allergenes = (plat.informations?.allergenes?.length > 0)
-                ? plat.informations.allergenes.join(', ')
-                : 'Aucun';
+            const allergenes = (plat.informations?.allergenes?.length > 0) ? plat.informations.allergenes.join(', ') : 'Aucun';
+            
+            const inputAttr = !estConnecte ? 'disabled style="opacity:0.6; cursor:not-allowed;"' : '';
+            const btnHtml = estConnecte 
+                ? '<button type="submit" class="btn-ajouter-vert">Ajouter</button>'
+                : '<button type="button" onclick="window.location.href=\'connexion.php\'" class="btn-ajouter-vert" style="background-color: #6c757d; font-size: 11px;">Se connecter</button>';
+
             html += `
                 <div class="menu-cadre">
                     <a href="#detail-plat-${plat.id}" class="lien-vers-modal">
@@ -190,11 +197,11 @@ function construireCartes(plats) {
                             <input type="hidden" name="id_plat" value="${plat.id}">
                             <div class="ligne-prix-quantite">
                                 <div class="selecteur-quantite">
-                                    <input type="number" name="quantite" value="1" min="1" max="10">
+                                    <input type="number" name="quantite" value="1" min="1" max="10" ${inputAttr}>
                                 </div>
                                 <div class="prix-display">${prix} €</div>
                             </div>
-                            <button type="submit" class="btn-ajouter-vert">Ajouter</button>
+                            ${btnHtml}
                         </form>
                     </div>
                 </div>
@@ -222,37 +229,57 @@ function construireCartes(plats) {
 function appliquerFiltres() {
     const categories = [...document.querySelectorAll('.filtre-cat:checked')].map(el => el.value);
     const filtres    = [...document.querySelectorAll('.filtre-tag:checked')].map(el => el.value);
-    const aucunFiltre = categories.length === 0 && filtres.length === 0;
+    const recherche  = document.getElementById('input-recherche').value.trim().toLowerCase();
 
-    if (aucunFiltre && triActif === '') {
-        document.getElementById('zone-plats-filtrés').innerHTML = construireCartes([...tousLesPlats]);
-        return;
-    }
-
-    if (aucunFiltre && triActif !== '') {
-        let plats = [...tousLesPlats];
-        trierCoteClient(plats);
-        document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(plats);
-        return;
-    }
-
-    fetch('includes/filtres_plats.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ categories, filtres, tri: triActif })
-    })
-    .then(r => r.json())
-    .then(plats => {
-        if (triActif === 'prix-asc') plats.sort((a, b) => a.prix - b.prix);
-        else if (triActif === 'prix-desc') plats.sort((a, b) => b.prix - a.prix);
-        document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(plats);
+    // 1. Filtrage côté client complet (Intègre les cases à cocher ET la barre de recherche)
+    let platsFiltrés = tousLesPlats.filter(plat => {
+        // Condition recherche textuelle
+        if (recherche !== '') {
+            const nomMatch = plat.nom.toLowerCase().includes(recherche);
+            const descMatch = plat.description.toLowerCase().includes(recherche);
+            if (!nomMatch && !descMatch) return false;
+        }
+        return true;
     });
+
+    const aucunFiltreCase = categories.length === 0 && filtres.length === 0;
+
+    // 2. Si des filtres avancés (tags) sont cochés, on croise avec le script serveur
+    if (!aucunFiltreCase) {
+        fetch('includes/filtres_plats.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ categories, filtres, tri: triActif })
+        })
+        .then(r => r.json())
+        .then(platsDuServeur => {
+            // On ne garde que les plats du serveur qui matchent aussi la saisie clavier actuelle
+            const idsServeur = platsDuServeur.map(p => p.id);
+            platsFiltrés = platsFiltrés.filter(p => idsServeur.includes(p.id));
+            
+            trierCoteClient(platsFiltrés);
+            document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(platsFiltrés);
+        });
+    } else {
+        // Pas de filtres cochés, rendu direct ultra-rapide
+        trierCoteClient(platsFiltrés);
+        document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(platsFiltrés);
+    }
 }
 
 function trierCoteClient(plats) {
     if (triActif === 'prix-asc')  plats.sort((a, b) => a.prix - b.prix);
     if (triActif === 'prix-desc') plats.sort((a, b) => b.prix - a.prix);
 }
+
+// Écouteur sur la barre de recherche pour un filtrage en temps réel à chaque lettre tapée
+document.getElementById('input-recherche').addEventListener('input', appliquerFiltres);
+
+// Désactive le comportement de rechargement classique lors de la soumission de la recherche
+document.getElementById('form-barre-recherche').addEventListener('submit', function(e) {
+    e.preventDefault();
+    appliquerFiltres();
+});
 
 document.querySelectorAll('.filtre-cat, .filtre-tag').forEach(el => {
     el.addEventListener('change', appliquerFiltres);
@@ -264,37 +291,84 @@ document.querySelectorAll('.btn-tri').forEach(btn => {
         btn.classList.add('actif');
         triActif = btn.dataset.tri;
 
-        const categories = [...document.querySelectorAll('.filtre-cat:checked')].map(el => el.value);
-        const filtres    = [...document.querySelectorAll('.filtre-tag:checked')].map(el => el.value);
-
         if (triActif === '') {
             document.querySelectorAll('.filtre-cat, .filtre-tag').forEach(cb => cb.checked = false);
-            let plats = [...tousLesPlats];
-            document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(plats);
-            return;
+            document.getElementById('input-recherche').value = '';
         }
-
-        const aucunFiltre = categories.length === 0 && filtres.length === 0;
-
-        if (aucunFiltre && (triActif === 'prix-asc' || triActif === 'prix-desc')) {
-            let plats = [...tousLesPlats];
-            trierCoteClient(plats);
-            document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(plats);
-        } else {
-            fetch('includes/filtres_plats.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ categories, filtres, tri: triActif })
-            })
-            .then(r => r.json())
-            .then(plats => {
-                document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(plats);
-            });
-        }
+        appliquerFiltres();
     });
 });
 
 document.querySelector('.btn-tri[data-tri=""]').classList.add('actif');
+
+// Interception AJAX pour ajouter au panier et actualiser le compteur du header
+document.addEventListener('submit', function (e) {
+    if (e.target && e.target.classList.contains('form-achat')) {
+        
+        if (!estConnecte) {
+            e.preventDefault();
+            window.location.href = 'connexion.php';
+            return;
+        }
+
+        e.preventDefault();
+
+        const form = e.target;
+        const btnSubmit = form.querySelector('button[type="submit"]');
+        const texteOriginal = btnSubmit.textContent;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData
+        })
+        .then(response => {
+            if (!response.headers.get('content-type')?.includes('application/json')) {
+                return { success: true, fallback: true };
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                const liensNav = document.querySelectorAll('header a, .nav-link');
+                let lienPanier = null;
+
+                liensNav.forEach(el => {
+                    if (el.textContent.includes('Panier')) {
+                        lienPanier = el;
+                    }
+                });
+
+                if (lienPanier) {
+                    if (data.fallback) {
+                        const nombres = lienPanier.textContent.match(/\d+/);
+                        const qteActuelle = nombres ? parseInt(nombres[0]) : 0;
+                        const qteAjoutee = parseInt(form.querySelector('input[name="quantite"]').value) || 1;
+                        lienPanier.textContent = `Panier (${qteActuelle + qteAjoutee})`;
+                    } else {
+                        lienPanier.textContent = `Panier (${data.nouveau_total})`;
+                    }
+                }
+
+                btnSubmit.textContent = "✓";
+                btnSubmit.style.backgroundColor = "#28a745";
+                btnSubmit.style.color = "#ffffff";
+
+                setTimeout(() => {
+                    btnSubmit.textContent = texteOriginal;
+                    btnSubmit.style.backgroundColor = "";
+                    btnSubmit.style.color = "";
+                }, 1500);
+            } else {
+                alert(data.message || "Erreur lors de l'ajout au panier.");
+            }
+        })
+        .catch(error => {
+            console.error("Erreur:", error);
+            alert("Erreur de communication avec le serveur.");
+        });
+    }
+});
 </script>
 
 <?php include 'includes/footer.php'; ?>
