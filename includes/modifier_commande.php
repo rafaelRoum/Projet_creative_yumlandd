@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once 'includes/fonctions.php';
+require_login();
 
 $fichier_commandes = __DIR__ . '/../data/commandes.json';
 $fichier_plats     = __DIR__ . '/../data/plats.json';
@@ -46,7 +48,7 @@ if ($index_cmd === null) {
 
 $cmd = $commandes[$index_cmd];
 
-// Seulement les commandes "payée" (en attente) peuvent être modifiées
+// Seulement les commandes payée peuvent être modifiées
 if ($cmd['statut'] !== 'payée' && $cmd['statut'] !== 'en attente') {
     echo json_encode(['success' => false, 'message' => 'Cette commande ne peut plus être modifiée.']);
     exit();

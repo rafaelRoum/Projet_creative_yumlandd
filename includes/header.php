@@ -5,6 +5,15 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
+header("X-Frame-Options: DENY");
+header("X-Content-Type-Options: nosniff");
+header("Referrer-Policy: strict-origin-when-cross-origin");
+header("X-XSS-Protection: 0");
+header("Permissions-Policy: camera=(), microphone=(), geolocation=()");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;");
+
+
+
 if (isset($_SESSION['id'])) {
     $fichier_utilisateurs_check = 'data/utilisateurs.json';
     
@@ -49,11 +58,7 @@ $texteBouton = ($themeActuel === 'sombre.css') ? '☀️' : '🌙';
         <?php elseif ($_SESSION['role'] === 'admin'): ?>
             <a href="index.php">Accueil</a>
             <a href="presentation.php">Présentation</a>
-            <a href="connexion.php">Connexion</a>
-            <a href="inscription.php">Inscription</a>
             <a href="profil.php">Profil</a>
-            <a href="commande.php">Commande</a>
-            <a href="livraison.php">Livraison</a>
             <a href="administrateur.php">Admin</a>
             <?php
             $nombre_articles_panier = 0;

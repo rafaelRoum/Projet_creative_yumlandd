@@ -10,8 +10,7 @@
             <?php elseif ($_SESSION['role'] === 'admin'): ?>
                 <a href="index.php">Accueil</a>
                 <a href="presentation.php">Présentation</a>
-                <a href="connexion.php">Connexion</a>
-                <a href="inscription.php">Inscription</a>
+                <a href="administrateur.php">Admin</a>
                 <a href="profil.php">Profil</a>
             <?php elseif ($_SESSION['role'] === 'restaurateur' || $_SESSION['role'] === 'livreur' || $_SESSION['role'] === 'client'): ?>
                 <a href="index.php">Accueil</a>

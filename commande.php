@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once 'includes/fonctions.php';
+require_role('restaurateur');
 
 $fichier_json_commandes = 'data/commandes.json';
 $fichier_json_utilisateurs = 'data/utilisateurs.json';
@@ -11,7 +13,7 @@ $livreurs = array_filter($utilisateurs, function($u) {
     return isset($u['role']) && $u['role'] === 'livreur';
 });
 
-// ── Traitement AJAX ──────────────────────────────────────────────
+
 $inputRaw = file_get_contents('php://input');
 $input = json_decode($inputRaw, true);
 
@@ -85,10 +87,10 @@ include 'includes/header.php';
     <div class="admin-cadre">
         <h2 class="france-ancien-livre">Tableau de Bord des Commandes</h2>
         
-        <table class="tab-utilisateur" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <table class="tab-utilisateur">
             <thead>
-                <tr style="background-color: #f2f2f2; text-align: left;">
-                    <th style="padding: 10px;">N°</th>
+                <tr class="entete-tableau">
+                    <th>N°</th>
                     <th>Client</th>
                     <th>Statut</th>
                     <th>Livreur</th>
@@ -115,7 +117,7 @@ include 'includes/header.php';
                                     <option value="en préparation">En préparation</option>
                                 </select>
                             <?php elseif($cmd['statut'] === "en livraison"): ?>
-                                <p style="color:#ff9102; font-weight: bold;">En livraison</p>
+                                <p class="statut-texte-livraison">En livraison</p>
                             <?php endif; ?>
                         <?php endif; ?>
 
@@ -134,14 +136,14 @@ include 'includes/header.php';
                         <?php endif; ?>
 
                         <?php if($cmd['statut'] === "terminée"): ?>
-                            <p style="color:#08a021; font-weight: bold;">Terminée</p>
+                            <p class="statut-texte-termine">Terminée</p>
                         <?php endif; ?>
                     </td>
 
                     <td id="td-livreur-<?php echo $cmd['id_commande']; ?>">
                         <?php if ($cmd['type_livraison'] === 'livraison'): ?>
                             <?php if($cmd['statut'] === 'prête'): ?>
-                                <select class="select-livreur-cmd statut-select" data-id="<?php echo $cmd['id_commande']; ?>" style="border: 2px solid #ff9102;">
+                                <select class="select-livreur-cmd statut-select select-alerte" data-id="<?php echo $cmd['id_commande']; ?>">
                                     <option value="">Choisir livreur...</option>
                                     <?php foreach ($livreurs as $liv): ?>
                                         <option value="<?php echo $liv['id']; ?>">
@@ -150,16 +152,16 @@ include 'includes/header.php';
                                     <?php endforeach; ?>
                                 </select>
                             <?php elseif($cmd['statut'] === 'en préparation' || $cmd['statut'] === 'payée'): ?>
-                                <p style="color: #999; font-style: italic;">Attendre la fin de préparation</p>
+                                <p class="texte-info">Attendre la fin de préparation</p>
                             <?php elseif($cmd['statut'] === 'en livraison' || $cmd['statut'] === 'terminée'): ?>
                                 <strong><?php echo htmlspecialchars($cmd['livreur'] ?? 'Non assigné'); ?></strong>
                             <?php endif; ?>
                         <?php else: ?>
-                            <p style="color: #555; font-style: italic;">Sur place (Sans livreur)</p>
+                            <p class="texte-info">Sur place (Sans livreur)</p>
                         <?php endif; ?>
                     </td>
 
-                    <td style="text-align: center;"> 
+                    <td class="text-center"> 
                         <a href="#detail-<?php echo $cmd['id_commande']; ?>" class="voir-profil-btn">Détails</a>
                         
                         <div id="detail-<?php echo $cmd['id_commande']; ?>" class="modal-fond">
@@ -167,23 +169,23 @@ include 'includes/header.php';
                                 <h3>Commande <?php echo $cmd['id_commande']; ?></h3>
                                 <p>Type : <?php echo ucfirst($cmd['type_livraison']); ?> | Date : <?php echo $cmd['date_heure']; ?></p>
                                 <hr>
-                                <div style="margin: 15px; text-align: left;">
-                                    <h4 style="margin-bottom: 15px;">Articles à préparer :</h4>
+                                <div style="margin: 15px;">
+                                    <h4>Articles à préparer :</h4>
                                     <?php foreach ($cmd['contenu'] as $item): ?>
                                         <strong><?php echo htmlspecialchars($item['nom']); ?></strong>
-                                        <p style="font-size: 13px; color: #555; margin-bottom: 10px;">
+                                        <p>
                                             Note : <?php echo !empty($item['options_choisies']) ? htmlspecialchars(implode(', ', $item['options_choisies'])) : 'Aucune'; ?>
                                         </p>
                                     <?php endforeach; ?>
                                 </div>
-                                <div class="paiement" style="text-align: left; background: #f9f9f9; padding: 10px; border-radius: 5px;">
+                                <div class="paiement">
                                     <p><strong>Total :</strong> <?php echo number_format($cmd['paiement']['montant_total'], 2); ?> €</p>
-                                    <p><strong>Paiement :</strong> <?php echo strtoupper($cmd['paiement']['methode']); ?> <span style="color:#08a021"> (<?php echo $cmd['paiement']['statut']; ?>) </span> </p>
+                                    <p><strong>Paiement :</strong> <?php echo strtoupper($cmd['paiement']['methode']); ?> <span class="texte-finalise"> (<?php echo $cmd['paiement']['statut']; ?>) </span> </p>
                                     <?php if(!empty($cmd['adresse'])): ?>
                                         <p><strong>Adresse :</strong> <?php echo htmlspecialchars($cmd['adresse']); ?></p>
                                     <?php endif; ?>
                                 </div>
-                                <a href="#!" class="btn-lien-paiement" style="margin-top: 15px; display: inline-block;">Fermer</a> 
+                                <a href="#!" class="btn-lien-paiement" style="margin-top: 15px;">Fermer</a> 
                             </div>
                         </div>
                     </td>
@@ -220,9 +222,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 <option value="prête">Prête</option>
             </select>`;
         } else if (statut === 'en livraison') {
-            return `<p style="color:#ff9102; font-weight:bold;">En livraison</p>`;
+            return `<p class="statut-texte-livraison">En livraison</p>`;
         } else if (statut === 'terminée') {
-            return `<p style="color:#08a021; font-weight:bold;">Terminée</p>`;
+            return `<p class="statut-texte-termine">Terminée</p>`;
         }
         return '';
     }
@@ -239,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <option value="terminée">Terminée</option>
             </select>`;
         } else if (statut === 'terminée') {
-            return `<p style="color:#08a021; font-weight:bold;">Terminée</p>`;
+            return `<p class="statut-texte-termine">Terminée</p>`;
         }
         return '';
     }
@@ -247,11 +249,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function celluleLivreur(id, statut, nomLivreur) {
         if (statut === 'prête') {
             const options = LIVREURS.map(l => `<option value="${l.id}">${l.nom}</option>`).join('');
-            return `<select class="select-livreur-cmd statut-select" data-id="${id}" style="border:2px solid #ff9102;">
+            return `<select class="select-livreur-cmd statut-select select-alerte" data-id="${id}">
                 <option value="">Choisir livreur...</option>${options}
             </select>`;
         } else if (statut === 'en préparation' || statut === 'payée') {
-            return `<p style="color:#999; font-style:italic;">Attendre la fin de préparation</p>`;
+            return `<p class="texte-info">Attendre la fin de préparation</p>`;
         } else if (statut === 'en livraison' || statut === 'terminée') {
             return `<strong>${nomLivreur || 'Non assigné'}</strong>`;
         }
@@ -267,10 +269,10 @@ document.addEventListener("DOMContentLoaded", function () {
             tdLivreur.innerHTML = celluleLivreur(id, nouveauStatut, nomLivreur);
         } else {
             tdStatut.innerHTML  = selectStatutSurPlace(id, nouveauStatut);
-            tdLivreur.innerHTML = `<p style="color:#555; font-style:italic;">Sur place (Sans livreur)</p>`;
+            tdLivreur.innerHTML = `<p class="texte-info">Sur place (Sans livreur)</p>`;
         }
 
-        // Réattacher les listeners sur les nouveaux éléments
+
         tdStatut.querySelectorAll('.select-statut-cmd').forEach(attacherStatut);
         tdLivreur.querySelectorAll('.select-livreur-cmd').forEach(attacherLivreur);
     }

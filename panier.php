@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once 'includes/fonctions.php';
+require_login();
 
-// ── Récupération du profil client pour la remise ─────────────────
 $fichier_utilisateurs = 'data/utilisateurs.json';
 $utilisateurs = file_exists($fichier_utilisateurs) ? json_decode(file_get_contents($fichier_utilisateurs), true) : [];
 
@@ -21,7 +21,7 @@ if (isset($_SESSION['id'])) {
     }
 }
 
-// ── AJAX : modifier quantité ──────────────────────────────────────
+
 $inputRaw = file_get_contents('php://input');
 $input    = json_decode($inputRaw, true);
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action']) && $input['
         unset($_SESSION['panier'][$id_plat]);
     }
 
-    // Recalculer le total avec remise
+
     $tous_les_plats = get_plats();
     $total_brut = 0;
     $lignes = [];
@@ -70,8 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action']) && $input['
     exit();
 }
 
-// ── Validation paiement ───────────────────────────────────────────
+
 if (isset($_POST['valider_paiement'])) {
+    verifier_token_csrf();
     $fichier_commandes = 'data/commandes.json';
     $commandes = file_exists($fichier_commandes) ? json_decode(file_get_contents($fichier_commandes), true) : [];
 
@@ -133,13 +134,13 @@ if (isset($_POST['valider_paiement'])) {
     exit();
 }
 
-// ── Affichage ─────────────────────────────────────────────────────
+
 $titre_page     = "Mon Panier - Le Groin de Folie";
 include 'includes/header.php';
 $tous_les_plats = get_plats();
 $total_brut     = 0;
 
-// Précalcul du total pour la bannière remise
+
 if (!empty($_SESSION['panier'])) {
     foreach ($_SESSION['panier'] as $id_plat => $qte) {
         foreach ($tous_les_plats as $p) {
@@ -167,7 +168,7 @@ $total_remise_affichage = $total_brut * (1 - $remise_pct / 100);
             <table class="tab-utilisateur">
                 <?php $total_brut = 0; ?>
                 <thead>
-                    <tr style="background-color: #f2f2f2; text-align: left;">
+                    <tr>
                         <th>Plat</th>
                         <th>Prix unit.</th>
                         <th>Quantité</th>
@@ -227,6 +228,7 @@ $total_remise_affichage = $total_brut * (1 - $remise_pct / 100);
             <h3 class="france-ancien-livre" style="margin-bottom:25px;">Validation de la commande</h3>
 
             <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?php echo generer_token_csrf(); ?>">
                 <div class="grille-options">
                     <div class="colonne-choix">
                         <p><strong>Temps de préparation</strong></p>

@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once 'includes/fonctions.php';
+require_role('admin');
 
 $fichier_json = 'data/utilisateurs.json';
 $utilisateurs = [];
@@ -82,7 +84,7 @@ include 'includes/header.php';
         <h2>Gestion des Utilisateurs</h2>            
         <table class="tab-utilisateur" style="width: 100%; border-collapse: collapse;">
             <thead>
-                <tr style="background-color: #f2f2f2;">
+                <tr>
                     <th>Nom & Prénom</th>
                     <th>Email</th>
                     <th>Rôle</th>
@@ -122,7 +124,7 @@ include 'includes/header.php';
 
                     <td class="admin-actions">
                         <div style="display: flex; align-items: center; justify-content: center; gap: 5px;">
-                            <input type="number" value="<?php echo htmlspecialchars($user['niveau de remise'] ?? '0'); ?>" class="input-remise" data-id="<?php echo $user['id']; ?>" min="0" max="50" oninput="if(this.value < 0) this.value = 0; if(this.value > 50) this.value = 50;" style="width: 50px; padding: 4px;"> 
+                            <input type="number" value="<?php echo htmlspecialchars($user['niveau de remise'] ?? '0'); ?>" class="input-remise" data-id="<?php echo $user['id']; ?>" min="0" max="50" oninput="if(this.value < 0) this.value = 0; if(this.value > 50) this.value = 50;" > 
                             <p style="margin: 0;">%</p>
                         </div>                     
                     </td>
@@ -158,9 +160,9 @@ include 'includes/header.php';
                                     <p><strong>Date d'inscription :</strong> <?php echo htmlspecialchars($user['dates']['inscription'] ?? ''); ?></p>
                                     <p><strong>Dernière connexion :</strong> <?php echo htmlspecialchars($user['dates']['derniere_connexion'] ?? ''); ?></p>
                                 </div>
-                                <div style="text-align: right;">
-                                    <button type="button" class="btn-valider-modale" style="background-color: #5d7358; border: none; padding: 8px 15px; border-radius: 4px;">
-                                        <a href="#!" style="color: white; text-decoration: none; font-weight: bold;">Fermer</a>
+                                <div style="text-align: center; margin-top: 15px;">
+                                    <button type="button" class="btn-valider-modale" style="width: 100%;">
+                                        <a href="#!" class="btn-fermer">Fermer</a>
                                     </button>
                                 </div> 
                             </div>
@@ -252,4 +254,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <?php
 include 'includes/footer.php';
-?>
+?>  

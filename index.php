@@ -9,10 +9,10 @@ $tous_les_plats = get_plats();
 $plats_index = [];
 foreach ($tous_les_plats as $p) { $plats_index[$p['id']] = $p; }
 
-// Plat du jour (Quiche Maison, id=2)
+
 $plat_du_jour = $plats_index[2] ?? $tous_les_plats[0] ?? null;
 
-// Les plus commandés : compter depuis commandes.json
+
 $commandes_json = file_exists('data/commandes.json')
     ? json_decode(file_get_contents('data/commandes.json'), true) ?? []
     : [];
@@ -28,17 +28,16 @@ foreach ($commandes_json as $cmd) {
 arsort($compteur);
 $top_ids = array_slice(array_keys($compteur), 0, 3);
 
-// Si pas encore de commandes, afficher 3 plats en vedette
+
 if (empty($top_ids)) {
-    $top_ids = [1, 12, 5]; // Charcuterie, Fondant, Saumon
+    $top_ids = [1, 12, 5]; 
 }
 
 $plats_populaires = array_filter(array_map(fn($id) => $plats_index[$id] ?? null, $top_ids));
 
-// Vérification de la connexion de l'utilisateur
 $est_connecte = isset($_SESSION['id']);
 
-// Notations
+
 $notations_json = file_exists('data/notations.json')
     ? json_decode(file_get_contents('data/notations.json'), true) ?? []
     : [];
@@ -66,7 +65,7 @@ $moy_livraison = $nb_livraison > 0 ? round($total_livraison / $nb_livraison, 1) 
 </div>
 
 <div class="categorie-placement placement-centre">
-    <span class="categorie-badge">🌟 Plat du jour</span>
+    <span class="categorie-badge">Plat du jour</span>
 </div>
 
 <div class="ligne-menu menu-centre">
@@ -99,13 +98,13 @@ $moy_livraison = $nb_livraison > 0 ? round($total_livraison / $nb_livraison, 1) 
     </div>
 
     <div class="menu-cadre chef-recommandation" style="display:flex; align-items:center; padding:20px;">
-        <p class="chef-texte">👨‍🍳 Recommandation du chef :<br><br>Aujourd'hui, laissez-vous tenter par notre délicieuse <?= htmlspecialchars($plat_du_jour['nom']) ?> sortie du four ce matin. Parfaitement dorée et croustillante !</p>
+        <p class="chef-texte">Recommandation du chef :<br><br>Aujourd'hui, laissez-vous tenter par notre délicieuse <?= htmlspecialchars($plat_du_jour['nom']) ?> sortie du four ce matin. Parfaitement dorée et croustillante !</p>
     </div>
     <?php endif; ?>
 </div>
 
 <div class="categorie-placement placement-centre">
-    <span class="categorie-badge">🔥 Fréquemment commandés</span>
+    <span class="categorie-badge">Fréquemment commandés</span>
 </div>
 
 <div class="ligne-menu menu-centre">
@@ -140,21 +139,21 @@ $moy_livraison = $nb_livraison > 0 ? round($total_livraison / $nb_livraison, 1) 
 </div>
 
 <script>
-// Variable pour bloquer côté client si déconnecté
+
 const estConnecte = <?= $est_connecte ? 'true' : 'false' ?>;
 
-// Interception AJAX pour ajouter au panier et actualiser le compteur du header sans rechargement
+
 document.addEventListener('submit', function (e) {
     if (e.target && e.target.classList.contains('form-achat')) {
         
-        // Sécurité client : si déconnecté, redirection immédiate vers connexion.php
+
         if (!estConnecte) {
             e.preventDefault();
             window.location.href = 'connexion.php';
             return;
         }
 
-        e.preventDefault(); // Stoppe le rafraîchissement de la page
+        e.preventDefault(); 
 
         const form = e.target;
         const btnSubmit = form.querySelector('button[type="submit"]');
@@ -166,7 +165,7 @@ document.addEventListener('submit', function (e) {
             body: formData
         })
         .then(response => {
-            // Si ajouter_panier.php renvoie une redirection classique au lieu de JSON
+
             if (!response.headers.get('content-type')?.includes('application/json')) {
                 return { success: true, fallback: true };
             }
@@ -174,14 +173,14 @@ document.addEventListener('submit', function (e) {
         })
         .then(data => {
             if (data.success) {
-                // Recherche dynamique du lien "Panier" dans le header
+
                 const liensNav = document.querySelectorAll('header a, .nav-link');
                 let lienPanier = null;
 
                 liensNav.forEach(el => {
                     if (el.textContent.includes('Panier')) {
                         let text = el.textContent.trim();
-                        // On valide que ce n'est pas un sous-élément vide
+
                         if (text.startsWith('Panier')) {
                             lienPanier = el;
                         }
@@ -190,18 +189,17 @@ document.addEventListener('submit', function (e) {
 
                 if (lienPanier) {
                     if (data.fallback) {
-                        // Incrémentation manuelle si le serveur répond en HTML brut
+
                         const nombres = lienPanier.textContent.match(/\d+/);
                         const qteActuelle = nombres ? parseInt(nombres[0]) : 0;
                         const qteAjoutee = parseInt(form.querySelector('input[name="quantite"]').value) || 1;
                         lienPanier.textContent = `Panier (${qteActuelle + qteAjoutee})`;
                     } else {
-                        // Synchronisation avec la valeur exacte reçue de la Session PHP
+
                         lienPanier.textContent = `Panier (${data.nouveau_total})`;
                     }
                 }
 
-                // Feedback d'action réussie éphémère sur le bouton
                 btnSubmit.textContent = "✓";
                 btnSubmit.style.backgroundColor = "#28a745";
                 btnSubmit.style.color = "#ffffff";
@@ -226,7 +224,7 @@ document.addEventListener('submit', function (e) {
 
 
 <div class="categorie-placement placement-centre" style="margin-top:40px;">
-    <span class="categorie-badge">⭐ Avis de nos clients</span>
+    <span class="categorie-badge">Avis de nos clients</span>
 </div>
 
 <?php if (!empty($notations_json)): ?>
@@ -262,3 +260,4 @@ document.addEventListener('submit', function (e) {
 <?php endif; ?>
 
 <?php include 'includes/footer.php'; ?>
+

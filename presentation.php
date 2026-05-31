@@ -30,11 +30,14 @@ foreach ($tous_les_plats as $plat) {
     }
 }
 
-// Vérification de la connexion de l'utilisateur
+
 $est_connecte = isset($_SESSION['id']);
 ?>
 
 
+
+<div style="display: flex; flex-direction: column; min-height: 100vh;">
+<div style="flex: 1; padding-bottom: 40px;">
 
 <div class="recherche-placement">
     <form action="presentation.php" method="GET" id="form-barre-recherche" class="barre-recherche center-grid">
@@ -81,7 +84,7 @@ $est_connecte = isset($_SESSION['id']);
     </details>
 </div>
 
-<div id="zone-plats-filtrés">
+<div id="zone-plats-filtrés" style="min-height: 60vh;">
 
 <?php if ($recherche !== '' && $resultats_trouves === 0): ?>
     <meta http-equiv="refresh" content="1;url=presentation.php">
@@ -231,9 +234,9 @@ function appliquerFiltres() {
     const filtres    = [...document.querySelectorAll('.filtre-tag:checked')].map(el => el.value);
     const recherche  = document.getElementById('input-recherche').value.trim().toLowerCase();
 
-    // 1. Filtrage côté client complet (Intègre les cases à cocher ET la barre de recherche)
+
     let platsFiltrés = tousLesPlats.filter(plat => {
-        // Condition recherche textuelle
+
         if (recherche !== '') {
             const nomMatch = plat.nom.toLowerCase().includes(recherche);
             const descMatch = plat.description.toLowerCase().includes(recherche);
@@ -244,7 +247,7 @@ function appliquerFiltres() {
 
     const aucunFiltreCase = categories.length === 0 && filtres.length === 0;
 
-    // 2. Si des filtres avancés (tags) sont cochés, on croise avec le script serveur
+
     if (!aucunFiltreCase) {
         fetch('includes/filtres_plats.php', {
             method: 'POST',
@@ -253,7 +256,7 @@ function appliquerFiltres() {
         })
         .then(r => r.json())
         .then(platsDuServeur => {
-            // On ne garde que les plats du serveur qui matchent aussi la saisie clavier actuelle
+
             const idsServeur = platsDuServeur.map(p => p.id);
             platsFiltrés = platsFiltrés.filter(p => idsServeur.includes(p.id));
             
@@ -261,7 +264,7 @@ function appliquerFiltres() {
             document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(platsFiltrés);
         });
     } else {
-        // Pas de filtres cochés, rendu direct ultra-rapide
+
         trierCoteClient(platsFiltrés);
         document.getElementById('zone-plats-filtrés').innerHTML = construireCartes(platsFiltrés);
     }
@@ -272,10 +275,9 @@ function trierCoteClient(plats) {
     if (triActif === 'prix-desc') plats.sort((a, b) => b.prix - a.prix);
 }
 
-// Écouteur sur la barre de recherche pour un filtrage en temps réel à chaque lettre tapée
 document.getElementById('input-recherche').addEventListener('input', appliquerFiltres);
 
-// Désactive le comportement de rechargement classique lors de la soumission de la recherche
+
 document.getElementById('form-barre-recherche').addEventListener('submit', function(e) {
     e.preventDefault();
     appliquerFiltres();
@@ -301,7 +303,7 @@ document.querySelectorAll('.btn-tri').forEach(btn => {
 
 document.querySelector('.btn-tri[data-tri=""]').classList.add('actif');
 
-// Interception AJAX pour ajouter au panier et actualiser le compteur du header
+
 document.addEventListener('submit', function (e) {
     if (e.target && e.target.classList.contains('form-achat')) {
         
@@ -370,5 +372,8 @@ document.addEventListener('submit', function (e) {
     }
 });
 </script>
+
+</div>
+</div>
 
 <?php include 'includes/footer.php'; ?>

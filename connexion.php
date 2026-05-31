@@ -4,9 +4,12 @@ session_start();
 $message_erreur = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sécurisation contre les alertes PHP avec l'opérateur '?? ""'
+    verifier_token_csrf();
+
     $email = htmlspecialchars($_POST['email'] ?? '');
-    $motDePasse1 = htmlspecialchars($_POST['mot_de_passe1'] ?? '');
+    // Ne pas passer le mot de passe dans htmlspecialchars :
+    // cela altèrerait les caractères spéciaux avant la vérification
+    $motDePasse1 = $_POST['mot_de_passe1'] ?? '';
 
     $fichier_json = 'data/utilisateurs.json';
     $utilisateurs = [];
@@ -20,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     foreach ($utilisateurs as $index => $user) {
         if (isset($user['email']) && $user['email'] === $email) {
-            if ($motDePasse1 === $user['mot_de_passe']) {
+            if (password_verify($motDePasse1, $user['mot_de_passe'])) {
                 $utilisateur_trouve = $user;
                 $utilisateurs[$index]['dates']['derniere_connexion'] = date("Y-m-d H:i:s");
                 file_put_contents($fichier_json, json_encode($utilisateurs, JSON_PRETTY_PRINT));
@@ -54,6 +57,7 @@ include 'includes/header.php';
         <h2>Connexion</h2>
 
         <form method="POST" id="formConnexion" novalidate>
+            <input type="hidden" name="csrf_token" value="<?php echo generer_token_csrf(); ?>">
             <div class="formulaire">
                 <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Votre email"

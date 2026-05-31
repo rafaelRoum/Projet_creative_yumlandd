@@ -6,14 +6,17 @@ $nom = $prenom = $dateNaissance = $adresse = $email = "";
 
 // On vérifie si le formulaire a bien été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    verifier_token_csrf();
 
     $email = htmlspecialchars($_POST['email'] ?? "");
     $nom = htmlspecialchars($_POST['nom'] ?? "");
     $prenom = htmlspecialchars($_POST['prenom'] ?? "");
     $dateNaissance = htmlspecialchars($_POST['date_naissance'] ?? "");
     $adresse = htmlspecialchars($_POST['adresse'] ?? "");
-    $motDePasse1 = htmlspecialchars($_POST['mot_de_passe1'] ?? "");
-    $motDePasse2 = htmlspecialchars($_POST['mot_de_passe2'] ?? "");
+    // Ne pas passer les mots de passe dans htmlspecialchars :
+    // cela altèrerait les caractères spéciaux (ex: p@ss<word>)
+    $motDePasse1 = $_POST['mot_de_passe1'] ?? "";
+    $motDePasse2 = $_POST['mot_de_passe2'] ?? "";
 
     $fichier_json = 'data/utilisateurs.json';
     $utilisateurs = [];
@@ -38,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nouvel_utilisateur = [
             "id" => $nouvel_id,
             "email" => $email,
-            "mot_de_passe" => $motDePasse1, 
+            "mot_de_passe" => password_hash($motDePasse1, PASSWORD_DEFAULT),
             "role" => "client",
             "informations" => [
                 "nom" => $nom,
@@ -80,6 +83,7 @@ include 'includes/header.php';
     <div class="cadre">
         <h2>Inscription</h2>
         <form method="POST" id="formInscription" novalidate>
+            <input type="hidden" name="csrf_token" value="<?php echo generer_token_csrf(); ?>">
             
             <div class="formulaire">
                 <label for="nom">Nom</label>
