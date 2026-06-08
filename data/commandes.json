@@ -868,7 +868,7 @@
         "id_commande": "CMD-027",
         "id_client": 1,
         "statut": "payée",
-        "date_heure": "2026-05-31 13:43:38",
+        "date_heure": "2026-06-08 16:44:46",
         "type_livraison": "sur place",
         "adresse": "",
         "livreur": "",
@@ -876,8 +876,16 @@
         "contenu": [
             {
                 "type": "plat",
-                "id_item": 8,
-                "nom": "Saucisse Lentilles",
+                "id_item": null,
+                "nom": null,
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": null,
+                "nom": null,
                 "options_choisies": [
                     "Quantité : 1"
                 ]
@@ -886,18 +894,158 @@
         "paiement": {
             "statut": "payé",
             "methode": "cy bank",
-            "transaction_api_id": "CY-6a1c3b0a4defe",
-            "date_transaction": "2026-05-31 13:43:38",
-            "montant_brut": 19,
+            "transaction_api_id": "CMD027e8c623",
+            "date_transaction": "2026-06-08 16:45:05",
+            "montant_brut": 9,
             "remise_appliquee": 22,
-            "montant_total": 14.82
+            "montant_total": 0
         }
     },
     {
         "id_commande": "CMD-028",
         "id_client": 1,
         "statut": "payée",
-        "date_heure": "2026-05-31 16:14:28",
+        "date_heure": "2026-06-08 16:56:40",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD028851219",
+            "date_transaction": "2026-06-08 16:56:54",
+            "montant_brut": 0,
+            "remise_appliquee": 22,
+            "montant_total": 0
+        }
+    },
+    {
+        "id_commande": "CMD-029",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 20:17:30",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 2"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 1,
+                "nom": "Planche Charcuterie",
+                "options_choisies": [
+                    "Quantité : 3"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD029a76ad3",
+            "date_transaction": "2026-06-08 20:17:50",
+            "montant_brut": 0,
+            "remise_appliquee": 22,
+            "montant_total": 0
+        }
+    },
+    {
+        "id_commande": "CMD-030",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 20:21:38",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 3"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 12,
+                "nom": "Fondant Chocolat",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD030219a4c",
+            "date_transaction": "2026-06-08 20:21:54",
+            "montant_brut": 0,
+            "remise_appliquee": 22,
+            "montant_total": 0
+        }
+    },
+    {
+        "id_commande": "CMD-031",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 20:22:17",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 1,
+                "nom": "Planche Charcuterie",
+                "options_choisies": [
+                    "Quantité : 2"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD03190227c",
+            "date_transaction": "2026-06-08 20:22:38",
+            "montant_brut": 0,
+            "remise_appliquee": 22,
+            "montant_total": 0
+        }
+    },
+    {
+        "id_commande": "CMD-032",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 20:30:53",
         "type_livraison": "sur place",
         "adresse": "",
         "livreur": "",
@@ -918,24 +1066,206 @@
                 "options_choisies": [
                     "Quantité : 3"
                 ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD032d10bc1",
+            "date_transaction": "2026-06-08 20:31:10",
+            "montant_brut": 0,
+            "remise_appliquee": 22,
+            "montant_total": 0
+        }
+    },
+    {
+        "id_commande": "CMD-033",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 20:32:46",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 3"
+                ]
             },
             {
                 "type": "plat",
-                "id_item": 10,
-                "nom": "Pâtes Carbonara",
+                "id_item": 1,
+                "nom": "Planche Charcuterie",
                 "options_choisies": [
-                    "Quantité : 2"
+                    "Quantité : 1"
                 ]
             }
         ],
         "paiement": {
             "statut": "payé",
             "methode": "cy bank",
-            "transaction_api_id": "CY-6a1c5e6471a4a",
-            "date_transaction": "2026-05-31 16:14:28",
-            "montant_brut": 70,
+            "transaction_api_id": "CMD033e7e7f3",
+            "date_transaction": "2026-06-08 20:33:01",
+            "montant_brut": 0,
             "remise_appliquee": 22,
-            "montant_total": 54.6
+            "montant_total": 0
+        }
+    },
+    {
+        "id_commande": "CMD-034",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 20:37:19",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            },
+            {
+                "type": "plat",
+                "id_item": 8,
+                "nom": "Saucisse Lentilles",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD034fbf045",
+            "date_transaction": "2026-06-08 20:37:36",
+            "montant_brut": 0,
+            "remise_appliquee": 22,
+            "montant_total": 0
+        }
+    },
+    {
+        "id_commande": "CMD-035",
+        "id_client": 1,
+        "statut": "en_attente_paiement",
+        "date_heure": "2026-06-08 20:38:31",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "en_attente",
+            "methode": "cy bank",
+            "transaction_api_id": "",
+            "date_transaction": "",
+            "montant_brut": 9,
+            "remise_appliquee": 22,
+            "montant_total": 7.02
+        }
+    },
+    {
+        "id_commande": "CMD-036",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 20:43:04",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 1,
+                "nom": "Planche Charcuterie",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD0368d039a",
+            "date_transaction": "2026-06-08 20:43:23",
+            "montant_brut": 0,
+            "remise_appliquee": 22,
+            "montant_total": 0
+        }
+    },
+    {
+        "id_commande": "CMD-037",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 20:50:43",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 1"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD037308489",
+            "date_transaction": "2026-06-08 20:51:04",
+            "montant_brut": 9,
+            "remise_appliquee": 22,
+            "montant_total": 7.02
+        }
+    },
+    {
+        "id_commande": "CMD-038",
+        "id_client": 1,
+        "statut": "payée",
+        "date_heure": "2026-06-08 21:03:59",
+        "type_livraison": "sur place",
+        "adresse": "",
+        "livreur": "",
+        "id_livreur": "",
+        "contenu": [
+            {
+                "type": "plat",
+                "id_item": 2,
+                "nom": "Quiche Maison",
+                "options_choisies": [
+                    "Quantité : 3"
+                ]
+            }
+        ],
+        "paiement": {
+            "statut": "payé",
+            "methode": "cy bank",
+            "transaction_api_id": "CMD038a88558",
+            "date_transaction": "2026-06-08 21:04:43",
+            "montant_brut": 27,
+            "remise_appliquee": 22,
+            "montant_total": 21.06
         }
     }
 ]

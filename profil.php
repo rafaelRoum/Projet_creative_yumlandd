@@ -251,12 +251,12 @@ include 'includes/header.php';
         
         <p id="msg-erreur-notation" class="msg-erreur-champ" style="text-align: left;"></p>
 
-        <div class="modal-buttons">
-            <button type="button" id="btn-valider-notation" class="btn-modal btn-valider">
-                Envoyer ma note
-            </button>
+        <div class="modal-buttons" style="align-items: stretch;">
             <button type="button" id="btn-annuler-notation" class="btn-modal btn-annuler">
                 Annuler
+            </button>
+            <button type="button" id="btn-valider-notation" class="btn-modal btn-valider">
+                Envoyer ma note
             </button>
         </div>
     </div>
@@ -369,7 +369,6 @@ include 'includes/header.php';
     </div>
 </main>
 
-
 <div id="modal-modifier-commande" class="modal-fond" style="display:none;">
     <div class="modal-contenu modal-contenu-large">
         <h3>Modifier la commande <span id="mc-id-cmd"></span></h3>
@@ -423,7 +422,7 @@ include 'includes/header.php';
         <p id="mc-msg-paiement" class="msg-paiement"></p>
         <p id="mc-msg-erreur" class="msg-erreur-champ"></p>
 
-        <div class="modal-buttons">
+        <div class="modal-buttons" style="align-items: stretch;">
             <button type="button" id="mc-btn-annuler" class="btn-modal btn-annuler">Annuler</button>
             <button type="button" id="mc-btn-valider" class="btn-modal btn-valider">Valider les modifications</button>
         </div>
@@ -646,22 +645,20 @@ document.addEventListener("DOMContentLoaded", function () {
         modalNotation.style.display = "none";
     });
 
-    const modalModCmd    = document.getElementById('modal-modifier-commande');
-    const mcIdCmd        = document.getElementById('mc-id-cmd');
-    const mcListe        = document.getElementById('mc-liste-items');
-    const mcTotal        = document.getElementById('mc-total');
-    const mcMsgPaiement  = document.getElementById('mc-msg-paiement');
-    const mcMsgErreur    = document.getElementById('mc-msg-erreur');
-    const mcSelectPlat   = document.getElementById('mc-select-plat');
-    const mcQteAjout     = document.getElementById('mc-qte-ajout');
+    const modalModCmd  = document.getElementById('modal-modifier-commande');
+    const mcIdCmd      = document.getElementById('mc-id-cmd');
+    const mcListe      = document.getElementById('mc-liste-items');
+    const mcTotal      = document.getElementById('mc-total');
+    const mcMsgErreur  = document.getElementById('mc-msg-erreur');
+    const mcSelectPlat = document.getElementById('mc-select-plat');
+    const mcQteAjout   = document.getElementById('mc-qte-ajout');
 
     let mcCommandeId = '';
-    let mcBtnActif   = null;
-    let mcItems = [];
+    let mcItems      = [];
 
-    const MC_REMISE = <?= intval($mon_profil['niveau de remise'] ?? 0) ?>;
-    const mcTotalBrut  = document.getElementById('mc-total-brut');
-    const mcEconomie   = document.getElementById('mc-economie');
+    const MC_REMISE   = <?= intval($mon_profil['niveau de remise'] ?? 0) ?>;
+    const mcTotalBrut = document.getElementById('mc-total-brut');
+    const mcEconomie  = document.getElementById('mc-economie');
 
     function recalculerTotal() {
         const brut   = mcItems.reduce((s, it) => s + it.prix * it.quantite, 0);
@@ -669,43 +666,38 @@ document.addEventListener("DOMContentLoaded", function () {
         mcTotal.textContent = remise.toFixed(2).replace('.', ',');
         if (mcTotalBrut) mcTotalBrut.textContent = brut.toFixed(2).replace('.', ',') + ' €';
         if (mcEconomie)  mcEconomie.textContent  = 'Économie : ' + (brut - remise).toFixed(2).replace('.', ',') + ' €';
-        return remise;
     }
 
     function afficherItems() {
         mcListe.innerHTML = '';
         mcItems.forEach((it, idx) => {
-            const prixRemise   = it.prix * (1 - MC_REMISE / 100);
-            const sousTotal    = prixRemise * it.quantite;
-            const prixAffiche  = MC_REMISE > 0
-                ? `<span style="text-decoration:line-through;color:var(--c-texte-gris);font-size:11px;">${it.prix.toFixed(2).replace('.',',')} €</span><br><span style="color:var(--c-principal);font-weight:bold;">${prixRemise.toFixed(2).replace('.',',')} €</span>`
+            const prixR = it.prix * (1 - MC_REMISE / 100);
+            const stR   = prixR * it.quantite;
+            const prixAff = MC_REMISE > 0
+                ? `<span style="text-decoration:line-through;color:var(--c-texte-gris);font-size:11px;">${it.prix.toFixed(2).replace('.',',')} €</span><br><span style="color:var(--c-principal);font-weight:bold;">${prixR.toFixed(2).replace('.',',')} €</span>`
                 : `${it.prix.toFixed(2).replace('.',',')} €`;
-
             const tr = document.createElement('tr');
             tr.style.cssText = 'border-bottom:1px solid var(--c-contraste);';
             tr.innerHTML = `
-                <td style="padding:8px; font-weight:bold;">${it.nom}</td>
-                <td style="padding:8px; font-size:13px;">${prixAffiche}</td>
+                <td style="padding:8px;font-weight:bold;">${it.nom}</td>
+                <td style="padding:8px;font-size:13px;">${prixAff}</td>
                 <td style="padding:8px;">
                     <input type="number" value="${it.quantite}" min="1" max="10"
-                           class="input-qte-petite"
-                           data-idx="${idx}" class="mc-qte-item">
+                           class="input-qte-petite mc-qte-item" data-idx="${idx}">
                 </td>
-                <td style="padding:8px; color:var(--c-principal); font-weight:bold;" id="mc-sous-total-${idx}">${sousTotal.toFixed(2).replace('.',',')} €</td>
+                <td style="padding:8px;color:var(--c-principal);font-weight:bold;" id="mc-st-${idx}">${stR.toFixed(2).replace('.',',')} €</td>
                 <td style="padding:8px;">
                     <button type="button" data-idx="${idx}" class="mc-btn-suppr btn-save-cmd"
-                            style="background:var(--c-erreur); padding:4px 8px; font-size:12px; flex-shrink:0;">✕</button>
+                            style="background:var(--c-erreur);padding:4px 8px;font-size:12px;">✕</button>
                 </td>`;
             mcListe.appendChild(tr);
         });
-
-        mcListe.querySelectorAll('.mc-qte-item').forEach(input => {
-            input.addEventListener('input', () => {
-                const idx = parseInt(input.dataset.idx);
-                mcItems[idx].quantite = Math.max(1, parseInt(input.value) || 1);
-                const prixRemise = mcItems[idx].prix * (1 - MC_REMISE / 100);
-                const st = document.getElementById('mc-sous-total-' + idx);
-                if (st) st.textContent = (prixRemise * mcItems[idx].quantite).toFixed(2).replace('.', ',') + ' €';
+        mcListe.querySelectorAll('.mc-qte-item').forEach(inp => {
+            inp.addEventListener('input', () => {
+                const idx = parseInt(inp.dataset.idx);
+                mcItems[idx].quantite = Math.max(1, parseInt(inp.value) || 1);
+                const st = document.getElementById('mc-st-' + idx);
+                if (st) st.textContent = (mcItems[idx].prix * (1 - MC_REMISE / 100) * mcItems[idx].quantite).toFixed(2).replace('.', ',') + ' €';
                 recalculerTotal();
             });
         });
@@ -720,27 +712,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.querySelectorAll('.btn-modifier-commande').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', e => {
             e.preventDefault();
             mcCommandeId = btn.dataset.id;
-            mcBtnActif   = btn;
-            mcIdCmd.textContent = mcCommandeId;
-            mcMsgPaiement.style.display = 'none';
+            mcIdCmd.textContent       = mcCommandeId;
             mcMsgErreur.style.display = 'none';
-
-            let contenu;
-            try { contenu = JSON.parse(btn.dataset.contenu); } catch(e) { contenu = []; }
-
+            let contenu = [];
+            try { contenu = JSON.parse(btn.dataset.contenu); } catch(_) {}
             mcItems = contenu
                 .filter(it => it.type === 'plat')
                 .map(it => {
-                    const option = [...mcSelectPlat.options].find(o => parseInt(o.value) === parseInt(it.id_item));
-                    const prix = option ? parseFloat(option.dataset.prix) : 0;
-                    const match = (it.options_choisies?.[0] || '').match(/\d+/);
-                    const quantite = match ? parseInt(match[0]) : 1;
-                    return { id_plat: parseInt(it.id_item), nom: it.nom, prix, quantite };
+                    const opt  = [...mcSelectPlat.options].find(o => parseInt(o.value) === parseInt(it.id_item));
+                    const prix = opt ? parseFloat(opt.dataset.prix) : 0;
+                    const m    = (it.options_choisies?.[0] || '').match(/\d+/);
+                    return { id_plat: parseInt(it.id_item), nom: it.nom, prix, quantite: m ? parseInt(m[0]) : 1 };
                 });
-
             afficherItems();
             modalModCmd.style.display = 'flex';
         });
@@ -753,107 +739,42 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('mc-btn-ajouter').addEventListener('click', () => {
         const opt    = mcSelectPlat.options[mcSelectPlat.selectedIndex];
         const idPlat = parseInt(mcSelectPlat.value);
-        const nom    = opt.dataset.nom;
         const prix   = parseFloat(opt.dataset.prix);
+        const nom    = opt.dataset.nom;
         const qte    = Math.max(1, parseInt(mcQteAjout.value) || 1);
-
-        const existant = mcItems.find(it => it.id_plat === idPlat);
-        if (existant) {
-            existant.quantite = Math.min(10, existant.quantite + qte);
-        } else {
-            mcItems.push({ id_plat: idPlat, nom, prix, quantite: qte });
-        }
+        const exist  = mcItems.find(it => it.id_plat === idPlat);
+        if (exist) { exist.quantite = Math.min(10, exist.quantite + qte); }
+        else       { mcItems.push({ id_plat: idPlat, nom, prix, quantite: qte }); }
         afficherItems();
     });
 
-    document.getElementById('mc-btn-valider').addEventListener('click', () => {
-        mcMsgPaiement.style.display = 'none';
-        mcMsgErreur.style.display = 'none';
 
+    document.getElementById('mc-btn-valider').addEventListener('click', () => {
+        mcMsgErreur.style.display = 'none';
         if (mcItems.length === 0) {
-            mcMsgErreur.textContent = 'La commande ne peut pas être vide.';
+            mcMsgErreur.textContent   = 'La commande ne peut pas être vide.';
             mcMsgErreur.style.display = 'block';
             return;
         }
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'payer_supplement.php';
 
-        const payload = {
-            id_commande: mcCommandeId,
-            remise_pct: MC_REMISE,
-            contenu: mcItems.map(it => ({ id_plat: it.id_plat, quantite: it.quantite }))
+        const add = (name, val) => {
+            const i  = document.createElement('input');
+            i.type   = 'hidden';
+            i.name   = name;
+            i.value  = val;
+            form.appendChild(i);
         };
+        add('id_commande', mcCommandeId);
+        add('remise_pct',  MC_REMISE);
+        add('contenu', JSON.stringify(mcItems.map(it => ({ id_item: it.id_plat, nom: it.nom, quantite: it.quantite }))));
 
-        fetch('includes/modifier_commande.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.success) {
-                modalModCmd.style.display = 'none';
-
-                const nouveauContenu = mcItems.map(it => ({
-                    type: 'plat',
-                    id_item: it.id_plat,
-                    nom: it.nom,
-                    options_choisies: ['Quantité : ' + it.quantite]
-                }));
-
-                if (mcBtnActif) {
-                    mcBtnActif.dataset.contenu = JSON.stringify(nouveauContenu);
-                    mcBtnActif.dataset.total   = data.nouveau_total;
-                }
-
-                const detailModal = document.getElementById('detail-' + mcCommandeId);
-                if (detailModal) {
-                    const ul = detailModal.querySelector('ul');
-                    if (ul) {
-                        ul.innerHTML = mcItems.map(it =>
-                            `<li class="liste-item">
-                                <strong>${it.nom}</strong> × ${it.quantite}
-                            </li>`
-                        ).join('');
-                    }
-                    detailModal.querySelectorAll('p').forEach(p => {
-                        if (p.innerHTML.includes('Montant')) {
-                            const totalBrut   = parseFloat(data.total_brut).toFixed(2).replace('.', ',');
-                            const totalFinal  = parseFloat(data.nouveau_total).toFixed(2).replace('.', ',');
-                            if (data.remise_pct > 0) {
-                                p.innerHTML = `<strong> Montant :</strong> <span style="text-decoration:line-through;color:var(--c-texte-gris);font-size:0.9em;">${totalBrut} €</span> <strong style="color:var(--c-principal);">${totalFinal} €</strong> <span style="color:var(--c-principal);font-size:0.85em;">(-${data.remise_pct}%)</span>`;
-                            } else {
-                                p.innerHTML = `<strong> Montant :</strong> ${totalFinal} €`;
-                            }
-                        }
-                    });
-                }
-
-                const diff = data.difference ?? 0;
-                if (diff > 0) {
-                    document.getElementById('supplement-montant').textContent =
-                        diff.toFixed(2).replace('.', ',') + ' €';
-                    document.getElementById('modal-paiement-supplement').style.display = 'flex';
-                } else if (diff < 0) {
-                    document.getElementById('remboursement-montant').textContent =
-                        Math.abs(diff).toFixed(2).replace('.', ',') + ' €';
-                    document.getElementById('modal-remboursement').style.display = 'flex';
-                }
-            } else {
-                mcMsgErreur.textContent = data.message || 'Erreur serveur.';
-                mcMsgErreur.style.display = 'block';
-            }
-        })
-        .catch(() => {
-            mcMsgErreur.textContent = 'Erreur réseau. Vérifiez que vous êtes connecté.';
-            mcMsgErreur.style.display = 'block';
-        });
+        document.body.appendChild(form);
+        form.submit();
     });
 
-    document.getElementById('btn-payer-supplement').addEventListener('click', () => {
-        document.getElementById('modal-paiement-supplement').style.display = 'none';
-    });
-    document.getElementById('btn-annuler-supplement').addEventListener('click', () => {
-        document.getElementById('modal-paiement-supplement').style.display = 'none';
-    });
     document.getElementById('btn-confirmer-remboursement').addEventListener('click', () => {
         document.getElementById('modal-remboursement').style.display = 'none';
     });

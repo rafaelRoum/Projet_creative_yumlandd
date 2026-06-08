@@ -1,104 +1,115 @@
 <?php
-session_start();
-require_once 'includes/fonctions.php';
-require_login();
 
-$fichier_commandes = __DIR__ . '/../data/commandes.json';
-$fichier_plats     = __DIR__ . '/../data/plats.json';
 
-$commandes = file_exists($fichier_commandes) ? json_decode(file_get_contents($fichier_commandes), true) : [];
-$plats     = file_exists($fichier_plats)     ? json_decode(file_get_contents($fichier_plats),     true) : [];
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../includes/fonctions.php';
+require_once __DIR__ . '/../includes/getapikey.php';
 
 header('Content-Type: application/json');
 
-$inputRaw = file_get_contents('php://input');
-$input    = json_decode($inputRaw, true);
+$VENDEUR = 'TEST'; 
 
-if (!$input || !isset($input['id_commande'], $input['contenu'])) {
-    echo json_encode(['success' => false, 'message' => 'Données manquantes.']);
+if (!isset($_SESSION['id'])) {
+    echo json_encode(['success' => false, 'message' => 'Non connecté.']);
     exit();
 }
 
-$id_commande = $input['id_commande'];
-$remise_pct  = intval($input['remise_pct'] ?? 0);
-$mon_id      = $_SESSION['id'] ?? $_SESSION['utilisateur_id'] ?? null;
-
-if ($mon_id === null) {
-    echo json_encode(['success' => false, 'message' => 'Non connecté - session vide.']);
+$input = json_decode(file_get_contents('php://input'), true);
+if (empty($input['id_commande']) || empty($input['contenu'])) {
+    echo json_encode(['success' => false, 'message' => 'Données invalides.']);
     exit();
 }
 
-if (empty($commandes)) {
-    echo json_encode(['success' => false, 'message' => 'Fichier commandes introuvable : ' . $fichier_commandes]);
-    exit();
-}
+$id_commande     = trim($input['id_commande']);
+$items_recus     = $input['contenu'];
+$remise_pct      = floatval($input['remise_pct'] ?? 0);
+$STATUTS_BLOQUES = ['en préparation', 'prêt', 'prête', 'en livraison', 'terminée'];
 
-$index_cmd = null;
-foreach ($commandes as $i => $cmd) {
-    if ((string)$cmd['id_commande'] === (string)$id_commande && (string)$cmd['id_client'] === (string)$mon_id) {
-        $index_cmd = $i;
+$fichier_cmd = __DIR__ . '/../data/commandes.json';
+$commandes   = json_decode(file_get_contents($fichier_cmd), true) ?? [];
+$plats_dispo = get_plats();
+
+
+$index_cmd = -1;
+foreach ($commandes as $idx => $cmd) {
+    if ($cmd['id_commande'] === $id_commande && (string)$cmd['id_client'] === (string)$_SESSION['id']) {
+        $index_cmd = $idx;
         break;
     }
 }
-
-if ($index_cmd === null) {
-    echo json_encode(['success' => false, 'message' => 'Introuvable. id_commande reçu: ' . $id_commande . ' | session id: ' . $mon_id . ' | nb commandes chargées: ' . count($commandes)]);
+if ($index_cmd === -1) {
+    echo json_encode(['success' => false, 'message' => 'Commande introuvable.']);
     exit();
 }
-
-$cmd = $commandes[$index_cmd];
-
-// Seulement les commandes payée peuvent être modifiées
-if ($cmd['statut'] !== 'payée' && $cmd['statut'] !== 'en attente') {
+if (in_array($commandes[$index_cmd]['statut'], $STATUTS_BLOQUES)) {
     echo json_encode(['success' => false, 'message' => 'Cette commande ne peut plus être modifiée.']);
     exit();
 }
 
-// Calculer le nouveau contenu
-$nouveau_contenu = [];
-$total_brut      = 0;
 
-foreach ($input['contenu'] as $item) {
-    $id_plat  = intval($item['id_plat']);
-    $quantite = max(1, intval($item['quantite']));
-
-    $plat_trouve = null;
-    foreach ($plats as $p) {
-        if ($p['id'] == $id_plat) { $plat_trouve = $p; break; }
+$nouveau_total_brut = 0.0;
+$nouveau_contenu    = [];
+foreach ($items_recus as $item) {
+    $id_item = intval($item['id_item']);
+    $qte     = max(1, intval($item['quantite']));
+    $prix    = 0.0;
+    foreach ($plats_dispo as $p) {
+        if (intval($p['id']) === $id_item) { $prix = floatval($p['prix']); break; }
     }
-
-    if (!$plat_trouve) continue;
-
+    $nouveau_total_brut += $prix * $qte;
     $nouveau_contenu[] = [
-        'type'            => 'plat',
-        'id_item'         => $plat_trouve['id'],
-        'nom'             => $plat_trouve['nom'],
-        'options_choisies'=> ['Quantité : ' . $quantite]
+        'type'             => 'plat',
+        'id_item'          => $id_item,
+        'nom'              => $item['nom'],
+        'options_choisies' => ['Quantité : ' . $qte],
     ];
-    $total_brut += $plat_trouve['prix'] * $quantite;
 }
+$nouveau_total = round($nouveau_total_brut * (1 - $remise_pct / 100), 2);
+$ancien_total  = floatval($commandes[$index_cmd]['paiement']['montant_total']);
+$difference    = round($nouveau_total - $ancien_total, 2);
 
-if (empty($nouveau_contenu)) {
-    echo json_encode(['success' => false, 'message' => 'La commande ne peut pas être vide.']);
+
+if ($difference > 0.01) {
+
+
+    $_SESSION['modif_en_attente'] = [
+        'id_commande'     => $id_commande,
+        'nouveau_contenu' => $nouveau_contenu,
+        'nouveau_total'   => $nouveau_total,
+        'remise_pct'      => $remise_pct,
+    ];
+
+    $api_key     = getAPIKey($VENDEUR);
+    $transaction = preg_replace('/[^0-9a-zA-Z]/', '', $id_commande) . substr(uniqid(), -6);
+    $montant_str = number_format($difference, 2, '.', '');
+    $retour      = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']
+                   . dirname($_SERVER['SCRIPT_NAME']) . '/retour_modification.php';
+    $control     = md5($api_key . '#' . $transaction . '#' . $montant_str . '#' . $VENDEUR . '#' . $retour . '#');
+
+    echo json_encode([
+        'success'    => true,
+        'action'     => 'supplement',
+        'difference' => $difference,
+        'cybank'     => [
+            'action'      => 'https://www.plateforme-smc.fr/cybank/index.php',
+            'transaction' => $transaction,
+            'montant'     => $montant_str,
+            'vendeur'     => $VENDEUR,
+            'retour'      => $retour,
+            'control'     => $control,
+        ],
+    ]);
     exit();
 }
 
-$total_final  = round($total_brut * (1 - $remise_pct / 100), 2);
-$ancien_total = floatval($cmd['paiement']['montant_total']);
-$difference   = round($total_final - $ancien_total, 2);
 
-// Mettre à jour la commande
-$commandes[$index_cmd]['contenu']                      = $nouveau_contenu;
-$commandes[$index_cmd]['paiement']['montant_brut']     = $total_brut;
+$commandes[$index_cmd]['contenu']                     = $nouveau_contenu;
+$commandes[$index_cmd]['paiement']['montant_total']    = $nouveau_total;
+$commandes[$index_cmd]['paiement']['montant_brut']     = $nouveau_total_brut;
 $commandes[$index_cmd]['paiement']['remise_appliquee'] = $remise_pct;
-$commandes[$index_cmd]['paiement']['montant_total']    = $total_final;
+file_put_contents($fichier_cmd, json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
-file_put_contents($fichier_commandes, json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-echo json_encode([
-    'success'      => true,
-    'nouveau_total'=> $total_final,
-    'total_brut'   => $total_brut,
-    'difference'   => $difference,
-    'remise_pct'   => $remise_pct,
-]);
+echo json_encode(['success' => true, 'action' => 'applique']);

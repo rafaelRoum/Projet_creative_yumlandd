@@ -2,17 +2,17 @@
     {
         "id": 1,
         "email": "n@n.c",
-        "mot_de_passe": "numance",
+        "mot_de_passe": "$2y$12$bhxHSI4Eic6uHLP2KynZze6P0UiD7ogHboaBPNU0KGTircPLNLPtC",
         "role": "admin",
         "informations": {
-            "nom": "SAINT CLAIRE",
+            "nom": "SAINT CLAIR",
             "prenom": "Numance",
             "naissance": "2000-05-15",
             "adresse": "Good Morning 3eme \u00e9tage"
         },
         "dates": {
             "inscription": "2026-18-03",
-            "derniere_connexion": "2026-05-31 15:54:51"
+            "derniere_connexion": "2026-06-08 16:16:16"
         },
         "statut": "VIP",
         "niveau de remise": 22,
@@ -21,7 +21,7 @@
     {
         "id": 2,
         "email": "r@r.com",
-        "mot_de_passe": "rayaneee",
+        "mot_de_passe": "$2y$12$E9numvbpGLKJWLRe6xzUHuTJs9TT2gdaiKi2TAXPD1TltlxkBMdnu",
         "role": "livreur",
         "informations": {
             "nom": "Houarii",
@@ -40,7 +40,7 @@
     {
         "id": 3,
         "email": "m@m.com",
-        "mot_de_passe": "marinee",
+        "mot_de_passe": "$2y$12$JIW.fD2z2haKMrs7rXjYs.945GqdQvawCCwR.xLr.tvpMbM5XmCV6",
         "role": "restaurateur",
         "informations": {
             "nom": "Lecoq",
@@ -59,7 +59,7 @@
     {
         "id": 4,
         "email": "j@j",
-        "mot_de_passe": "j",
+        "mot_de_passe": "$2y$12$Uj8Ny1ccMrnTunmHvvDcnuJoi5A4uSJCnEYExyuvBNtZneIOPPhpW",
         "role": "client",
         "informations": {
             "nom": "Mason",
@@ -78,7 +78,7 @@
     {
         "id": 5,
         "email": "sophie@gmail.com",
-        "mot_de_passe": "SophieSoso99",
+        "mot_de_passe": "$2y$12$E4Zn6xSjmyEq31ICKVpEIOIR5THgzVqC92nKBePPOreSYl9Z2rnQG",
         "role": "client",
         "informations": {
             "nom": "Bernard",
@@ -97,7 +97,7 @@
     {
         "id": 6,
         "email": "lucas@gmail.com",
-        "mot_de_passe": "LucasVeloVite",
+        "mot_de_passe": "$2y$12$bfTpqD7FNmsIcxbggUpeze5Wsw9VoDiudG.lF30h3s.BzKA\/wVvzy",
         "role": "client",
         "informations": {
             "nom": "Dubois",
@@ -116,7 +116,7 @@
     {
         "id": 7,
         "email": "rafael@gmail.com",
-        "mot_de_passe": "Basket67",
+        "mot_de_passe": "$2y$12$e7y00vNqc0b3DXrf57zUjODNgELKVKrhX9fCJr536UECt19Q.LlA6",
         "role": "admin",
         "informations": {
             "nom": "Roumiantsev",
@@ -154,7 +154,7 @@
     {
         "id": 9,
         "email": "fzzf@gmail.com",
-        "mot_de_passe": "zfzf",
+        "mot_de_passe": "$2y$12$McenH2\/dFmJ.307CkddX4uJceNXCZ7ciJ5Jissj75Z0xlfWE\/59AK",
         "role": "client",
         "informations": {
             "nom": "zzf",
@@ -173,7 +173,7 @@
     {
         "id": 10,
         "email": "zfzf@g.com",
-        "mot_de_passe": "zfzf",
+        "mot_de_passe": "$2y$12$.DDxnXOknoE9AYRevgkq2.QsWgVnl5jK4iH5BvOYVJIt6fao1C0jC",
         "role": "client",
         "informations": {
             "nom": "ezfzf",
@@ -192,7 +192,7 @@
     {
         "id": 11,
         "email": "btp@gmail.com",
-        "mot_de_passe": "Sable123",
+        "mot_de_passe": "$2y$12$M8r5pG.eVuo5TgnE2T5Sa.F5l9t8D3mqP9K1syZnTyYpaETetFd72",
         "role": "client",
         "informations": {
             "nom": "joao",
@@ -211,7 +211,7 @@
     {
         "id": 12,
         "email": "youssef@gmail.com",
-        "mot_de_passe": "Youssef",
+        "mot_de_passe": "$2y$12$83ZqgGF0JI804dtGnaxyp.3tGKlJBvh6EMDqIhmqw67mmQf62\/AQ.",
         "role": "client",
         "informations": {
             "nom": "youssef",
@@ -230,7 +230,7 @@
     {
         "id": 13,
         "email": "snug@gmail.co",
-        "mot_de_passe": "azerty",
+        "mot_de_passe": "$2y$12$I002lLMdKdkhG1tVz\/nwCOX.iiUdnYt37c12gKQuWY7lNwr\/52dWC",
         "role": "client",
         "informations": {
             "nom": "azertyu",
@@ -250,7 +250,7 @@
     {
         "id": 14,
         "email": "a@g",
-        "mot_de_passe": "a",
+        "mot_de_passe": "$2y$12$L\/PK1KWN0CctgyUE2QivD.FxB3zmwesHxYBUJW1qGDydWQnN\/QszC",
         "role": "client",
         "informations": {
             "nom": "a",
@@ -269,7 +269,7 @@
     {
         "id": 15,
         "email": "aa@gma",
-        "mot_de_passe": "a",
+        "mot_de_passe": "$2y$12$CL.2Bx.ZRYPhrUmUHMuV2.OC6QHEfhweUuNdnrj86erKHIVMOis6C",
         "role": "client",
         "informations": {
             "nom": "a",
@@ -288,7 +288,7 @@
     {
         "id": 16,
         "email": "l@l.com",
-        "mot_de_passe": "llllll",
+        "mot_de_passe": "$2y$12$CfyF3hN1vg.8e9iJ8iRKKudIg0gZqEdGWL\/GkxKpBPKxzbSpULzAa",
         "role": "livreur",
         "informations": {
             "nom": "aa",

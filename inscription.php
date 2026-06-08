@@ -1,83 +1,96 @@
 <?php
+require_once 'includes/fonctions.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $message_erreur = "";
 $nom = $prenom = $dateNaissance = $adresse = $email = "";
 
-// On vérifie si le formulaire a bien été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     verifier_token_csrf();
 
-    $email = htmlspecialchars($_POST['email'] ?? "");
-    $nom = htmlspecialchars($_POST['nom'] ?? "");
-    $prenom = htmlspecialchars($_POST['prenom'] ?? "");
-    $dateNaissance = htmlspecialchars($_POST['date_naissance'] ?? "");
-    $adresse = htmlspecialchars($_POST['adresse'] ?? "");
-    // Ne pas passer les mots de passe dans htmlspecialchars :
-    // cela altèrerait les caractères spéciaux (ex: p@ss<word>)
-    $motDePasse1 = $_POST['mot_de_passe1'] ?? "";
-    $motDePasse2 = $_POST['mot_de_passe2'] ?? "";
 
-    $fichier_json = 'data/utilisateurs.json';
-    $utilisateurs = [];
-    if (file_exists($fichier_json)) {
-        $json_data = file_get_contents($fichier_json);
-        $utilisateurs = json_decode($json_data, true) ?? [];
+    $recaptcha_response = $_POST['g-recaptcha-response'] ?? "";
+    $cle_secrete = "6LdV_xMtAAAAAKeAg3JjfF6F1cNd-Qb1Idy7FEZY"; 
+    
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret=" . $cle_secrete . "&response=" . $recaptcha_response;
+    $verification = @file_get_contents($url);
+    $reponse_json = json_decode($verification, true);
+
+    if (!$reponse_json || !isset($reponse_json['success']) || !$reponse_json['success']) {
+        $message_erreur = "Veuillez cocher la case 'Je ne suis pas un robot'.";
     }
 
-    $email_existe = false;
-    foreach ($utilisateurs as $user) {
-        if ($user['email'] === $email) {
-            $email_existe = true;
-            break;
+    if (empty($message_erreur)) {
+        $email = htmlspecialchars($_POST['email'] ?? "");
+        $nom = htmlspecialchars($_POST['nom'] ?? "");
+        $prenom = htmlspecialchars($_POST['prenom'] ?? "");
+        $dateNaissance = htmlspecialchars($_POST['date_naissance'] ?? "");
+        $adresse = htmlspecialchars($_POST['adresse'] ?? "");
+        $motDePasse1 = $_POST['mot_de_passe1'] ?? "";
+        $motDePasse2 = $_POST['mot_de_passe2'] ?? "";
+
+        $fichier_json = 'data/utilisateurs.json';
+        $utilisateurs = [];
+        if (file_exists($fichier_json)) {
+            $json_data = file_get_contents($fichier_json);
+            $utilisateurs = json_decode($json_data, true) ?? [];
+        }
+
+        $email_existe = false;
+        foreach ($utilisateurs as $user) {
+            if ($user['email'] === $email) {
+                $email_existe = true;
+                break;
+            }
+        }
+
+        if ($email_existe) {
+            $message_erreur = "Cet email est déjà utilisé. Veuillez en choisir un autre.";
+        } else {
+            $nouvel_id = count($utilisateurs) > 0 ? max(array_column($utilisateurs, 'id')) + 1 : 1;
+            
+            $nouvel_utilisateur = [
+                "id" => $nouvel_id,
+                "email" => $email,
+                "mot_de_passe" => password_hash($motDePasse1, PASSWORD_DEFAULT),
+                "role" => "client",
+                "informations" => [
+                    "nom" => $nom,
+                    "prenom" => $prenom,
+                    "naissance" => $dateNaissance,
+                    "adresse" => $adresse   
+                ],
+                "dates" => [
+                    "inscription" => date("Y-m-d"),
+                    "derniere_connexion" => date("Y-m-d")
+                ],
+                "statut" => "Standard",
+                "niveau de remise" => 0,
+                "droit" => "normal"
+            ];
+
+            $utilisateurs[] = $nouvel_utilisateur;
+            file_put_contents($fichier_json, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+
+            $_SESSION['id'] = $nouvel_utilisateur['id'];
+            $_SESSION['email'] = $nouvel_utilisateur['email'];
+            $_SESSION['role'] = $nouvel_utilisateur['role'];
+            $_SESSION['nom'] = $nouvel_utilisateur['informations']['prenom'] . " " . $nouvel_utilisateur['informations']['nom'];
+
+            $_SESSION['flash_message'] = "Inscription réussie ! Bienvenue parmi nous.";
+            header("Location: index.php");
+            exit();
         }
     }
-
-    if ($email_existe) {
-        $message_erreur = "Cet email est déjà utilisé. Veuillez en choisir un autre.";
-    } else {
-        $nouvel_id = count($utilisateurs) > 0 ? max(array_column($utilisateurs, 'id')) + 1 : 1;
-        
-        $nouvel_utilisateur = [
-            "id" => $nouvel_id,
-            "email" => $email,
-            "mot_de_passe" => password_hash($motDePasse1, PASSWORD_DEFAULT),
-            "role" => "client",
-            "informations" => [
-                "nom" => $nom,
-                "prenom" => $prenom,
-                "naissance" => $dateNaissance,
-                "adresse" => $adresse   
-            ],
-            "dates" => [
-                "inscription" => date("Y-m-d"),
-                "derniere_connexion" => date("Y-m-d")
-            ],
-            "statut" => "Standard",
-            "niveau de remise" => 0,
-            "droit" => "normal"
-        ];
-
-        $utilisateurs[] = $nouvel_utilisateur;
-        file_put_contents($fichier_json, json_encode($utilisateurs, JSON_PRETTY_PRINT));
-
-        $_SESSION['id'] = $nouvel_utilisateur['id'];
-        $_SESSION['email'] = $nouvel_utilisateur['email'];
-        $_SESSION['role'] = $nouvel_utilisateur['role'];
-        $_SESSION['nom'] = $nouvel_utilisateur['informations']['prenom'] . " " . $nouvel_utilisateur['informations']['nom'];
-
-        $_SESSION['flash_message'] = "Inscription réussie ! Bienvenue parmi nous.";
-        header("Location: index.php");
-        exit();
-    }
 }
-?>
 
-<?php
+
 $titre_page = "Inscriptions - Le Groin de Folie";
 include 'includes/header.php';
 ?>
-
 
 <section class="place-cadre">
     <div class="cadre">
@@ -114,13 +127,13 @@ include 'includes/header.php';
             
             <div class="formulaire">
                 <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Votre email"
+                <input type="email" id="email" name="email" placeholder="Votre email"
                        class="<?php echo !empty($message_erreur) ? 'saisie-erreur' : ''; ?>"
                        value="<?php echo $email ?>" maxlength="100">
                 <div class="msg-erreur-js" id="err_email">Veuillez entrer une adresse email valide (ex: nom@domaine.com).</div>
                 <span class="compteur-chars" id="cpt_email">0/100</span>
                 
-                <?php if ($message_erreur): ?>
+                <?php if ($message_erreur && strpos($message_erreur, 'email') !== false): ?>
                     <div class="msg-erreur-js" style="display: block;"><?php echo $message_erreur; ?></div>
                 <?php endif; ?>
             </div>
@@ -144,6 +157,13 @@ include 'includes/header.php';
                 <div class="msg-erreur-js" id="err_mot_de_passe2">Les deux mots de passe ne correspondent pas.</div>
                 <span class="compteur-chars" id="cpt_mot_de_passe2">0/50</span>
             </div>
+
+            <div class="formulaire" style="display: flex; flex-direction: column; align-items: center; margin: 15px 0;">
+                <div class="g-recaptcha" data-sitekey="6LdV_xMtAAAAAIYMCZiUU93UClx2pBb-X4N8iT4-"></div>
+                <?php if ($message_erreur && strpos($message_erreur, 'robot') !== false): ?>
+                    <div class="msg-erreur-js" style="display: block; text-align: center;"><?php echo $message_erreur; ?></div>
+                <?php endif; ?>
+            </div>
             
             <button type="submit">Créer mon compte</button>
         </form>
@@ -153,6 +173,8 @@ include 'includes/header.php';
         </p>
     </div>
 </section>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script>
 function basculerVisibiliteMdp(idChamp, elementImage) {
@@ -278,7 +300,13 @@ document.getElementById('formInscription').addEventListener('submit', function(e
     const validationMdp1 = validerMotDePasse1();
     const validationMdp2 = validerMotDePasse2();
 
-    if (!(validationNom && validationPrenom && validationDate && validationAdresse && validationEmail && validationMdp1 && validationMdp2)) {
+    let validationCaptcha = true;
+    if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse() === "") {
+        validationCaptcha = false;
+        alert("Veuillez cocher la case 'Je ne suis pas un robot'.");
+    }
+
+    if (!(validationNom && validationPrenom && validationDate && validationAdresse && validationEmail && validationMdp1 && validationMdp2 && validationCaptcha)) {
         e.preventDefault(); 
     }
 });

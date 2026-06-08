@@ -1,7 +1,12 @@
 <?php
-session_start();
 require_once 'includes/fonctions.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_login();
+
+$VENDEUR = 'TEST'; 
 
 $fichier_utilisateurs = 'data/utilisateurs.json';
 $utilisateurs = file_exists($fichier_utilisateurs) ? json_decode(file_get_contents($fichier_utilisateurs), true) : [];
@@ -28,7 +33,7 @@ $input    = json_decode($inputRaw, true);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action']) && $input['action'] === 'modifier_qte') {
     header('Content-Type: application/json');
 
-    $id_plat     = $input['id_plat'] ?? '';
+    $id_plat      = $input['id_plat'] ?? '';
     $nouvelle_qte = intval($input['quantite'] ?? 0);
 
     if ($nouvelle_qte > 0) {
@@ -36,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action']) && $input['
     } else {
         unset($_SESSION['panier'][$id_plat]);
     }
-
 
     $tous_les_plats = get_plats();
     $total_brut = 0;
@@ -59,13 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action']) && $input['
     $total_remise = $total_brut * (1 - $remise_pct / 100);
 
     echo json_encode([
-        'success'       => true,
-        'panier_vide'   => empty($_SESSION['panier']),
-        'lignes'        => $lignes,
-        'total_brut'    => number_format($total_brut, 2),
-        'total_remise'  => number_format($total_remise, 2),
-        'economie'      => number_format($total_brut - $total_remise, 2),
-        'remise_pct'    => $remise_pct,
+        'success'      => true,
+        'panier_vide'  => empty($_SESSION['panier']),
+        'lignes'       => $lignes,
+        'total_brut'   => number_format($total_brut, 2),
+        'total_remise' => number_format($total_remise, 2),
+        'economie'     => number_format($total_brut - $total_remise, 2),
+        'remise_pct'   => $remise_pct,
     ]);
     exit();
 }
@@ -73,20 +77,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['action']) && $input['
 
 if (isset($_POST['valider_paiement'])) {
     verifier_token_csrf();
-    $fichier_commandes = 'data/commandes.json';
-    $commandes = file_exists($fichier_commandes) ? json_decode(file_get_contents($fichier_commandes), true) : [];
 
-    $tous_les_plats    = get_plats();
-    $contenu_commande  = [];
-    $total_brut        = 0;
+    $tous_les_plats   = get_plats();
+    $contenu_commande = [];
+    $total_brut       = 0;
 
     foreach ($_SESSION['panier'] as $id_plat => $qte) {
         foreach ($tous_les_plats as $p) {
             if ($p['id'] == $id_plat) {
                 $contenu_commande[] = [
-                    "type"           => "plat",
-                    "id_item"        => $p['id'],
-                    "nom"            => $p['nom'],
+                    "type"             => "plat",
+                    "id_item"          => $p['id'],
+                    "nom"              => $p['nom'],
                     "options_choisies" => ["Quantité : " . $qte]
                 ];
                 $total_brut += $p['prix'] * $qte;
@@ -95,42 +97,87 @@ if (isset($_POST['valider_paiement'])) {
         }
     }
 
-    $total_final = $total_brut * (1 - $remise_pct / 100);
+    $total_final = round($total_brut * (1 - $remise_pct / 100), 2);
 
     $adresse_client = "";
-    if ($_POST['type_livraison'] === 'livraison' && $utilisateur_connecte) {
+    if (($_POST['type_livraison'] ?? '') === 'livraison' && $utilisateur_connecte) {
         $adresse_client = $utilisateur_connecte['informations']['adresse'] ?? '';
     }
+
+
+    $fichier_commandes = 'data/commandes.json';
+    $commandes = file_exists($fichier_commandes) ? json_decode(file_get_contents($fichier_commandes), true) : [];
 
     $num         = count($commandes) + 1;
     $id_commande = "CMD-" . str_pad($num, 3, "0", STR_PAD_LEFT);
 
     $nouvelle_commande = [
-        "id_commande"   => $id_commande,
-        "id_client"     => $_SESSION['id'] ?? 0,
-        "statut"        => "payée",
-        "date_heure"    => date("Y-m-d H:i:s"),
-        "type_livraison"=> $_POST['type_livraison'] === 'emporter' ? 'sur place' : 'livraison',
-        "adresse"       => $adresse_client,
-        "livreur"       => "",
-        "id_livreur"    => "",
-        "contenu"       => $contenu_commande,
-        "paiement"      => [
-            "statut"           => "payé",
-            "methode"          => "cy bank",
-            "transaction_api_id" => "CY-" . uniqid(),
-            "date_transaction" => date("Y-m-d H:i:s"),
-            "montant_brut"     => $total_brut,
-            "remise_appliquee" => $remise_pct,
-            "montant_total"    => round($total_final, 2)
+        "id_commande"    => $id_commande,
+        "id_client"      => $_SESSION['id'] ?? 0,
+        "statut"         => "en_attente_paiement",
+        "date_heure"     => date("Y-m-d H:i:s"),
+        "type_livraison" => ($_POST['type_livraison'] ?? '') === 'emporter' ? 'sur place' : 'livraison',
+        "adresse"        => $adresse_client,
+        "livreur"        => "",
+        "id_livreur"     => "",
+        "contenu"        => $contenu_commande,
+        "paiement"       => [
+            "statut"             => "en_attente",
+            "methode"            => "cy bank",
+            "transaction_api_id" => "",
+            "date_transaction"   => "",
+            "montant_brut"       => $total_brut,
+            "remise_appliquee"   => $remise_pct,
+            "montant_total"      => $total_final
         ]
     ];
 
     $commandes[] = $nouvelle_commande;
     file_put_contents($fichier_commandes, json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
+
     unset($_SESSION['panier']);
-    header("Location: profil.php#commandes");
+
+
+    require_once 'includes/getapikey.php';
+    $api_key     = getAPIKey($VENDEUR);
+    $transaction = $id_commande . substr(uniqid(), -6); 
+    $transaction = preg_replace('/[^0-9a-zA-Z]/', '', $transaction); 
+    $montant     = number_format($total_final, 2, '.', '');
+    $retour      = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']
+                   . dirname($_SERVER['SCRIPT_NAME']) . '/retour_paiement.php'
+                   . '?id_commande=' . urlencode($id_commande);
+    $control     = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $VENDEUR . "#" . $retour . "#");
+
+
+    $_SESSION['cybank_pending'] = [
+        'id_commande' => $id_commande,
+        'transaction' => $transaction,
+        'montant'     => $montant,
+        'vendeur'     => $VENDEUR,
+    ];
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirection vers CY Bank…</title>
+</head>
+<body>
+    <p style="font-family:sans-serif; text-align:center; margin-top:60px;">
+        Redirection vers le paiement sécurisé…
+    </p>
+    <form id="form-cybank" method="POST" action="https://www.plateforme-smc.fr/cybank/index.php">
+        <input type="hidden" name="transaction" value="<?php echo htmlspecialchars($transaction); ?>">
+        <input type="hidden" name="montant"     value="<?php echo htmlspecialchars($montant); ?>">
+        <input type="hidden" name="vendeur"     value="<?php echo htmlspecialchars($VENDEUR); ?>">
+        <input type="hidden" name="retour"      value="<?php echo htmlspecialchars($retour); ?>">
+        <input type="hidden" name="control"     value="<?php echo htmlspecialchars($control); ?>">
+    </form>
+    <script>document.getElementById('form-cybank').submit();</script>
+</body>
+</html>
+<?php
     exit();
 }
 
@@ -139,7 +186,6 @@ $titre_page     = "Mon Panier - Le Groin de Folie";
 include 'includes/header.php';
 $tous_les_plats = get_plats();
 $total_brut     = 0;
-
 
 if (!empty($_SESSION['panier'])) {
     foreach ($_SESSION['panier'] as $id_plat => $qte) {
@@ -152,8 +198,8 @@ $total_remise_affichage = $total_brut * (1 - $remise_pct / 100);
 ?>
 
 <main class="admin-cadre-placement">
-    <div class="admin-cadre" style="margin-bottom:20%">
-        <h2 class="france-ancien-livre" style="text-align:center; margin-bottom:30px;">Votre Panier</h2>
+    <div class="admin-cadre" style="margin-bottom:22%">
+        <h2 class="france-ancien-livre" style="text-align:center;">Votre Panier</h2>
 
         <?php if (!isset($_SESSION['panier']) || empty($_SESSION['panier'])): ?>
             <p style="text-align:center;">Votre panier est vide.</p>
@@ -266,7 +312,7 @@ $total_remise_affichage = $total_brut * (1 - $remise_pct / 100);
                         <h2>Paiement sécurisé</h2>
                         <hr>
                         <div class="infos-details">
-                            <p>Vous allez être redirigé vers notre partenaire bancaire pour finaliser votre commande.</p>
+                            <p>Vous allez être redirigé vers notre partenaire bancaire <strong>CY Bank</strong> pour finaliser votre commande.</p>
                             <p>Total à régler : <strong id="total-modal"><?= number_format($total_remise, 2) ?></strong> €</p>
                             <?php if ($remise_pct > 0): ?>
                                 <p style="color:#5d7358; font-size:13px;">Remise <?= $statut_client ?> (-<?= $remise_pct ?>%) incluse</p>

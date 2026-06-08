@@ -1,18 +1,16 @@
 <?php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
 
 header("X-Frame-Options: DENY");
 header("X-Content-Type-Options: nosniff");
 header("Referrer-Policy: strict-origin-when-cross-origin");
 header("X-XSS-Protection: 0");
 header("Permissions-Policy: camera=(), microphone=(), geolocation=()");
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;");
 
 
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; frame-src 'self' https://www.google.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.gstatic.com/recaptcha/ https://www.google.com/; connect-src 'self' https://www.google.com/recaptcha/;");
 
 if (isset($_SESSION['id'])) {
     $fichier_utilisateurs_check = 'data/utilisateurs.json';
