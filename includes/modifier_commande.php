@@ -86,7 +86,7 @@ if ($difference > 0.01) {
     $transaction = preg_replace('/[^0-9a-zA-Z]/', '', $id_commande) . substr(uniqid(), -6);
     $montant_str = number_format($difference, 2, '.', '');
     $retour      = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']
-                   . dirname($_SERVER['SCRIPT_NAME']) . '/retour_modification.php';
+                   . dirname($_SERVER['SCRIPT_NAME']) . '/retour_paiement.php';
     $control     = md5($api_key . '#' . $transaction . '#' . $montant_str . '#' . $VENDEUR . '#' . $retour . '#');
 
     echo json_encode([

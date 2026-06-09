@@ -1254,18 +1254,18 @@
                 "id_item": 2,
                 "nom": "Quiche Maison",
                 "options_choisies": [
-                    "Quantité : 3"
+                    "Quantité : 4"
                 ]
             }
         ],
         "paiement": {
             "statut": "payé",
             "methode": "cy bank",
-            "transaction_api_id": "CMD038a88558",
-            "date_transaction": "2026-06-08 21:04:43",
+            "transaction_api_id": "CMD0382e2d0c",
+            "date_transaction": "2026-06-09 13:06:11",
             "montant_brut": 27,
             "remise_appliquee": 22,
-            "montant_total": 21.06
+            "montant_total": 28.08
         }
     }
 ]

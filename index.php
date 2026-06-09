@@ -49,7 +49,7 @@ $plats_populaires = array_filter(array_map(fn($id) => $plats_index[$id] ?? null,
 
 $est_connecte = isset($_SESSION['id']);
 
-// Chargement notations sécurisé
+
 $notations_json = file_exists('data/notations.json')
     ? json_decode(file_get_contents('data/notations.json'), true) ?? []
     : [];

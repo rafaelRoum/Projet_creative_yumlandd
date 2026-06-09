@@ -13,7 +13,7 @@ $mon_profil = null;
 foreach ($utilisateurs as $user) {
     if ($user['id'] == $mon_id) {
         $mon_profil = $user;
-        break;
+        break;                      
     }
 }
 
@@ -351,12 +351,12 @@ include 'includes/header.php';
                             </span>
                         <?php else: ?>
                             <?php if ($cmd['statut'] === 'terminée'): ?>
-<a href="#" 
-   class="voir-profil-btn btn-ouvrir-notation" 
-   data-id="<?php echo $cmd['id_commande']; ?>" 
-   data-type="<?php echo $cmd['type_livraison']; ?>">
-   Noter
-</a>
+                                <a href="#" 
+                                class="voir-profil-btn btn-ouvrir-notation" 
+                                data-id="<?php echo $cmd['id_commande']; ?>" 
+                                data-type="<?php echo $cmd['type_livraison']; ?>">
+                                Noter
+                                </a>
                             <?php else: ?>
                                 <span class="texte-info">En attente</span>
                             <?php endif; ?>
@@ -426,32 +426,6 @@ include 'includes/header.php';
             <button type="button" id="mc-btn-annuler" class="btn-modal btn-annuler">Annuler</button>
             <button type="button" id="mc-btn-valider" class="btn-modal btn-valider">Valider les modifications</button>
         </div>
-    </div>
-</div>
-
-<div id="modal-paiement-supplement" class="modal-fond" style="display:none;">
-    <div class="modal-contenu">
-        <h2>Paiement sécurisé</h2>
-        <hr>
-        <div class="formulaire">
-            <p>Votre commande modifiée est plus chère que l'originale.</p>
-            <p>Supplément à régler : <strong id="supplement-montant" style="color:var(--c-principal); font-size:1.2em;"></strong></p>
-            <p class="texte-info">Vous allez être redirigé vers notre partenaire bancaire pour finaliser le paiement.</p>
-        </div>
-        <button type="button" id="btn-payer-supplement" class="btn-paiement-cy">Payer avec CY Bank</button>
-        <button type="button" id="btn-annuler-supplement" class="btn-deco" style="border-radius:30px; padding:14px; font-size:16px; width:100%; margin-top:10px;">Fermer</button>
-    </div>
-</div>
-
-<div id="modal-remboursement" class="modal-fond" style="display:none;">
-    <div class="modal-contenu" style="text-align:center;">
-        <h2 style="color:var(--c-principal);">Remboursement en cours</h2>
-        <hr>
-        <div style="margin:20px 0;">
-            <p style="font-size:1.05em;">Votre commande modifiée est moins chère que l'originale.</p>
-            <p style="font-size:1.15em; margin-top:15px;">Vous serez remboursé de <strong id="remboursement-montant" style="color:var(--c-principal); font-size:1.2em;"></strong><br>sur la carte bancaire utilisée lors de l'achat.</p>
-        </div>
-        <button type="button" id="btn-confirmer-remboursement" class="btn-paiement-cy">OK, j'ai compris</button>
     </div>
 </div>
 

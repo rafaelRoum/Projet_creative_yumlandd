@@ -355,7 +355,7 @@ button:hover { background-color: var(--c-principal-hover); }
 #zone-plats-filtrés { min-height: 200px; }
 .msg-filtre-vide { text-align: center; padding: 50px; color: var(--c-texte-gris); font-size: 1.05em; }
 
-/* PANIER */
+/* PANIER / index et presentation*/
 
 .grille-options { display: flex; gap: 50px; }
 .colonne-choix { flex: 1; }

@@ -101,7 +101,7 @@ $nouveau_total = round($nouveau_total_brut * (1 - $remise_pct / 100), 2);
 $ancien_total  = floatval($commandes[$index_cmd]['paiement']['montant_total']);
 $difference    = round($nouveau_total - $ancien_total, 2);
 
-// Pas de supplément → appliquer directement
+
 if ($difference <= 0.01) {
     $commandes[$index_cmd]['contenu']                     = $nouveau_contenu;
     $commandes[$index_cmd]['paiement']['montant_total']    = $nouveau_total;
@@ -112,20 +112,20 @@ if ($difference <= 0.01) {
     exit();
 }
 
-// Supplément → stocker en session avec la clé attendue par retour_paiement.php
+
 $_SESSION['cybank_supplement'][$id_commande] = [
     'nouveau_contenu' => $nouveau_contenu,
     'nouveau_total'   => $nouveau_total,
     'remise_pct'      => $remise_pct,
 ];
 
-// Garder aussi difference pour l'affichage étape 2
+
 $_SESSION['modif_en_attente'] = [
     'id_commande' => $id_commande,
     'difference'  => $difference,
 ];
 
-// Infos client pour l'affichage
+
 $utilisateurs  = json_decode(file_get_contents('data/utilisateurs.json'), true) ?? [];
 $statut_client = 'Standard';
 foreach ($utilisateurs as $u) {
