@@ -19,10 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $verification = @file_get_contents($url);
     $reponse_json = json_decode($verification, true);
 
-    if (!$reponse_json || !isset($reponse_json['success']) || !$reponse_json['success']) {
-        $message_erreur = "Veuillez cocher la case 'Je ne suis pas un robot'.";
-    }
-
     if (empty($message_erreur)) {
         $email = htmlspecialchars($_POST['email'] ?? "");
         $nom = htmlspecialchars($_POST['nom'] ?? "");
